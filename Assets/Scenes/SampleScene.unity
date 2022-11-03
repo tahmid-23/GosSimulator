@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 1958267097}
   - component: {fileID: 1958267096}
   - component: {fileID: 1958267098}
+  - component: {fileID: 1958267099}
   m_Layer: 0
   m_Name: Square
   m_TagString: main_character
@@ -933,3 +934,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 519420031}
+--- !u!114 &1958267099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a521a53bb62cede4d87963c7825c06ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

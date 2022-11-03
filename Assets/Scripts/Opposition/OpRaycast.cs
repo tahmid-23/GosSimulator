@@ -13,7 +13,7 @@ namespace Opposition
             
             if(hit.collider != null)
             {
-                if (hit.collider.tag == "main_character")
+                if (hit.collider.CompareTag("main_character"))
                 {
                     op.TriggerCombat();
                     Debug.Log("collision");

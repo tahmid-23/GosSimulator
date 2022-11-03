@@ -9,6 +9,7 @@ namespace Opposition
 
         public void modifyHealth(int modify) {
             health += modify;
+            Debug.Log(health);
 
             if(health < 0) {
                 opDeath();

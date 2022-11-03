@@ -22,7 +22,7 @@ namespace Movement
 
             if (horizontalInput != 0 || verticalInput != 0)
             {
-                direction = new Vector3(Math.Sign(horizontalInput), Math.Sign(verticalInput), 0);
+                direction = new Vector3(Mathf.Sign(horizontalInput), Mathf.Sign(verticalInput), 0);
             }
 
             transform.position += Time.deltaTime * _speed;
@@ -32,11 +32,11 @@ namespace Movement
         {
             if (input != 0)
             {
-                if (Math.Abs(component) < maxSpeed)
+                if (Mathf.Abs(component) < maxSpeed)
                 {
-                    int sign = Math.Sign(input);
+                    float sign = Mathf.Sign(input);
                     float newSpeed = component + sign * acceleration;
-                    if (Math.Abs(newSpeed) > maxSpeed)
+                    if (Mathf.Abs(newSpeed) > maxSpeed)
                     {
                         // sign of input must equal sign of speed
                         component = sign * maxSpeed * pranjalsConstant;
@@ -47,12 +47,12 @@ namespace Movement
                     }
                 }
             }
-            else if (Math.Abs(component) < deceleration) {
+            else if (Mathf.Abs(component) < deceleration) {
                 component = 0 * pranjalsConstant;
             }
             else
             {
-                component -= Math.Sign(component) * deceleration * pranjalsConstant;
+                component -= Mathf.Sign(component) * deceleration * pranjalsConstant;
             }
         }
 

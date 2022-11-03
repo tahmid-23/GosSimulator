@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,9 +30,9 @@ public class PlayerAiming : MonoBehaviour
     {
         testInput();
         drawTestCone(direction);
-        _angle = Mathf.Clamp(getAngle(), (2*direction-1)*Mathf.PI/8, (2*direction+1)*Mathf.PI/8);
+        _angle = ClampAngle(FixAngle180(getAngle()), FixAngle180((2 * direction - 1) * Mathf.PI / 8), FixAngle180((2*direction+1)*Mathf.PI/8));
         Vector3 endpoint = new Vector3(R*Mathf.Cos(_angle), R*Mathf.Sin(_angle), 0);
-        Debug.DrawLine(_player.position, endpoint, Color.red, Time.deltaTime);
+        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
         
     }
     
@@ -42,16 +43,12 @@ public class PlayerAiming : MonoBehaviour
 
     private float getAngle()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 playerPos = camera.WorldToScreenPoint(_player.position);
+        Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 playerPos = _player.position;
         float dx = mousePos.x - playerPos.x;
         float dy = mousePos.y - playerPos.y;
-        if (dx < 0)
-        {
-            return Mathf.Atan(dy/dx) + Mathf.PI;
-        }
 
-        return Mathf.Atan(dy / dx);
+        return Mathf.Atan2(dy, dx);
     }
 
     private void drawTestCone(int n)
@@ -97,4 +94,43 @@ public class PlayerAiming : MonoBehaviour
             direction = 7;
         }
     }
+
+    private static float FixAngle360(float angle)
+    {
+        if (angle < 0)
+        {
+            return angle + 2 * Mathf.PI;
+        }
+
+        if (angle >= 360)
+        {
+            return angle - 2 * Mathf.PI;
+        }
+
+        return angle;
+    }
+
+    private static float FixAngle180(float angle)
+    {
+        if (angle > Mathf.PI)
+        {
+            return angle - 2 * Mathf.PI;
+        }
+
+        return angle;
+    }
+
+    private static float ClampAngle(float angle, float from, float to)
+    {
+        from = FixAngle360(from);
+        to = FixAngle360(to);
+        angle = FixAngle360(angle);
+        float mid = FixAngle180(from + FixAngle360(to - from) / 2);
+        float fromNye = FixAngle180(from - mid);
+        float toNye = FixAngle180(to - mid);
+        float angleNye = FixAngle180(angle - mid);
+
+        return Mathf.Clamp(angleNye, fromNye, toNye) + mid;
+    }
+    
 }

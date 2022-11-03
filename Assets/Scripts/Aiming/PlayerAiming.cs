@@ -56,8 +56,8 @@ public class PlayerAiming : MonoBehaviour
 
     private void drawTestCone(int n)
     {
-        Vector3 endpoint1 = new Vector3(R*Mathf.Cos((2*n-1)*Mathf.PI/8), R*Mathf.Sin((2*n-1)*Mathf.PI/8));
-        Vector3 endpoint2 = new Vector3(R*Mathf.Cos((2*n+1)*Mathf.PI/8), R*Mathf.Sin((2*n+1)*Mathf.PI/8));
+        Vector3 endpoint1 = new Vector3(R*Mathf.Cos((2*n-1)*Mathf.PI/8), R*Mathf.Sin((2*n-1)*Mathf.PI/8)) + _player.position;
+        Vector3 endpoint2 = new Vector3(R*Mathf.Cos((2*n+1)*Mathf.PI/8), R*Mathf.Sin((2*n+1)*Mathf.PI/8)) + _player.position;
         Debug.DrawLine(_player.position, endpoint1, Color.black, Time.deltaTime);
         Debug.DrawLine(_player.position, endpoint2, Color.black, Time.deltaTime);
     }

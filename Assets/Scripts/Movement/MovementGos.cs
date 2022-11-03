@@ -21,9 +21,6 @@ namespace Movement
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
-            float x0 = _speed.x;
-            float y0 = _speed.y;
-        
             AdjustComponent(ref _speed.x, horizontalInput);
             AdjustComponent(ref _speed.y, verticalInput);
 
@@ -34,14 +31,19 @@ namespace Movement
         {
             if (input != 0)
             {
-                float newSpeed = component + Math.Sign(input) * acceleration;
-                if (Math.Abs(newSpeed) > maxSpeed)
+                if (Math.Abs(component) < maxSpeed)
                 {
-                    component = Math.Sign(component) * maxSpeed;
-                }
-                else
-                {
-                    component = newSpeed;
+                    int sign = Math.Sign(input);
+                    float newSpeed = component + sign * acceleration;
+                    if (Math.Abs(newSpeed) > maxSpeed)
+                    {
+                        // sign of input must equal sign of speed
+                        component = sign * maxSpeed;
+                    }
+                    else
+                    {
+                        component = newSpeed;
+                    }
                 }
             }
             else if (Math.Abs(component) < deceleration) {

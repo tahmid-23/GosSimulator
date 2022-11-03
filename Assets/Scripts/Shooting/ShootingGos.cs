@@ -14,6 +14,7 @@ namespace Shooting
         private GameObject _bullet;
 
         private MovementGos _movementGos;
+        public PlayerAiming player;
     
         private void Start()
         {
@@ -37,7 +38,8 @@ namespace Shooting
                 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed = BulletSpeed * _movementGos.direction;
+                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.getAngleVariable());
+                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.getAngleVariable());
                 movementBullet.duration = 100;
             }
         }

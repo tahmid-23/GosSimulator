@@ -132,5 +132,9 @@ public class PlayerAiming : MonoBehaviour
 
         return Mathf.Clamp(angleNye, fromNye, toNye) + mid;
     }
-    
+
+    public float getAngleVariable()
+    {
+        return _angle;
+    }
 }

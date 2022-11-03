@@ -17,9 +17,8 @@ namespace Opposition
             transform.position += speed * Time.deltaTime;
         }
 
-        void OnCollisionEnter(Collision collision) {
+        void OnCollisionEnter2D(Collision2D collider) {
             // Remember to change this to just walls later on
-            direction *= -1;
         }
     }
 }

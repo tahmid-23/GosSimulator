@@ -9,7 +9,7 @@ namespace Opposition
         private float distanceRay = 90f;
         private void FixedUpdate()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, distanceRay);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up * op.returnDirection(), distanceRay);
             
             if(hit.collider != null)
             {

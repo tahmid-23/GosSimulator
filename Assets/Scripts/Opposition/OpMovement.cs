@@ -27,5 +27,10 @@ namespace Opposition
         {
             combatMode = true;
         }
+
+        public int returnDirection()
+        {
+            return direction;
+        }
     }
 }

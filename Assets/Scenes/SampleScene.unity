@@ -617,6 +617,7 @@ GameObject:
   - component: {fileID: 1516720473}
   - component: {fileID: 1516720472}
   - component: {fileID: 1516720471}
+  - component: {fileID: 1516720476}
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
   m_Layer: 0
@@ -754,6 +755,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1516720476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516720470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb738e08a54fd1a6f2cd7040167bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  op: {fileID: 1516720471}
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +784,7 @@ GameObject:
   - component: {fileID: 1958267098}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: main_character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -787,10 +801,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5c96e95c50a6f41a74e635953fdce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0, z: 0}
   acceleration: 1
   maxSpeed: 5
   deceleration: 4
-  pranjals_constant: 1
+  pranjalsConstant: 1
 --- !u!212 &1958267094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -878,7 +893,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1958267097
 BoxCollider2D:
   m_ObjectHideFlags: 0

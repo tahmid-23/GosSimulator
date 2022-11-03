@@ -1,9 +1,11 @@
+using UnityEngine;
+
 namespace Opposition
 {
     public class OpStats : MonoBehaviour
     {
 
-        public int health = 100f;
+        public float health = 100f;
 
         public void modifyHealth(int modify) {
             health += modify;

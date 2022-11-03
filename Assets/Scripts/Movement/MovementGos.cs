@@ -5,25 +5,25 @@ namespace Movement
 {
     public class MovementGos : MonoBehaviour
     {
-        private Vector3 _speed = new Vector3(0, 0, 0);
+        public Vector3 direction = Vector3.right;
+        private Vector3 _speed = Vector3.zero;
         public float acceleration = 1f;
         public float maxSpeed = 5f;
         public float deceleration = 4f;
-        public float pranjals_constant = 1f;
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        public float pranjalsConstant = 1f;
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
             AdjustComponent(ref _speed.x, horizontalInput);
             AdjustComponent(ref _speed.y, verticalInput);
+
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                direction = new Vector3(Math.Sign(horizontalInput), Math.Sign(verticalInput), 0);
+            }
 
             transform.position += Time.deltaTime * _speed;
         }
@@ -39,20 +39,20 @@ namespace Movement
                     if (Math.Abs(newSpeed) > maxSpeed)
                     {
                         // sign of input must equal sign of speed
-                        component = sign * maxSpeed * pranjals_constant;
+                        component = sign * maxSpeed * pranjalsConstant;
                     }
                     else
                     {
-                        component = newSpeed * pranjals_constant;
+                        component = newSpeed * pranjalsConstant;
                     }
                 }
             }
             else if (Math.Abs(component) < deceleration) {
-                component = 0 * pranjals_constant;
+                component = 0 * pranjalsConstant;
             }
             else
             {
-                component -= Math.Sign(component) * deceleration * pranjals_constant;
+                component -= Math.Sign(component) * deceleration * pranjalsConstant;
             }
         }
     

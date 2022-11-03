@@ -634,9 +634,10 @@ GameObject:
   - component: {fileID: 1958267093}
   - component: {fileID: 1958267097}
   - component: {fileID: 1958267096}
+  - component: {fileID: 1958267098}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -653,10 +654,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5c96e95c50a6f41a74e635953fdce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0, z: 0}
   acceleration: 1
   maxSpeed: 5
   deceleration: 4
-  pranjals_constant: 1
+  pranjalsConstant: 1
 --- !u!212 &1958267094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -771,3 +773,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1958267098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a521a53bb62cede4d87963c7825c06ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

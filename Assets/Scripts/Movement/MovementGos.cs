@@ -9,6 +9,7 @@ namespace Movement
         public float acceleration = 1f;
         public float maxSpeed = 5f;
         public float deceleration = 4f;
+        public float pranjals_constant = 1f;
         // Start is called before the first frame update
         void Start()
         {
@@ -38,20 +39,20 @@ namespace Movement
                     if (Math.Abs(newSpeed) > maxSpeed)
                     {
                         // sign of input must equal sign of speed
-                        component = sign * maxSpeed;
+                        component = sign * maxSpeed * pranjals_constant;
                     }
                     else
                     {
-                        component = newSpeed;
+                        component = newSpeed * pranjals_constant;
                     }
                 }
             }
             else if (Math.Abs(component) < deceleration) {
-                component = 0;
+                component = 0 * pranjals_constant;
             }
             else
             {
-                component -= Math.Sign(component) * deceleration;
+                component -= Math.Sign(component) * deceleration * pranjals_constant;
             }
         }
     

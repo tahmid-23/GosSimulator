@@ -28,6 +28,8 @@ namespace Shooting
                 RaycastHit2D raycast = Physics2D.Raycast(position, transform.TransformDirection(_movementGos.direction.normalized));
                 if (raycast.collider != null && raycast.collider.CompareTag("Opp"))
                 {
+                    OpStats op_stats = raycast.collider.gameObject.GetOrAddComponent<OpStats>();
+                    op_stats.modifyHealth(-5);
                     HitAnimation hitAnimation = raycast.collider.gameObject.GetOrAddComponent<HitAnimation>();
                     hitAnimation.duration = 100;
                 }

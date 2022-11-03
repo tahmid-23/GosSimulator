@@ -1,0 +1,20 @@
+namespace Opposition
+{
+    public class OpStats : MonoBehaviour
+    {
+
+        public int health = 100f;
+
+        public void modifyHealth(int modify) {
+            health += modify;
+
+            if(health < 0) {
+                opDeath();
+            }
+        }
+
+        public void opDeath() {
+
+        }
+    }
+}

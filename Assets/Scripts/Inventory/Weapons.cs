@@ -1,4 +1,4 @@
-namespace DefaultNamespace
+namespace Inventory
 {
     public class Weapons
     {

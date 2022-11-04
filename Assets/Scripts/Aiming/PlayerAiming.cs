@@ -1,41 +1,36 @@
 using Movement;
 using UnityEngine;
+using Aiming;
 
 public class PlayerAiming : MonoBehaviour
 {
-
-    private Transform _player;
     private MovementGos _movementGos;
+    private bool _isAiming;
+    private AimingAbstract _aimingAbstract;
     public Camera camera;
-    public bool Aiming { get; private set; }
-    public float Angle { get; private set; }
-    
-    private const int R = 5;
+    private Transform _player;
 
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
-        _player = transform;
+        _isAiming = false;
         _movementGos = GetComponent<MovementGos>();
+        _aimingAbstract = GetComponent<AimingAbstract>();
+        _player = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown("e"))
         {
-            Aiming = !Aiming;
+            _isAiming = !_isAiming;
         }
 
-        if (Aiming)
+        if (_isAiming)
         {
             float direction = _movementGos.direction;
-            float angleLow = direction - Mathf.PI / 8;
-            float angleHigh = direction + Mathf.PI / 8;
-
-            DrawTestCone(direction, angleLow, angleHigh);
-            Angle = ClampAngle(GetAngle(), angleLow, angleHigh);
-            Vector3 endpoint = R * new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle));
-            Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+            drawCones(direction);
         }
     }
 
@@ -45,56 +40,28 @@ public class PlayerAiming : MonoBehaviour
         Vector3 playerPos = _player.position;
         float dx = mousePos.x - playerPos.x;
         float dy = mousePos.y - playerPos.y;
-
+    
         return Mathf.Atan2(dy, dx);
     }
-
-    private void DrawTestCone(float angle, float angleLow, float angleHigh)
+    
+    private void drawCones(float direction)
     {
-        Vector3 dirLow = R * new Vector3(Mathf.Cos(angleLow), Mathf.Sin(angleLow));
-        Vector3 dirHigh = R * new Vector3(Mathf.Cos(angleHigh), Mathf.Sin(angleHigh));
+        float angleLow = direction - Mathf.PI / 8;
+        float angleHigh = direction + Mathf.PI / 8;
         
-        Vector3 position = _player.position;
-        Debug.DrawRay(position, dirLow, Color.black, Time.deltaTime);
-        Debug.DrawRay(position, dirHigh, Color.black, Time.deltaTime);
+        _aimingAbstract.DrawTestCone(direction, angleLow, angleHigh);
+        _aimingAbstract.setAngle(AimingAbstract.ClampAngle(GetAngle(), angleLow, angleHigh));
+        Vector3 endpoint = new Vector3(5 * Mathf.Cos(getAngleHelper()), 5 * Mathf.Sin(getAngleHelper()), 0);
+        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
     }
 
-    private static float FixAngle360(float angle)
+    public float getAngleHelper()
     {
-        if (angle < 0)
-        {
-            return angle + 2 * Mathf.PI;
-        }
-
-        if (angle >= 360)
-        {
-            return angle - 2 * Mathf.PI;
-        }
-
-        return angle;
+        return _aimingAbstract.getAngle();
     }
-
-    private static float FixAngle180(float angle)
+    
+    public bool IsAiming()
     {
-        if (angle > Mathf.PI)
-        {
-            return angle - 2 * Mathf.PI;
-        }
-
-        return angle;
+        return _isAiming;
     }
-
-    private static float ClampAngle(float angle, float from, float to)
-    {
-        from = FixAngle360(from);
-        to = FixAngle360(to);
-        angle = FixAngle360(angle);
-        float mid = FixAngle180(from + FixAngle360(to - from) / 2);
-        float fromNye = FixAngle180(from - mid);
-        float toNye = FixAngle180(to - mid);
-        float angleNye = FixAngle180(angle - mid);
-
-        return Mathf.Clamp(angleNye, fromNye, toNye) + mid;
-    }
-
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Aiming;
 using Damage;
 using Height;
 using Movement;
@@ -11,7 +12,7 @@ namespace Shooting
 
         private GameObject _bullet;
 
-        private PlayerAiming _player;
+        private PlayerAiming _playerAiming;
         
         [field : SerializeField]
         private int bulletSpeed = 75;
@@ -25,15 +26,16 @@ namespace Shooting
         private void Awake()
         {
             _bullet = Resources.Load("Prefabs/Bullet") as GameObject;
-            _player = GetComponent<PlayerAiming>();
+            _playerAiming = GetComponent<PlayerAiming>();
         }
 
         private void Update()
         {
-            if (_player.Aiming && Input.GetButtonDown("Fire1"))
+            if (_playerAiming.Aiming && Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
-                Vector3 direction = new Vector3(Mathf.Cos(_player.Angle), Mathf.Sin(_player.Angle)).normalized;
+                Vector3 direction = new Vector3(Mathf.Cos(_playerAiming.AimingAbstract.Angle), 
+                    Mathf.Sin(_playerAiming.AimingAbstract.Angle));
                 
                 RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, 
                     transform.TransformDirection(direction));
@@ -75,7 +77,7 @@ namespace Shooting
 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed = bulletSpeed * new Vector3(Mathf.Cos(_player.Angle), Mathf.Sin(_player.Angle));
+                movementBullet.speed = bulletSpeed * direction;
                 movementBullet.distance = bulletDistance;
             }
         }

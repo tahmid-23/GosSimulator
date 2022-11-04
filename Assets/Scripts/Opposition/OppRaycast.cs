@@ -8,7 +8,7 @@ namespace Opposition
 
         private MovementOpp _opp;
 
-        private void Start()
+        private void Awake()
         {
             _opp = GetComponent<MovementOpp>();
         }

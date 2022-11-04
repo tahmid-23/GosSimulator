@@ -10,7 +10,7 @@ namespace Opposition
 
         private Rigidbody2D _rigidbody2D;
 
-        private void Start()
+        private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }

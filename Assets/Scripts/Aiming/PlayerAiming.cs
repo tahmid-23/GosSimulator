@@ -12,19 +12,16 @@ public class PlayerAiming : MonoBehaviour
     
     private const int R = 5;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
-        Aiming = false;
         _player = transform;
         _movementGos = GetComponent<MovementGos>();
-        Angle = 0;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Aiming = !Aiming;
         }

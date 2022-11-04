@@ -3,13 +3,16 @@ using Damage;
 using Height;
 using Movement;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 
 namespace Shooting
 {
     public class ShootingGos : MonoBehaviour
     {
 
+        private GameObject _bullet;
+
+        private PlayerAiming _player;
+        
         [field : SerializeField]
         private int bulletSpeed = 75;
 
@@ -18,27 +21,22 @@ namespace Shooting
 
         [field : SerializeField]
         private float bulletDamage = 5.0f;
-        
-        private GameObject _bullet;
-
-        private MovementGos _movementGos;
-        public PlayerAiming player;
     
-        private void Start()
+        private void Awake()
         {
             _bullet = Resources.Load("Prefabs/Bullet") as GameObject;
-            _movementGos = GetComponent<MovementGos>();
+            _player = GetComponent<PlayerAiming>();
         }
 
         private void Update()
         {
-            if (player.Aiming && Input.GetButtonDown("Fire1"))
+            if (_player.Aiming && Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
-                Vector3 direction = new Vector3(Mathf.Cos(player.Angle), Mathf.Sin(player.Angle))
-                    .normalized;
+                Vector3 direction = new Vector3(Mathf.Cos(_player.Angle), Mathf.Sin(_player.Angle)).normalized;
                 
-                RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, transform.TransformDirection(direction));
+                RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, 
+                    transform.TransformDirection(direction));
                 List<RaycastHit2D> withHeight = new List<RaycastHit2D>();
                 IDictionary<RaycastHit2D, int> heights = new Dictionary<RaycastHit2D, int>();
                 foreach (RaycastHit2D raycast in raycasts)
@@ -77,8 +75,8 @@ namespace Shooting
 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed = bulletSpeed * new Vector3(Mathf.Cos(player.Angle), Mathf.Sin(player.Angle));
-                movementBullet.duration = Mathf.FloorToInt(bulletDistance / (bulletSpeed * Time.deltaTime));
+                movementBullet.speed = bulletSpeed * new Vector3(Mathf.Cos(_player.Angle), Mathf.Sin(_player.Angle));
+                movementBullet.distance = bulletDistance;
             }
         }
     }

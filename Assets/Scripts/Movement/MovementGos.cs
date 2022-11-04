@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Movement
@@ -15,7 +14,7 @@ namespace Movement
         private Rigidbody2D _rigidbody2D;
         private Transform _square;
 
-        private void Start()
+        private void Awake()
         {
             _gosAim = GetComponent<PlayerAiming>();
             _rigidbody2D = GetComponent<Rigidbody2D>();

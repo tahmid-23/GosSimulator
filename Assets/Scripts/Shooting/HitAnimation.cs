@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Shooting
@@ -14,7 +13,7 @@ namespace Shooting
         
         private int _aliveTime;
 
-        private void Start()
+        private void Awake()
         {
             _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             _initialColor = _spriteRenderer.color;

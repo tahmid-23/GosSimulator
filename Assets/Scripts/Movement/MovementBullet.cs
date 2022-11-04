@@ -7,14 +7,21 @@ namespace Movement
         
         public Vector3 speed;
 
-        public int duration;
+        public float distance;
+
+        private int _duration;
 
         private int _aliveTime;
+
+        private void Awake()
+        {
+            _duration = Mathf.FloorToInt(distance / (speed.magnitude * Time.deltaTime));
+        }
 
         private void Update()
         {
             transform.position += speed * Time.deltaTime;
-            if (_aliveTime == duration)
+            if (_aliveTime == _duration)
             {
                 Destroy(gameObject);
             }

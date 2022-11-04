@@ -11,7 +11,7 @@ namespace Damage
         
         public float Health { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             Health = MaxHealth;
         }

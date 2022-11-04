@@ -700,10 +700,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1516720473}
   - component: {fileID: 1516720472}
-  - component: {fileID: 1516720471}
-  - component: {fileID: 1516720476}
   - component: {fileID: 1516720479}
+  - component: {fileID: 1516720471}
   - component: {fileID: 1516720478}
+  - component: {fileID: 1516720476}
   - component: {fileID: 1516720477}
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becb738e08a54fd1a6f2cd7040167bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  op: {fileID: 0}
+  op: {fileID: 1516720471}
 --- !u!114 &1516720477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,10 +877,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516720470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d84da55c09e045bcb185e44f2a1ddc3b, type: 3}
+  m_Script: {fileID: 11500000, guid: adc7342781b842eba65ed9acba8c54e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aim: {fileID: 1516720479}
 --- !u!114 &1516720479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,11 +889,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516720470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
+  m_Script: {fileID: 11500000, guid: d84da55c09e045bcb185e44f2a1ddc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aimingAbstract: {fileID: 0}
-  camera: {fileID: 519420031}
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +905,7 @@ GameObject:
   - component: {fileID: 1958267093}
   - component: {fileID: 1958267097}
   - component: {fileID: 1958267096}
+  - component: {fileID: 1958267100}
   - component: {fileID: 1958267098}
   - component: {fileID: 1958267099}
   m_Layer: 0
@@ -1061,7 +1059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aimingAbstract: {fileID: 0}
   camera: {fileID: 519420031}
 --- !u!114 &1958267099
 MonoBehaviour:
@@ -1076,3 +1073,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1958267098}
+--- !u!114 &1958267100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc7342781b842eba65ed9acba8c54e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

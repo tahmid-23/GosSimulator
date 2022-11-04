@@ -6,7 +6,7 @@ public class PlayerAiming : MonoBehaviour
 {
     private MovementGos _movementGos;
     private bool _isAiming;
-    public AimingAbstract _aimingAbstract;
+    private AimingAbstract _aimingAbstract;
     public Camera camera;
     private Transform _player;
 
@@ -15,6 +15,8 @@ public class PlayerAiming : MonoBehaviour
     {
         _isAiming = false;
         _movementGos = GetComponent<MovementGos>();
+        _aimingAbstract = GetComponent<AimingAbstract>();
+        _player = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class PlayerAiming : MonoBehaviour
         if (_isAiming)
         {
             float direction = _movementGos.direction;
-            _aimingAbstract.drawCones(direction);
+            drawCones(direction);
         }
     }
 
@@ -41,8 +43,19 @@ public class PlayerAiming : MonoBehaviour
     
         return Mathf.Atan2(dy, dx);
     }
+    
+    private void drawCones(float direction)
+    {
+        float angleLow = direction - Mathf.PI / 8;
+        float angleHigh = direction + Mathf.PI / 8;
+        
+        _aimingAbstract.DrawTestCone(direction, angleLow, angleHigh);
+        _aimingAbstract.setAngle(AimingAbstract.ClampAngle(GetAngle(), angleLow, angleHigh));
+        Vector3 endpoint = new Vector3(5 * Mathf.Cos(getAngleHelper()), 5 * Mathf.Sin(getAngleHelper()), 0);
+        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+    }
 
-    public float getAngle()
+    public float getAngleHelper()
     {
         return _aimingAbstract.getAngle();
     }

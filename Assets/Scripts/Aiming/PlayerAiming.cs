@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Movement;
 using UnityEngine;
 
 public class PlayerAiming : MonoBehaviour
@@ -8,32 +6,32 @@ public class PlayerAiming : MonoBehaviour
 
     private bool _isAiming;
     private Transform _player;
+    private MovementGos _movementGos;
     public Camera camera;
-    private float _angle;
-    
-    //TEMPORARY VARIABLE
-    private int direction = 0;
-    //VALUE WILL BE OBTAINED FROM MOVEMENT SCRIPT
+    public float Angle { get; private set; }
     
     private const int R = 5;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _isAiming = false;
         _player = transform;
-        _angle = 0;
+        _movementGos = GetComponent<MovementGos>();
+        Angle = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        testInput();
-        drawTestCone(direction);
-        _angle = ClampAngle(FixAngle180(getAngle()), FixAngle180((2 * direction - 1) * Mathf.PI / 8), FixAngle180((2*direction+1)*Mathf.PI/8));
-        Vector3 endpoint = new Vector3(R*Mathf.Cos(_angle), R*Mathf.Sin(_angle), 0);
-        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+        float direction = _movementGos.direction;
+        float angleLow = direction - Mathf.PI / 8;
+        float angleHigh = direction + Mathf.PI / 8;
         
+        DrawTestCone(direction, angleLow, angleHigh);
+        Angle = ClampAngle(GetAngle(), angleLow, angleHigh);
+        Vector3 endpoint = new Vector3(R*Mathf.Cos(Angle), R*Mathf.Sin(Angle), 0);
+        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
     }
     
     public bool IsAiming()
@@ -41,7 +39,7 @@ public class PlayerAiming : MonoBehaviour
         return _isAiming;
     }
 
-    private float getAngle()
+    private float GetAngle()
     {
         Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 playerPos = _player.position;
@@ -51,48 +49,14 @@ public class PlayerAiming : MonoBehaviour
         return Mathf.Atan2(dy, dx);
     }
 
-    private void drawTestCone(int n)
+    private void DrawTestCone(float angle, float angleLow, float angleHigh)
     {
-        Vector3 endpoint1 = new Vector3(R*Mathf.Cos((2*n-1)*Mathf.PI/8), R*Mathf.Sin((2*n-1)*Mathf.PI/8)) + _player.position;
-        Vector3 endpoint2 = new Vector3(R*Mathf.Cos((2*n+1)*Mathf.PI/8), R*Mathf.Sin((2*n+1)*Mathf.PI/8)) + _player.position;
-        Debug.DrawLine(_player.position, endpoint1, Color.black, Time.deltaTime);
-        Debug.DrawLine(_player.position, endpoint2, Color.black, Time.deltaTime);
-    }
-
-    private void testInput()
-    {
-        if (Input.GetKeyDown("d"))
-        {
-            direction = 0;
-        }
-        if (Input.GetKeyDown("e"))
-        {
-            direction = 1;
-        }
-        if (Input.GetKeyDown("w"))
-        {
-            direction = 2;
-        }
-        if (Input.GetKeyDown("q"))
-        {
-            direction = 3;
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            direction = 4;
-        }
-        if (Input.GetKeyDown("z"))
-        {
-            direction = 5;
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            direction = 6;
-        }
-        if (Input.GetKeyDown("c"))
-        {
-            direction = 7;
-        }
+        Vector3 dirLow = new Vector3(R*Mathf.Cos(angleLow), R*Mathf.Sin(angleLow));
+        Vector3 dirHigh = new Vector3(R*Mathf.Cos(angleHigh), R*Mathf.Sin(angleHigh));
+        
+        Vector3 position = _player.position;
+        Debug.DrawRay(position, dirLow, Color.black, Time.deltaTime);
+        Debug.DrawRay(position, dirHigh, Color.black, Time.deltaTime);
     }
 
     private static float FixAngle360(float angle)
@@ -133,8 +97,4 @@ public class PlayerAiming : MonoBehaviour
         return Mathf.Clamp(angleNye, fromNye, toNye) + mid;
     }
 
-    public float getAngleVariable()
-    {
-        return _angle;
-    }
 }

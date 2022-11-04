@@ -27,19 +27,21 @@ namespace Shooting
             if (Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
-                RaycastHit2D raycast = Physics2D.Raycast(position, transform.TransformDirection(_movementGos.direction.normalized));
+                Vector3 direction = new Vector3(Mathf.Cos(_movementGos.direction), Mathf.Sin(_movementGos.direction))
+                    .normalized;
+                RaycastHit2D raycast = Physics2D.Raycast(position, transform.TransformDirection(direction));
                 if (raycast.collider != null && raycast.collider.CompareTag("Opp"))
                 {
-                    OpStats op_stats = raycast.collider.gameObject.GetOrAddComponent<OpStats>();
-                    op_stats.modifyHealth(-5);
+                    OpStats opStats = raycast.collider.gameObject.GetOrAddComponent<OpStats>();
+                    opStats.modifyHealth(-5);
                     HitAnimation hitAnimation = raycast.collider.gameObject.GetOrAddComponent<HitAnimation>();
                     hitAnimation.duration = 100;
                 }
                 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.getAngleVariable());
-                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.getAngleVariable());
+                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.Angle);
+                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.Angle);
                 movementBullet.duration = 100;
             }
         }

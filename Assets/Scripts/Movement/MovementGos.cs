@@ -5,12 +5,17 @@ namespace Movement
 {
     public class MovementGos : MonoBehaviour
     {
-        public Vector3 direction = Vector3.right;
+        public float direction = 0f;
         private Vector3 _speed = Vector3.zero;
         public float acceleration = 1f;
         public float maxSpeed = 5f;
         public float deceleration = 4f;
         public float pranjalsConstant = 1f;
+        
+        private void FixedUpdate()
+        {
+            transform.GetComponent<Rigidbody2D>().velocity = _speed;
+        }
 
         private void Update()
         {
@@ -22,10 +27,8 @@ namespace Movement
 
             if (horizontalInput != 0 || verticalInput != 0)
             {
-                direction = new Vector3(Mathf.Sign(horizontalInput), Mathf.Sign(verticalInput), 0);
+                direction = InputToAngle(horizontalInput, verticalInput);
             }
-
-            transform.position += Time.deltaTime * _speed;
         }
 
         private void AdjustComponent(ref float component, float input)
@@ -56,41 +59,30 @@ namespace Movement
             }
         }
 
-        void OnCollisionStay2D(Collision2D col)
+        private float InputToAngle(float horizontal, float vertical)
         {
-            if (col.gameObject.name == "desk")
+            if (horizontal == 0)
             {
-                Vector3 hit = col.contacts[0].normal;
-                Debug.Log(hit);
-                float angle = Vector3.Angle(hit, Vector3.up);
- 
-                if (Mathf.Approximately(angle, 0))
+                if (vertical == 0)
                 {
-                    //Down
-                    // Debug.Log("Down");
-                    _speed.y = 0;
+                    return direction;
                 }
-                if(Mathf.Approximately(angle, 180))
-                {
-                    //Up
-                    Debug.Log("Up");
-                    _speed.y = 0;
-                }
-                if(Mathf.Approximately(angle, 90)){
-                    // Sides
-                    Vector3 cross = Vector3.Cross(Vector3.forward, hit);
-                    if (cross.y > 0)
-                    { // left side of the player
-                        Debug.Log("Left");
-                        _speed.x = 0;
-                    }
-                    else
-                    { // right side of the player
-                        Debug.Log("Right");
-                        _speed.x = 0;
-                    }
-                }
+
+                return Mathf.Sign(vertical) * Mathf.PI / 2;
             }
+
+            if (vertical == 0)
+            {
+                return horizontal > 0 ? 0 : Mathf.PI;
+            }
+
+            if (horizontal > 0)
+            {
+                return Mathf.Sign(vertical) * Mathf.PI / 8;
+            }
+
+            return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 8;
         }
+        
     }
 }

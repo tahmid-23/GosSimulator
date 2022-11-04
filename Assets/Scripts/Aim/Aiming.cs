@@ -1,27 +1,33 @@
 using UnityEngine;
 
-namespace Aiming
+namespace Aim
 {
-    public class AimingAbstract : MonoBehaviour
+    public class Aiming : MonoBehaviour
     {
-        private Transform _player;
+
         private const int R = 5;
         
         public float Angle { get; private set; }
 
-        private void Awake()
+        public void DrawCones(float centerAngle, float markerAngle)
         {
-            _player = GetComponent<Transform>();
+            float angleLow = centerAngle - Mathf.PI / 8;
+            float angleHigh = centerAngle + Mathf.PI / 8;
+        
+            Angle = ClampAngle(markerAngle, angleLow, angleHigh);
+            DrawTestCone(angleLow, angleHigh);
         }
-
-        public void DrawTestCone(float angleLow, float angleHigh)
+        
+        private void DrawTestCone(float angleLow, float angleHigh)
         {
             Vector3 dirLow = R * new Vector3(Mathf.Cos(angleLow), Mathf.Sin(angleLow));
             Vector3 dirHigh = R * new Vector3(Mathf.Cos(angleHigh), Mathf.Sin(angleHigh));
+            Vector3 endpoint = R * new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle));
         
-            Vector3 position = _player.position;
+            Vector3 position = transform.position;
             Debug.DrawRay(position, dirLow, Color.black, Time.deltaTime);
             Debug.DrawRay(position, dirHigh, Color.black, Time.deltaTime);
+            Debug.DrawRay(position, endpoint, Color.red, Time.deltaTime);
         }
 
         private static float FixAngle360(float angle)
@@ -62,14 +68,5 @@ namespace Aiming
             return Mathf.Clamp(angleNye, fromNye, toNye) + mid;
         }
 
-        public void setAngle(float new_angle)
-        {
-            Angle = new_angle;
-        }
-
-        public float getAngle()
-        {
-            return Angle;
-        }
     }
 }

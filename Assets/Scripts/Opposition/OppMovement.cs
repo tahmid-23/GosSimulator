@@ -2,13 +2,16 @@ using UnityEngine;
 
 namespace Opposition
 {
-    public class MovementOpp: MonoBehaviour {
+    public class OppMovement: MonoBehaviour {
         public int Direction { get; private set; } = -1;
+
         public Vector3 speed = Vector3.zero;
+
         public float maxSpeed = 5f;
-        private bool _combatMode;
 
         private Rigidbody2D _rigidbody2D;
+
+        private bool _combatMode;
 
         private void Awake()
         {
@@ -24,7 +27,7 @@ namespace Opposition
             speed.y = Direction * maxSpeed;
         }
 
-        private void OnCollisionEnter2D(Collision2D collider) {
+        private void OnCollisionEnter2D(Collision2D collision) {
             // Remember to change this to just walls later on
             Direction *= -1;
         }

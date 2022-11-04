@@ -6,11 +6,11 @@ namespace Opposition
     {
         private const float DistanceRay = 90f;
 
-        private MovementOpp _opp;
+        private OppMovement _opp;
 
         private void Awake()
         {
-            _opp = GetComponent<MovementOpp>();
+            _opp = GetComponent<OppMovement>();
         }
 
         private void FixedUpdate()

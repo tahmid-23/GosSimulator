@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Movement
+namespace Bullet
 {
-    public class MovementBullet : MonoBehaviour
+    public class BulletBehaviour : MonoBehaviour
     {
         
         public Vector3 speed;

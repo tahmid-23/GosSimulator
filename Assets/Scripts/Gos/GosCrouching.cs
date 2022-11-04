@@ -1,15 +1,14 @@
-using System;
 using Height;
 using UnityEngine;
 
-namespace Movement
+namespace Gos
 {
-    public class MovementCrouching : MonoBehaviour
+    public class GosCrouching : MonoBehaviour
     {
 
         private HeightBehaviour _heightBehaviour;
         
-        private MovementGos _movementGos;
+        private GosMovement _movementGos;
 
         private bool _crouching;
 
@@ -21,7 +20,7 @@ namespace Movement
         private void Awake()
         {
             _heightBehaviour = GetComponent<HeightBehaviour>();
-            _movementGos = GetComponent<MovementGos>();
+            _movementGos = GetComponent<GosMovement>();
             _initialHeight = _heightBehaviour.Height;
         }
 
@@ -32,12 +31,12 @@ namespace Movement
                 _crouching = !_crouching;
                 if (_crouching)
                 {
-                    _movementGos.maxSpeed *= crouchSpeedMultiplier;
+                    _movementGos.MaxSpeed *= crouchSpeedMultiplier;
                     _heightBehaviour.Height = 1;
                 }
                 else
                 {
-                    _movementGos.maxSpeed /= crouchSpeedMultiplier;
+                    _movementGos.MaxSpeed /= crouchSpeedMultiplier;
                     _heightBehaviour.Height = _initialHeight;
                 }
             }

@@ -1,18 +1,17 @@
 using System.Collections.Generic;
-using Aiming;
+using Bullet;
 using Damage;
 using Height;
-using Movement;
 using UnityEngine;
 
-namespace Shooting
+namespace Gos
 {
-    public class ShootingGos : MonoBehaviour
+    public class GosShooting : MonoBehaviour
     {
 
         private GameObject _bullet;
 
-        private PlayerAiming _playerAiming;
+        private GosAiming _gosAiming;
         
         [field : SerializeField]
         private int bulletSpeed = 75;
@@ -26,16 +25,16 @@ namespace Shooting
         private void Awake()
         {
             _bullet = Resources.Load("Prefabs/Bullet") as GameObject;
-            _playerAiming = GetComponent<PlayerAiming>();
+            _gosAiming = GetComponent<GosAiming>();
         }
 
         private void Update()
         {
-            if (_playerAiming.Aiming && Input.GetButtonDown("Fire1"))
+            if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
-                Vector3 direction = new Vector3(Mathf.Cos(_playerAiming.AimingAbstract.Angle), 
-                    Mathf.Sin(_playerAiming.AimingAbstract.Angle));
+                Vector3 direction = new Vector3(Mathf.Cos(_gosAiming.Aiming.Angle), 
+                    Mathf.Sin(_gosAiming.Aiming.Angle));
                 
                 RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, 
                     transform.TransformDirection(direction));
@@ -76,9 +75,9 @@ namespace Shooting
                 }
 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
-                MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed = bulletSpeed * direction;
-                movementBullet.distance = bulletDistance;
+                BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+                bulletBehaviour.speed = bulletSpeed * direction;
+                bulletBehaviour.distance = bulletDistance;
             }
         }
     }

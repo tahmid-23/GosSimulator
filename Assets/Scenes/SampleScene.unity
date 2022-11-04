@@ -665,8 +665,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997622444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: -0.01, z: 0}
-  m_LocalScale: {x: 2.8894973, y: 3.5266583, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -831,7 +831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516720470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.464259, y: 0.41470385, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -984,11 +984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5c96e95c50a6f41a74e635953fdce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  acceleration: 1
-  maxSpeed: 5
-  deceleration: 4
-  pranjalsConstant: 1
 --- !u!212 &1958267094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1049,7 +1044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958267092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.72, y: -1.14, z: 0}
+  m_LocalPosition: {x: -8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1116,7 +1111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 519420031}
 --- !u!114 &1958267099
 MonoBehaviour:
   m_ObjectHideFlags: 0

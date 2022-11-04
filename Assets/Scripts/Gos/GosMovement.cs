@@ -1,23 +1,31 @@
-using Aiming;
 using UnityEngine;
 
-namespace Movement
+namespace Gos
 {
-    public class MovementGos : MonoBehaviour
+    public class GosMovement : MonoBehaviour
     {
-        public float direction = 0f;
-        private Vector3 _speed = Vector3.zero;
-        public float acceleration = 1f;
-        public float maxSpeed = 5f;
-        public float deceleration = 4f;
-        public float pranjalsConstant = 1f;
-        private PlayerAiming _gosAim;
+        
+        public float Direction { get; private set; }
+
+        public float MaxSpeed { get; set; } = 5f;
+        
+        private const float Acceleration = 1f;
+        
+        private const float Deceleration = 4f;
+
+        private const float PranjalsConstant = 1f;
+
+        private GosAiming _gosAim;
+
         private Rigidbody2D _rigidbody2D;
+
         private Transform _square;
+
+        private Vector3 _speed = Vector3.zero;
 
         private void Awake()
         {
-            _gosAim = GetComponent<PlayerAiming>();
+            _gosAim = GetComponent<GosAiming>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _square = transform.GetChild(0);
         }
@@ -35,9 +43,9 @@ namespace Movement
             AdjustComponent(ref _speed.x, horizontalInput);
             AdjustComponent(ref _speed.y, verticalInput);
 
-            if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.Aiming)
+            if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.IsAiming)
             {
-                direction = InputToAngle(horizontalInput, verticalInput);
+                Direction = InputToAngle(horizontalInput, verticalInput);
                 AdjustSprite();
             }
         }
@@ -46,27 +54,27 @@ namespace Movement
         {
             if (input != 0)
             {
-                if (Mathf.Abs(component) < maxSpeed)
+                if (Mathf.Abs(component) < MaxSpeed)
                 {
                     float sign = Mathf.Sign(input);
-                    float newSpeed = component + sign * acceleration;
-                    if (Mathf.Abs(newSpeed) > maxSpeed)
+                    float newSpeed = component + sign * Acceleration;
+                    if (Mathf.Abs(newSpeed) > MaxSpeed)
                     {
                         // sign of input must equal sign of speed
-                        component = sign * maxSpeed * pranjalsConstant;
+                        component = sign * MaxSpeed * PranjalsConstant;
                     }
                     else
                     {
-                        component = newSpeed * pranjalsConstant;
+                        component = newSpeed * PranjalsConstant;
                     }
                 }
             }
-            else if (Mathf.Abs(component) < deceleration) {
-                component = 0 * pranjalsConstant;
+            else if (Mathf.Abs(component) < Deceleration) {
+                component = 0 * PranjalsConstant;
             }
             else
             {
-                component -= Mathf.Sign(component) * deceleration * pranjalsConstant;
+                component -= Mathf.Sign(component) * Deceleration * PranjalsConstant;
             }
         }
 
@@ -76,7 +84,7 @@ namespace Movement
             {
                 if (vertical == 0)
                 {
-                    return direction;
+                    return Direction;
                 }
 
                 return Mathf.Sign(vertical) * Mathf.PI / 2;
@@ -97,7 +105,7 @@ namespace Movement
         
         private void AdjustSprite()
         {
-            _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * direction);
+            _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * Direction);
         }
         
     }

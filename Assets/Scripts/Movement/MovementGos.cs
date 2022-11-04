@@ -89,10 +89,10 @@ namespace Movement
 
             if (horizontal > 0)
             {
-                return Mathf.Sign(vertical) * Mathf.PI / 8;
+                return Mathf.Sign(vertical) * Mathf.PI / 6;
             }
 
-            return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 8;
+            return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 6;
         }
         
         private void AdjustSprite()

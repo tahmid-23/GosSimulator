@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 177778293}
   - component: {fileID: 177778292}
+  - component: {fileID: 177778294}
   - component: {fileID: 177778291}
   - component: {fileID: 177778290}
   m_Layer: 0
@@ -256,6 +257,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &177778294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177778289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58672ec2d5be4ecdb3bfff083a94dbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Height>k__BackingField: 2
 --- !u!1 &425127548
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425127550}
   - component: {fileID: 425127549}
+  - component: {fileID: 425127553}
   - component: {fileID: 425127551}
   - component: {fileID: 425127552}
   m_Layer: 0
@@ -389,6 +404,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &425127553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425127548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58672ec2d5be4ecdb3bfff083a94dbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Height>k__BackingField: 2
 --- !u!1 &455103985
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997622446}
   - component: {fileID: 997622445}
+  - component: {fileID: 997622449}
   - component: {fileID: 997622447}
   - component: {fileID: 997622448}
   m_Layer: 0
@@ -704,6 +733,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &997622449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997622444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58672ec2d5be4ecdb3bfff083a94dbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Height>k__BackingField: 1
 --- !u!1 &1516720470
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +759,7 @@ GameObject:
   - component: {fileID: 1516720471}
   - component: {fileID: 1516720477}
   - component: {fileID: 1516720478}
+  - component: {fileID: 1516720479}
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
   m_Layer: 0
@@ -879,7 +922,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becb738e08a54fd1a6f2cd7040167bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  op: {fileID: 0}
+--- !u!114 &1516720479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516720470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58672ec2d5be4ecdb3bfff083a94dbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Height>k__BackingField: 1
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +949,7 @@ GameObject:
   - component: {fileID: 1958267098}
   - component: {fileID: 1958267099}
   - component: {fileID: 1958267100}
+  - component: {fileID: 1958267101}
   - component: {fileID: 1958267097}
   - component: {fileID: 1958267096}
   m_Layer: 0
@@ -1060,6 +1116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a521a53bb62cede4d87963c7825c06ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 75
+  bulletHeight: 1
+  bulletDamage: 5
   player: {fileID: 1958267098}
 --- !u!114 &1958267100
 MonoBehaviour:
@@ -1074,3 +1133,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
+--- !u!114 &1958267101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58672ec2d5be4ecdb3bfff083a94dbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Height>k__BackingField: 2

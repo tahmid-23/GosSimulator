@@ -399,6 +399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 455103986}
   - component: {fileID: 455103987}
+  - component: {fileID: 455103988}
   m_Layer: 0
   m_Name: Direction Arrow (Test Only)
   m_TagString: Untagged
@@ -473,6 +474,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &455103988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455103985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e697ac74eeae42f89c44d00fb2a36f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,10 +876,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516720470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f11cd56b8e2b48598e1e14882fb125d, type: 3}
+  m_Script: {fileID: 11500000, guid: da1ffb319ef346f9b702f8a899c9c892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  <MaxHealth>k__BackingField: 100
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,10 +891,11 @@ GameObject:
   - component: {fileID: 1958267095}
   - component: {fileID: 1958267094}
   - component: {fileID: 1958267093}
-  - component: {fileID: 1958267097}
-  - component: {fileID: 1958267096}
   - component: {fileID: 1958267098}
   - component: {fileID: 1958267099}
+  - component: {fileID: 1958267100}
+  - component: {fileID: 1958267097}
+  - component: {fileID: 1958267096}
   m_Layer: 0
   m_Name: Square
   m_TagString: main_character
@@ -1046,3 +1061,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1958267098}
+--- !u!114 &1958267100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e697ac74eeae42f89c44d00fb2a36f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100

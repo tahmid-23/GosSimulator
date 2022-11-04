@@ -1,3 +1,4 @@
+using Damage;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,18 +25,19 @@ namespace Shooting
 
         private void Update()
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (player.IsAiming() && Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
                 Vector3 direction = new Vector3(Mathf.Cos(_movementGos.direction), Mathf.Sin(_movementGos.direction))
                     .normalized;
+                
                 RaycastHit2D raycast = Physics2D.Raycast(position, transform.TransformDirection(direction));
-                if (raycast.collider != null && raycast.collider.CompareTag("Opp"))
+                if (raycast.collider != null)
                 {
-                    OpStats opStats = raycast.collider.gameObject.GetOrAddComponent<OpStats>();
-                    opStats.modifyHealth(-5);
-                    HitAnimation hitAnimation = raycast.collider.gameObject.GetOrAddComponent<HitAnimation>();
-                    hitAnimation.duration = 100;
+                    if (raycast.collider.gameObject.TryGetComponent(out IDamageReceiver damageReceiver))
+                    {
+                        damageReceiver.ChangeHealth(-5);
+                    }
                 }
                 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);

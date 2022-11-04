@@ -702,6 +702,8 @@ GameObject:
   - component: {fileID: 1516720472}
   - component: {fileID: 1516720471}
   - component: {fileID: 1516720476}
+  - component: {fileID: 1516720479}
+  - component: {fileID: 1516720478}
   - component: {fileID: 1516720477}
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
@@ -767,7 +769,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0668d5badba9e429ea3feed4e2f5c1e9, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 24f7c0bca90fec549ab08ae43d5c4f43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -810,7 +812,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.79, y: 3.86}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -852,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becb738e08a54fd1a6f2cd7040167bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  op: {fileID: 1516720471}
+  op: {fileID: 0}
 --- !u!114 &1516720477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +868,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+--- !u!114 &1516720478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516720470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84da55c09e045bcb185e44f2a1ddc3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aim: {fileID: 1516720479}
+--- !u!114 &1516720479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516720470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aimingAbstract: {fileID: 0}
+  camera: {fileID: 519420031}
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +941,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958267092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1032,6 +1061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aimingAbstract: {fileID: 0}
   camera: {fileID: 519420031}
 --- !u!114 &1958267099
 MonoBehaviour:

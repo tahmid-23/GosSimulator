@@ -25,7 +25,7 @@ namespace Shooting
 
         private void Update()
         {
-            if (player.IsAiming() && Input.GetButtonDown("Fire1"))
+            if (player.Aiming && Input.GetButtonDown("Fire1"))
             {
                 Vector3 position = transform.position;
                 Vector3 direction = new Vector3(Mathf.Cos(_movementGos.direction), Mathf.Sin(_movementGos.direction))
@@ -42,8 +42,7 @@ namespace Shooting
                 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.Angle);
-                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.Angle);
+                movementBullet.speed = BulletSpeed * new Vector3(Mathf.Cos(player.Angle), Mathf.Sin(player.Angle));
                 movementBullet.duration = 100;
             }
         }

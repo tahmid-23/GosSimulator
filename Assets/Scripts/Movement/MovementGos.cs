@@ -11,10 +11,12 @@ namespace Movement
         public float maxSpeed = 5f;
         public float deceleration = 4f;
         public float pranjalsConstant = 1f;
+        private PlayerAiming gosAim;
         
         private void FixedUpdate()
         {
             transform.GetComponent<Rigidbody2D>().velocity = _speed;
+            gosAim = GetComponent<PlayerAiming>();
         }
 
         private void Update()
@@ -25,9 +27,10 @@ namespace Movement
             AdjustComponent(ref _speed.x, horizontalInput);
             AdjustComponent(ref _speed.y, verticalInput);
 
-            if (horizontalInput != 0 || verticalInput != 0)
+            if ((horizontalInput != 0 || verticalInput != 0) && !gosAim.IsAiming())
             {
                 direction = InputToAngle(horizontalInput, verticalInput);
+                AdjustSprite();
             }
         }
 
@@ -82,6 +85,10 @@ namespace Movement
             }
 
             return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 8;
+        }
+        
+        private void AdjustSprite() {
+            transform.GetChild(0).eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * direction);
         }
         
     }

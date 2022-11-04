@@ -24,14 +24,22 @@ public class PlayerAiming : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        float direction = _movementGos.direction;
-        float angleLow = direction - Mathf.PI / 8;
-        float angleHigh = direction + Mathf.PI / 8;
-        
-        DrawTestCone(direction, angleLow, angleHigh);
-        Angle = ClampAngle(GetAngle(), angleLow, angleHigh);
-        Vector3 endpoint = new Vector3(R*Mathf.Cos(Angle), R*Mathf.Sin(Angle), 0);
-        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+        if (Input.GetKeyDown("e"))
+        {
+            _isAiming = !_isAiming;
+        }
+
+        if (_isAiming)
+        {
+            float direction = _movementGos.direction;
+            float angleLow = direction - Mathf.PI / 8;
+            float angleHigh = direction + Mathf.PI / 8;
+
+            DrawTestCone(direction, angleLow, angleHigh);
+            Angle = ClampAngle(GetAngle(), angleLow, angleHigh);
+            Vector3 endpoint = new Vector3(R * Mathf.Cos(Angle), R * Mathf.Sin(Angle), 0);
+            Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+        }
     }
     
     public bool IsAiming()

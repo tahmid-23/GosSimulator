@@ -13,7 +13,7 @@ namespace Movement
 
         private int _aliveTime;
 
-        private void Awake()
+        private void Start()
         {
             _duration = Mathf.FloorToInt(distance / (speed.magnitude * Time.deltaTime));
         }

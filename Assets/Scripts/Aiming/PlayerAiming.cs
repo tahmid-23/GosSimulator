@@ -1,67 +1,69 @@
 using Movement;
 using UnityEngine;
-using Aiming;
 
-public class PlayerAiming : MonoBehaviour
+namespace Aiming
 {
-    private MovementGos _movementGos;
-    private bool _isAiming;
-    private AimingAbstract _aimingAbstract;
-    public Camera camera;
-    private Transform _player;
-
-    // Start is called before the first frame update
-    private void Start()
+    public class PlayerAiming : MonoBehaviour
     {
-        _isAiming = false;
-        _movementGos = GetComponent<MovementGos>();
-        _aimingAbstract = GetComponent<AimingAbstract>();
-        _player = GetComponent<Transform>();
-    }
 
-    // Update is called once per frame
-    public void Update()
-    {
-        if (Input.GetKeyDown("e"))
+        public bool Aiming { get; private set; }
+    
+        public AimingAbstract AimingAbstract { get; private set; }
+
+        public Camera camera;
+
+        private MovementGos _movementGos;
+    
+        private Transform _player;
+    
+        private const int R = 5;
+
+        private void Awake()
         {
-            _isAiming = !_isAiming;
+            Aiming = false;
+            _movementGos = GetComponent<MovementGos>();
+            AimingAbstract = GetComponent<AimingAbstract>();
+            _player = transform;
         }
 
-        if (_isAiming)
+        // Update is called once per frame
+        public void Update()
         {
-            float direction = _movementGos.direction;
-            drawCones(direction);
-        }
-    }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Aiming = !Aiming;
+            }
 
-    private float GetAngle()
-    {
-        Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 playerPos = _player.position;
-        float dx = mousePos.x - playerPos.x;
-        float dy = mousePos.y - playerPos.y;
+            if (Aiming)
+            {
+                drawCones(_movementGos.direction);
+            }
+        }
+
+        private float GetAngle()
+        {
+            Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 playerPos = _player.position;
+            float dx = mousePos.x - playerPos.x;
+            float dy = mousePos.y - playerPos.y;
     
-        return Mathf.Atan2(dy, dx);
-    }
+            return Mathf.Atan2(dy, dx);
+        }
     
-    private void drawCones(float direction)
-    {
-        float angleLow = direction - Mathf.PI / 8;
-        float angleHigh = direction + Mathf.PI / 8;
+        private void drawCones(float direction)
+        {
+            float angleLow = direction - Mathf.PI / 8;
+            float angleHigh = direction + Mathf.PI / 8;
         
-        _aimingAbstract.DrawTestCone(direction, angleLow, angleHigh);
-        _aimingAbstract.setAngle(AimingAbstract.ClampAngle(GetAngle(), angleLow, angleHigh));
-        Vector3 endpoint = new Vector3(5 * Mathf.Cos(getAngleHelper()), 5 * Mathf.Sin(getAngleHelper()), 0);
-        Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
-    }
+            AimingAbstract.DrawTestCone(angleLow, angleHigh);
+            AimingAbstract.setAngle(AimingAbstract.ClampAngle(GetAngle(), angleLow, angleHigh));
+            Vector3 endpoint = R * new Vector3(Mathf.Cos(getAngleHelper()), Mathf.Sin(getAngleHelper()), 0);
+            Debug.DrawRay(_player.position, endpoint, Color.red, Time.deltaTime);
+        }
 
-    public float getAngleHelper()
-    {
-        return _aimingAbstract.getAngle();
-    }
-    
-    public bool IsAiming()
-    {
-        return _isAiming;
+        public float getAngleHelper()
+        {
+            return AimingAbstract.getAngle();
+        }
     }
 }

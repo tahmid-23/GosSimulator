@@ -8,16 +8,16 @@ namespace Aiming
         private const int R = 5;
         
         public float Angle { get; private set; }
-        
-        void Start()
+
+        private void Awake()
         {
             _player = GetComponent<Transform>();
         }
 
-        public void DrawTestCone(float angle, float angleLow, float angleHigh)
+        public void DrawTestCone(float angleLow, float angleHigh)
         {
-            Vector3 dirLow = new Vector3(R*Mathf.Cos(angleLow), R*Mathf.Sin(angleLow));
-            Vector3 dirHigh = new Vector3(R*Mathf.Cos(angleHigh), R*Mathf.Sin(angleHigh));
+            Vector3 dirLow = R * new Vector3(Mathf.Cos(angleLow), Mathf.Sin(angleLow));
+            Vector3 dirHigh = R * new Vector3(Mathf.Cos(angleHigh), Mathf.Sin(angleHigh));
         
             Vector3 position = _player.position;
             Debug.DrawRay(position, dirLow, Color.black, Time.deltaTime);

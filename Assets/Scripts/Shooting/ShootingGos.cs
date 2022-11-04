@@ -40,8 +40,8 @@ namespace Shooting
                 
                 GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
                 MovementBullet movementBullet = bullet.GetComponent<MovementBullet>();
-                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.Angle);
-                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.Angle);
+                movementBullet.speed.x = BulletSpeed * Mathf.Cos(player.getAngle());
+                movementBullet.speed.y = BulletSpeed * Mathf.Sin(player.getAngle());
                 movementBullet.duration = 100;
             }
         }

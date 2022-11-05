@@ -12,13 +12,17 @@ namespace Gos
 
         private Camera _camera;
 
-        private GosMovement _movementGos;
+        private GosMovement _gosMovement;
+        
+        [Range(0.0f, 1.0f)]
+        [SerializeField]
+        private float aimSpeedMultiplier = 0.5f;
 
         private void Awake()
         {
             Aiming = GetComponent<Aiming>();
             _camera = Camera.main;
-            _movementGos = GetComponent<GosMovement>();
+            _gosMovement = GetComponent<GosMovement>();
         }
 
         public void Update()
@@ -26,11 +30,12 @@ namespace Gos
             if (Input.GetKeyDown(KeyCode.E))
             {
                 IsAiming = !IsAiming;
+                _gosMovement.AdjustSpeed(aimSpeedMultiplier, IsAiming);
             }
 
             if (IsAiming)
             {
-                Aiming.DrawCones(_movementGos.Direction, GetAngle());
+                Aiming.DrawCones(_gosMovement.Direction, GetAngle());
             }
         }
 

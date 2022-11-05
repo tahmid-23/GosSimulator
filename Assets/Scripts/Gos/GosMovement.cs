@@ -6,8 +6,6 @@ namespace Gos
     {
         
         public float Direction { get; private set; }
-
-        public float MaxSpeed { get; set; } = 5f;
         
         private const float Acceleration = 1f;
         
@@ -22,6 +20,9 @@ namespace Gos
         private Transform _square;
 
         private Vector3 _speed = Vector3.zero;
+
+        [SerializeField]
+        private float maxSpeed = 5f;
 
         private void Awake()
         {
@@ -54,14 +55,14 @@ namespace Gos
         {
             if (input != 0)
             {
-                if (Mathf.Abs(component) < MaxSpeed)
+                if (Mathf.Abs(component) < maxSpeed)
                 {
                     float sign = Mathf.Sign(input);
                     float newSpeed = component + sign * Acceleration;
-                    if (Mathf.Abs(newSpeed) > MaxSpeed)
+                    if (Mathf.Abs(newSpeed) > maxSpeed)
                     {
                         // sign of input must equal sign of speed
-                        component = sign * MaxSpeed * PranjalsConstant;
+                        component = sign * maxSpeed * PranjalsConstant;
                     }
                     else
                     {
@@ -106,6 +107,28 @@ namespace Gos
         private void AdjustSprite()
         {
             _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * Direction);
+        }
+
+        public void AdjustSpeed(float multiplier, bool multiply)
+        {
+            if (multiply)
+            {
+                maxSpeed *= multiplier;
+            }
+            else
+            {
+                maxSpeed /= multiplier;
+                
+                if (_speed.x > maxSpeed)
+                {
+                    _speed.x = maxSpeed;
+                }
+
+                if (_speed.y > maxSpeed)
+                {
+                    _speed.y = maxSpeed;
+                }
+            }
         }
         
     }

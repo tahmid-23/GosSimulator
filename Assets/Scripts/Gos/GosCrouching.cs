@@ -8,7 +8,7 @@ namespace Gos
 
         private HeightBehaviour _heightBehaviour;
         
-        private GosMovement _movementGos;
+        private GosMovement _gosMovement;
 
         private bool _crouching;
 
@@ -21,7 +21,7 @@ namespace Gos
         private void Awake()
         {
             _heightBehaviour = GetComponent<HeightBehaviour>();
-            _movementGos = GetComponent<GosMovement>();
+            _gosMovement = GetComponent<GosMovement>();
             _initialHeight = _heightBehaviour.Height;
         }
 
@@ -32,12 +32,12 @@ namespace Gos
                 _crouching = !_crouching;
                 if (_crouching)
                 {
-                    _movementGos.MaxSpeed *= crouchSpeedMultiplier;
+                    _gosMovement.AdjustSpeed(crouchSpeedMultiplier, true);
                     _heightBehaviour.Height = 1;
                 }
                 else
                 {
-                    _movementGos.MaxSpeed /= crouchSpeedMultiplier;
+                    _gosMovement.AdjustSpeed(crouchSpeedMultiplier, false);
                     _heightBehaviour.Height = _initialHeight;
                 }
             }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scenes
+namespace Scene
 {
     public class SceneSwitcher : MonoBehaviour
     {

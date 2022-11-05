@@ -6,9 +6,13 @@ namespace Inventory
 {
     public class Inventory : MonoBehaviour
     {
-        private Item[] _items = new Item[6];
-        private int _equipped = 0;
-        public Image select;
+
+        private readonly Item[] _items = new Item[6];
+
+        [SerializeField]
+        private Image select;
+
+        private int _equipped;
 
         private void Update()
         {
@@ -27,29 +31,19 @@ namespace Inventory
 
         private void TestInput()
         {
-            if (Input.GetKeyDown("1"))
+            for (int i = 0; i < Math.Min(9, _items.Length); i++)
             {
-                _equipped = 0;
-            }
-            if (Input.GetKeyDown("2"))
-            {
-                _equipped = 1;
-            }
-            if (Input.GetKeyDown("3"))
-            {
-                _equipped = 2;
-            }
-            if (Input.GetKeyDown("4"))
-            {
-                _equipped = 3;
-            }
-            if (Input.GetKeyDown("5"))
-            {
-                _equipped = 4;
-            }
-            if (Input.GetKeyDown("6"))
-            {
-                _equipped = 5;
+                int key = i + 1;
+                if (key == 10)
+                {
+                    key = 0;
+                }
+
+                if (Input.GetKeyDown(key.ToString()))
+                {
+                    _equipped = i;
+                    break;
+                }
             }
         }
 

@@ -1829,7 +1829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 75
-  bulletHeight: 1
+  bulletHeight: 2
   bulletDamage: 5
 --- !u!114 &1958267100
 MonoBehaviour:

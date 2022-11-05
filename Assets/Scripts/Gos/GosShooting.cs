@@ -13,13 +13,13 @@ namespace Gos
 
         private GosAiming _gosAiming;
         
-        [field : SerializeField]
-        private int bulletSpeed = 75;
+        [SerializeField]
+        private float bulletSpeed = 75f;
 
-        [field: SerializeField] 
-        private int bulletHeight = 1;
+        [SerializeField] 
+        private int bulletHeight = 2;
 
-        [field : SerializeField]
+        [SerializeField]
         private float bulletDamage = 5.0f;
     
         private void Awake()
@@ -45,8 +45,12 @@ namespace Gos
                     if (raycast.collider != null &&
                         raycast.collider.gameObject.TryGetComponent(out HeightBehaviour heightBehaviour))
                     {
-                        withHeight.Add(raycast);
-                        heights[raycast] = heightBehaviour.Height;
+                        int height = heightBehaviour.Height;
+                        if (height <= bulletHeight)
+                        {
+                            withHeight.Add(raycast);
+                            heights[raycast] = height;
+                        }
                     }
                 }
 
@@ -62,7 +66,7 @@ namespace Gos
                         maxHeight = height;
                         if (raycast.collider.gameObject.TryGetComponent(out IDamageReceiver damageReceiver))
                         {
-                            damageReceiver?.ChangeHealth(-bulletDamage);
+                            damageReceiver.ChangeHealth(-bulletDamage);
                             bulletDistance = raycast.distance;
                             break;
                         }

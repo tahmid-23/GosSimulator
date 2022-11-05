@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,8 +6,10 @@ namespace Scenes
 {
     public class SceneSwitcher : MonoBehaviour
     {
+
         private const KeyCode Ctrl = KeyCode.LeftControl;
-        private readonly IDictionary<KeyCode, String> _sceneDict = new Dictionary<KeyCode, String>();
+
+        private readonly IDictionary<KeyCode, string> _sceneDict = new Dictionary<KeyCode, string>();
 
         private void Start()
         {
@@ -17,16 +18,15 @@ namespace Scenes
         }
 
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (Input.GetKey(Ctrl))
             {
-                foreach (KeyCode k in _sceneDict.Keys)
+                foreach (KeyValuePair<KeyCode, string> pair in _sceneDict)
                 {
-                    if (Input.GetKeyDown(k))
+                    if (Input.GetKeyDown(pair.Key))
                     {
-                        SceneManager.LoadScene(_sceneDict[k]);
+                        SceneManager.LoadScene(pair.Value);
                     }
                 }
             }

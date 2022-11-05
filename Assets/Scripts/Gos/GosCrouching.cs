@@ -14,7 +14,8 @@ namespace Gos
 
         private int _initialHeight;
 
-        [field : SerializeField]
+        [Range(0.0f, 1.0f)]
+        [SerializeField]
         private float crouchSpeedMultiplier = 0.5f;
 
         private void Awake()

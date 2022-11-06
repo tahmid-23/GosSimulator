@@ -14,11 +14,20 @@ namespace Inventory
 
         private int _equipped;
 
+        private void Start()
+        {
+            _items[1] = new Rock();
+        }
+
         private void Update()
         {
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
+            if (_items[_equipped] != null && _items[_equipped] is Throwable)
+            {
+               ((Throwable) _items[_equipped]).DisplayThrowingArc();
+            }
         }
 
         private void DisplayItems()

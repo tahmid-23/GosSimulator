@@ -17,6 +17,7 @@ namespace Inventory
         private void Start()
         {
             _items[1] = new Rock();
+            _items[2] = new Frisbee();
         }
 
         private void Update()
@@ -27,6 +28,11 @@ namespace Inventory
             if (_items[_equipped] != null && _items[_equipped] is Throwable)
             {
                ((Throwable) _items[_equipped]).DisplayThrowingArc();
+            }
+
+            if (Input.GetButtonDown("Fire1") && _items[_equipped] != null)
+            {
+                _items[_equipped].UseItem();
             }
         }
 

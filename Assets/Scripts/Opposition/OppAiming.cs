@@ -1,4 +1,6 @@
+using System;
 using Aim;
+using Gos;
 using UnityEngine;
 
 namespace Opposition
@@ -7,15 +9,25 @@ namespace Opposition
     {
 
         private Aiming _aiming;
+        public Rigidbody2D gos;
+        private Rigidbody2D body;
 
         private void Start()
         {
             _aiming = GetComponent<Aiming>();
+            body = GetComponent<Rigidbody2D>();
+        }
+
+        private double aimGos()
+        {
+            double dx = body.position.x - gos.position.x;
+            double dy = body.position.y - gos.position.y;
+            return Math.Atan2(dy, dx);
         }
 
         private void FixedUpdate()
         {
-            _aiming.DrawCones(Mathf.PI / 2, Mathf.PI / 2);
+            _aiming.DrawCones((float) aimGos(), (float) aimGos());
         }
 
     }

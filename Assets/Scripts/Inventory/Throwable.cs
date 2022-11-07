@@ -50,7 +50,9 @@ namespace Inventory
             
             _testObj.position = finalPos;
             
-            
+            GenerateTrajectory(playerPos, finalPos, height, theta, 7);
+
+
             //old code that only depended on x-axis range
             /*float dx = mousePos.x - playerPos.x;
             if (dx < 0)
@@ -61,6 +63,36 @@ namespace Inventory
             {
                 mousePos.x = Mathf.Min(dx, _throwRange) + playerPos.x;
             }*/
+        }
+
+        private void GenerateTrajectory(Vector3 playerPos, Vector3 target, float height, float theta, int n)
+        {
+            float dx = (target.x - playerPos.x)/(n+1);
+            for (int i = 1; i <= n; i++)
+            {
+                GameObject trajectoryDot = Resources.Load<GameObject>("Prefabs/Bullet");
+                GameObject obj = GameObject.Instantiate(trajectoryDot);
+                Vector3 unrotatedPos = GetTrajectory(playerPos, target, height, i*dx + playerPos.x) - playerPos;
+                obj.transform.position =
+                    new Vector3(unrotatedPos.x * Mathf.Cos(theta) - unrotatedPos.y * Mathf.Sin(theta),
+                        unrotatedPos.x * Mathf.Sin(theta) + unrotatedPos.y * Mathf.Cos(theta)) + playerPos;
+                GameObject.Destroy(obj, 4*Time.deltaTime);
+            }
+
+            if (n % 2 == 0)
+            {
+                GenerateTrajectory(playerPos, target, height, theta, 1);
+            }
+        }
+
+        private Vector3 GetTrajectory(Vector3 playerPos, Vector3 target, float height, float x)
+        {
+            //-k(x-a)(x-b) where a is player position and b is target position
+            //where k = 4h/(a-b)^2
+            float a = playerPos.x;
+            float b = target.x;
+            float k = (4 * height)/((a-b)*(a-b));
+            return new Vector3(x, -k*(x-a)*(x-b));
         }
     }
 }

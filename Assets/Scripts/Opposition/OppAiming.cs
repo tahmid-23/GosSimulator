@@ -9,7 +9,7 @@ namespace Opposition
     {
 
         private Aiming _aiming;
-        public Rigidbody2D gos;
+        public Transform gos;
         private Rigidbody2D body;
 
         private void Start()

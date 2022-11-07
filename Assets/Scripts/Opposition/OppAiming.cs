@@ -20,9 +20,9 @@ namespace Opposition
 
         private double aimGos()
         {
-            double dx = body.position.x - gos.position.x;
-            double dy = body.position.y - gos.position.y;
-            return Math.Atan2(dy, dx);
+            float dx = body.position.x - gos.position.x;
+            float dy = body.position.y - gos.position.y;
+            return Mathf.Atan2(dy, dx) + Mathf.PI;
         }
 
         private void FixedUpdate()

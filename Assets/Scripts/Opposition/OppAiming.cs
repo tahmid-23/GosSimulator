@@ -11,6 +11,7 @@ namespace Opposition
         private Aiming _aiming;
         public Transform gos;
         private Rigidbody2D body;
+        private float angle;
 
         private void Start()
         {
@@ -18,17 +19,22 @@ namespace Opposition
             body = GetComponent<Rigidbody2D>();
         }
 
-        private double aimGos()
+        private void aimGos()
         {
             float dx = body.position.x - gos.position.x;
             float dy = body.position.y - gos.position.y;
-            return Mathf.Atan2(dy, dx) + Mathf.PI;
+            this.angle = Mathf.Atan2(dy, dx) + Mathf.PI;
         }
 
         private void FixedUpdate()
         {
-            _aiming.DrawCones((float) aimGos(), (float) aimGos());
+            aimGos();
+            _aiming.DrawCones(angle, angle);
         }
 
+        public float getAngle()
+        {
+            return this.angle;
+        }
     }
 }

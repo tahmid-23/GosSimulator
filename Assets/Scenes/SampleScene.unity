@@ -934,6 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84da55c09e045bcb185e44f2a1ddc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gos: {fileID: 1958267095}
 --- !u!114 &1516720480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,6 +999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5c96e95c50a6f41a74e635953fdce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 5
 --- !u!212 &1958267094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1125,6 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbf16dbd31ce224e9b25d59a9f77913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimSpeedMultiplier: 0.5
 --- !u!114 &1958267099
 MonoBehaviour:
   m_ObjectHideFlags: 0

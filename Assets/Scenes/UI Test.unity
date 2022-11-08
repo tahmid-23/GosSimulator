@@ -1633,6 +1633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84da55c09e045bcb185e44f2a1ddc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gos: {fileID: 1958267095}
 --- !u!114 &1516720480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2074,6 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

@@ -20,7 +20,7 @@ namespace Opposition
         private void shootBullet()
         {
             Vector3 position = op_transform.position;
-            float angle = aiming.getAngle();
+            float angle = aiming.GetAngle();
             Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
             GameObject bullet = Instantiate(_bullet, position, Quaternion.identity);
             BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();

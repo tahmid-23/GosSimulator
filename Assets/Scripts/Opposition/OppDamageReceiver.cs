@@ -24,7 +24,7 @@ namespace Opposition
 
         protected override void OnDeath()
         {
-            
+            Destroy(gameObject);
         }
     }
 }

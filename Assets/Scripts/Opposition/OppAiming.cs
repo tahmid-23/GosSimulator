@@ -10,31 +10,33 @@ namespace Opposition
 
         private Aiming _aiming;
         public Transform gos;
-        private Rigidbody2D body;
-        private float angle;
+        private Rigidbody2D _body;
+        private float _angle;
 
         private void Start()
         {
             _aiming = GetComponent<Aiming>();
-            body = GetComponent<Rigidbody2D>();
+            _body = GetComponent<Rigidbody2D>();
         }
 
-        private void aimGos()
+        private void AimGos()
         {
-            float dx = body.position.x - gos.position.x;
-            float dy = body.position.y - gos.position.y;
-            this.angle = Mathf.Atan2(dy, dx) + Mathf.PI;
+            Vector2 bodyPosition = _body.position;
+            Vector3 gosPosition = gos.position;
+            float dx = bodyPosition.x - gosPosition.x;
+            float dy = bodyPosition.y - gosPosition.y;
+            _angle = Mathf.Atan2(dy, dx) + Mathf.PI;
         }
 
         private void FixedUpdate()
         {
-            aimGos();
-            _aiming.DrawCones(angle, angle);
+            AimGos();
+            _aiming.DrawCones(_angle, _angle);
         }
 
-        public float getAngle()
+        public float GetAngle()
         {
-            return this.angle;
+            return _angle;
         }
     }
 }

@@ -1463,7 +1463,7 @@ GameObject:
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: Enemy
   m_TagString: Opp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1747,6 +1747,8 @@ GameObject:
   - component: {fileID: 1958267095}
   - component: {fileID: 1958267094}
   - component: {fileID: 1958267093}
+  - component: {fileID: 1958267105}
+  - component: {fileID: 1958267104}
   - component: {fileID: 1958267100}
   - component: {fileID: 1958267098}
   - component: {fileID: 1958267099}
@@ -1969,6 +1971,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crouchSpeedMultiplier: 0.5
+--- !u!114 &1958267104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95966279c1049e8ae808c5009de05af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gosMelee: {fileID: 1958267105}
+--- !u!114 &1958267105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccd6029538e9494eb5a4d6013c336f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
 --- !u!1 &2008192289
 GameObject:
   m_ObjectHideFlags: 0

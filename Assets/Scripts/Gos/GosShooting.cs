@@ -12,6 +12,8 @@ namespace Gos
         private GameObject _bullet;
 
         private GosAiming _gosAiming;
+
+        private Collider2D _collider;
         
         [SerializeField]
         private float bulletSpeed = 75f;
@@ -26,6 +28,7 @@ namespace Gos
         {
             _bullet = Resources.Load("Prefabs/Bullet") as GameObject;
             _gosAiming = GetComponent<GosAiming>();
+            _collider = GetComponent<BoxCollider2D>();
         }
 
         private void Update()
@@ -42,7 +45,7 @@ namespace Gos
                 IDictionary<RaycastHit2D, int> heights = new Dictionary<RaycastHit2D, int>();
                 foreach (RaycastHit2D raycast in raycasts)
                 {
-                    if (raycast.collider != null &&
+                    if (raycast.collider != null && raycast.collider != _collider &&
                         raycast.collider.gameObject.TryGetComponent(out HeightBehaviour heightBehaviour))
                     {
                         int height = heightBehaviour.Height;

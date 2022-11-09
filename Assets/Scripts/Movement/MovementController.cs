@@ -21,15 +21,18 @@ namespace Movement
         {
             Vector2 center = transform.TransformPoint(_boxCollider2D.offset);
             Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
-            RaycastHit2D raycast = Physics2D.BoxCast(center, _boxCollider2D.size, 0F, resultSpeed, resultSpeed.magnitude);
-            if (raycast.collider)
+            
+            RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, _boxCollider2D.size, 0F, resultSpeed, resultSpeed.magnitude);
+            foreach (RaycastHit2D raycast in raycasts)
             {
+                if (!raycast.collider || raycast.collider == _boxCollider2D) continue;
+                
                 float projection = Vector2.Dot(resultSpeed, raycast.normal);
-                if (projection < 0)
-                {
-                    resultSpeed -= projection * raycast.normal;
-                }
+                if (projection >= 0) continue;
+                
+                resultSpeed -= (projection + raycast.distance) * raycast.normal;
             }
+            
             _rigidbody2D.MovePosition(_rigidbody2D.position + resultSpeed);
         }
 

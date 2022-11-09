@@ -7,10 +7,6 @@ namespace Gos
     {
         
         public float Direction { get; private set; }
-        
-        private const float Acceleration = 1F;
-        
-        private const float Deceleration = 2F;
 
         private GosAiming _gosAim;
 
@@ -20,6 +16,12 @@ namespace Gos
 
         [SerializeField]
         private float maxSpeed = 5F;
+        
+        [SerializeField]
+        private float acceleration = 1F;
+        
+        [SerializeField]
+        private float deceleration = 2F;
 
         private void Awake()
         {
@@ -49,7 +51,7 @@ namespace Gos
             if (input != 0)
             {
                 float sign = Mathf.Sign(input);
-                float newSpeed = component + sign * Acceleration;
+                float newSpeed = component + sign * acceleration;
                 if (Mathf.Abs(newSpeed) > maxSpeed)
                 {
                     // sign of input must equal sign of speed
@@ -58,11 +60,11 @@ namespace Gos
                 
                 return newSpeed;
             }
-            if (Mathf.Abs(component) < Deceleration) {
+            if (Mathf.Abs(component) < deceleration) {
                 return 0;
             }
 
-            return component - Mathf.Sign(component) * Deceleration;
+            return component - Mathf.Sign(component) * deceleration;
         }
 
         private float InputToAngle(float horizontal, float vertical)

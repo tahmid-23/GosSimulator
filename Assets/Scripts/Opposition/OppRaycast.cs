@@ -12,11 +12,7 @@ namespace Opposition
             
             if(hit.collider != null && hit.collider.CompareTag("main_character"))
             { 
-<<<<<<< Updated upstream
                 Debug.Log("collision");
-=======
-                _opp.TriggerCombat();
->>>>>>> Stashed changes
             }
         }
     }

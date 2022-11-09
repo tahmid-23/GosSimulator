@@ -30,7 +30,7 @@ namespace AI
         public void Update()
         {
             Vector2 gosPosition = _gosTransform.position, aiPosition = _aiRigidbody2D.position;
-            Vector2 direction = new Vector2(gosPosition.x - aiPosition.x, gosPosition.y - aiPosition.y) * _speed;
+            Vector2 direction = _speed * (gosPosition - aiPosition);
             direction.Normalize();
             _movementController.Speed = direction;
         }

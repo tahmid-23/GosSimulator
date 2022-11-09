@@ -1,9 +1,11 @@
 using System.Buffers.Text;
+using UnityEngine;
 
 namespace Inventory
 {
     public class AmericanFlag: Melee
     {
+        private Sprite _sprite = Resources.Load<Sprite>("Sprites/flag");
         public AmericanFlag() : base(10, 1, 2)
         {
             
@@ -14,9 +16,10 @@ namespace Inventory
             
         }
 
-        public override void DisplayItem()
+        public override Sprite DisplayItem()
         {
-            
+            Debug.Log(_sprite);
+            return _sprite;
         }
     }
 }

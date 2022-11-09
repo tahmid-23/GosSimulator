@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Inventory
 {
     public class TestGun : Projectile
@@ -6,7 +8,7 @@ namespace Inventory
         {
         }
 
-        public override void DisplayItem()
+        public override Sprite DisplayItem()
         {
             throw new System.NotImplementedException();
         }

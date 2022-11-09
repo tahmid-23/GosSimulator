@@ -12,6 +12,8 @@ namespace Inventory
         [SerializeField]
         private Image select;
 
+        [SerializeField] private Sprite emptySprite;
+
         [SerializeField] private GameObject hotbar;
 
         private int _equipped;
@@ -41,9 +43,16 @@ namespace Inventory
 
         private void DisplayItems()
         {
-            foreach (Item i in _items)
+            for (int i = 0; i < _items.Length; i++)
             {
-                i?.DisplayItem();
+                try
+                {
+                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = _items[i].DisplayItem();
+                }
+                catch (Exception)
+                {
+                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = emptySprite;
+                }
             }
         }
 

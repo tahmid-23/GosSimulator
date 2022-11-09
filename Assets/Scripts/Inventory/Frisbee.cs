@@ -9,9 +9,9 @@ namespace Inventory
         {
         }
 
-        public override void DisplayItem()
+        public override Sprite DisplayItem()
         {
-        
+            throw new System.NotImplementedException();
         }
 
         protected override void Use()

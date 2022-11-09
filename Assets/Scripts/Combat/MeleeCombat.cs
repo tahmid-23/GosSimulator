@@ -3,43 +3,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Utils;
 
 public class MeleeCombat : MonoBehaviour
 {
     // Update is called once per frame
-    public double radius = 2.0;
+    public double _radius = 5.0;
+
+    private bool charge_boolean = false;
+    private GameObject otherGameObject;
+
+    private BoxCollider2D _boxCollider2D;
+
+    void Start()
+    {
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Enemy")
+        {
+            charge_boolean = false;
+            transform.position += new Vector3(-2, 0);
+        }
+    }
 
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightShift))
+    { 
+        if (CollisionDetection.IsTouching(transform.gameObject, otherGameObject))
         {
-            Debug.Log("Melee Combat Mode is activated");
+            Debug.Log("Touched");
         }
-
-        if (Input.GetMouseButtonDown(0))
+        
+        if (charge_boolean)
         {
-            RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-            Debug.Log(rayHit.transform.name);
+            double dx = (otherGameObject.transform.position.x - transform.position.x);
+            double dy = (otherGameObject.transform.position.y - transform.position.y);
+                
+            transform.position += new Vector3((float) dx * Time.deltaTime, (float) dy * Time.deltaTime);
         }
     }
 
-    public String objectClickedName()
+    public GameObject ObjectClickedGameObject()
     {
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        return rayHit.transform.name;
+        otherGameObject = rayHit.rigidbody.gameObject;
+        return rayHit.rigidbody.gameObject;
     }
 
-    public bool isMeleeAllowed()
+    public bool IsMeleeAllowed()
     {
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        Transform transform = rayHit.transform;
+        Transform other = rayHit.transform;
 
-        double dx = Math.Abs(transform.position.x - getX());
-        double dy = Math.Abs(transform.position.y - getY());
+        double dx = Math.Abs(other.position.x - getX());
+        double dy = Math.Abs(other.position.y - getY());
 
         double length = Math.Sqrt((dx * dx) + (dy * dy));
 
-        return (length < radius);
+        return (length < _radius);
+    }
+
+    // Speed from 1-5? Idk it works for now
+    public void ConductMeleeAttack(GameObject initialPlayer, GameObject targetPlayer, int speed)
+    {
+        charge_boolean = true;
     }
 
     private double getX()

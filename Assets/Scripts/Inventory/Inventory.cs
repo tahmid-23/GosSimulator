@@ -12,12 +12,15 @@ namespace Inventory
         [SerializeField]
         private Image select;
 
+        [SerializeField] private GameObject hotbar;
+
         private int _equipped;
 
         private void Start()
         {
             _items[1] = new Rock();
             _items[2] = new Frisbee();
+            _items[3] = new AmericanFlag();
         }
 
         private void Update()
@@ -64,7 +67,12 @@ namespace Inventory
 
         private void UpdateEquippedSlot()
         {
-            select.transform.SetParent(transform.GetChild(_equipped), false);
+            select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
+        }
+
+        public Item getEquippedItem()
+        {
+            return _items[_equipped];
         }
     }
 }

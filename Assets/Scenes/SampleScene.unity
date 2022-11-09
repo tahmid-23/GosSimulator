@@ -151,7 +151,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177778289}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -391,7 +391,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425127548}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -719,7 +719,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997622444}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -763,6 +763,7 @@ GameObject:
   - component: {fileID: 1516720481}
   - component: {fileID: 1516720474}
   - component: {fileID: 1516720475}
+  - component: {fileID: 1516720482}
   m_Layer: 0
   m_Name: Square (3)
   m_TagString: Opp
@@ -782,8 +783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6fd72cca3e3b354baf4f4e79f825f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0, y: 0, z: 0}
-  maxSpeed: 5
+  gosTransform: {fileID: 1958267095}
 --- !u!212 &1516720472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -961,6 +961,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
+--- !u!114 &1516720482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516720470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108ec4a8a7fb4f0289327e9006938bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1958267092
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +992,7 @@ GameObject:
   - component: {fileID: 1958267103}
   - component: {fileID: 1958267097}
   - component: {fileID: 1958267096}
+  - component: {fileID: 1958267104}
   m_Layer: 0
   m_Name: Square
   m_TagString: main_character
@@ -1076,7 +1089,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958267092}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -1088,7 +1101,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &1958267097
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1194,3 +1207,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crouchSpeedMultiplier: 0.5
+--- !u!114 &1958267104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108ec4a8a7fb4f0289327e9006938bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

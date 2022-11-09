@@ -1,3 +1,4 @@
+using Movement;
 using UnityEngine;
 
 namespace Gos
@@ -7,42 +8,34 @@ namespace Gos
         
         public float Direction { get; private set; }
         
-        private const float Acceleration = 1f;
+        private const float Acceleration = 1F;
         
-        private const float Deceleration = 4f;
-
-        private const float PranjalsConstant = 1f;
+        private const float Deceleration = 2F;
 
         private GosAiming _gosAim;
 
-        private Rigidbody2D _rigidbody2D;
-
         private Transform _square;
 
-        private Vector3 _speed = Vector3.zero;
+        private MovementController _movementController;
 
         [SerializeField]
-        private float maxSpeed = 5f;
+        private float maxSpeed = 5F;
 
         private void Awake()
         {
             _gosAim = GetComponent<GosAiming>();
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+            _movementController = GetComponent<MovementController>();
             _square = transform.GetChild(0);
         }
 
         private void FixedUpdate()
         {
-            _rigidbody2D.velocity = _speed;
-        }
-
-        private void Update()
-        {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
-            AdjustComponent(ref _speed.x, horizontalInput);
-            AdjustComponent(ref _speed.y, verticalInput);
+            float newX = AdjustComponent(_movementController.Speed.x, horizontalInput);
+            float newY = AdjustComponent(_movementController.Speed.y, verticalInput);
+            _movementController.Speed = new Vector2(newX, newY);
 
             if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.IsAiming)
             {
@@ -51,32 +44,25 @@ namespace Gos
             }
         }
 
-        private void AdjustComponent(ref float component, float input)
+        private float AdjustComponent(float component, float input)
         {
             if (input != 0)
             {
-                if (Mathf.Abs(component) < maxSpeed)
+                float sign = Mathf.Sign(input);
+                float newSpeed = component + sign * Acceleration;
+                if (Mathf.Abs(newSpeed) > maxSpeed)
                 {
-                    float sign = Mathf.Sign(input);
-                    float newSpeed = component + sign * Acceleration;
-                    if (Mathf.Abs(newSpeed) > maxSpeed)
-                    {
-                        // sign of input must equal sign of speed
-                        component = sign * maxSpeed * PranjalsConstant;
-                    }
-                    else
-                    {
-                        component = newSpeed * PranjalsConstant;
-                    }
+                    // sign of input must equal sign of speed
+                    return sign * maxSpeed;
                 }
+                
+                return newSpeed;
             }
-            else if (Mathf.Abs(component) < Deceleration) {
-                component = 0 * PranjalsConstant;
+            if (Mathf.Abs(component) < Deceleration) {
+                return 0;
             }
-            else
-            {
-                component -= Mathf.Sign(component) * Deceleration * PranjalsConstant;
-            }
+
+            return component - Mathf.Sign(component) * Deceleration;
         }
 
         private float InputToAngle(float horizontal, float vertical)
@@ -118,18 +104,12 @@ namespace Gos
             else
             {
                 maxSpeed /= multiplier;
-                
-                if (_speed.x > maxSpeed)
-                {
-                    _speed.x = maxSpeed;
-                }
+                float speedX = Mathf.Min(_movementController.Speed.x, maxSpeed);
+                float speedY = Mathf.Min(_movementController.Speed.y, maxSpeed);
 
-                if (_speed.y > maxSpeed)
-                {
-                    _speed.y = maxSpeed;
-                }
+                _movementController.Speed = new Vector2(speedX, speedY);
             }
         }
-        
+
     }
 }

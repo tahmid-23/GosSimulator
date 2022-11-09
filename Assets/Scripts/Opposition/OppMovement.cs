@@ -1,41 +1,48 @@
+using System.Collections.Generic;
+using AI;
+using Movement;
 using UnityEngine;
 
 namespace Opposition
 {
-    public class OppMovement: MonoBehaviour {
-        public int Direction { get; private set; } = -1;
+    public class OppMovement: MonoBehaviour
+    {
 
-        public Vector3 speed = Vector3.zero;
+        [SerializeField]
+        private Transform gosTransform;
 
-        public float maxSpeed = 5f;
-
-        private Rigidbody2D _rigidbody2D;
-
-        private bool _combatMode;
+        private IEnumerable<IAIGoal> _aiGoals;
 
         private void Awake()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+            Rigidbody2D aiRigidBody2D = GetComponent<Rigidbody2D>();
+            MovementController movementController = GetComponent<MovementController>();
+            _aiGoals = new[] { new FollowGosGoal(gosTransform, aiRigidBody2D, movementController, 3) };
+        }
+
+        private void Start()
+        {
+            foreach (IAIGoal aiGoal in _aiGoals)
+            {
+                aiGoal.Start();
+            }
         }
 
         private void FixedUpdate()
         {
-            _rigidbody2D.velocity = speed;
+            foreach (IAIGoal aiGoal in _aiGoals)
+            {
+                aiGoal.Update();
+            }
         }
 
-        private void Update() {
-            speed.y = Direction * maxSpeed;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision) {
-            // Remember to change this to just walls later on
-            Direction *= -1;
-        }
-
-        public void TriggerCombat()
+        private void OnDisable()
         {
-            _combatMode = true;
+            foreach (IAIGoal aiGoal in _aiGoals)
+            {
+                aiGoal.End();
+            }
         }
-        
+
     }
 }

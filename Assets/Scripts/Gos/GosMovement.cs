@@ -23,11 +23,15 @@ namespace Gos
         [SerializeField]
         private float deceleration = 2F;
 
+        [SerializeField]
+        private GosSpriteSwitcher gosSpriteSwitcher;
+
         private void Awake()
         {
             _gosAim = GetComponent<GosAiming>();
             _movementController = GetComponent<MovementController>();
-            _square = transform.GetChild(0);
+            // _square = transform.GetChild(0);
+            gosSpriteSwitcher = GetComponent<GosSpriteSwitcher>();
         }
 
         private void FixedUpdate()
@@ -35,6 +39,26 @@ namespace Gos
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
+            if (horizontalInput > 0)
+            {
+                gosSpriteSwitcher.SwitchSpriteRight();
+            }
+
+            if (horizontalInput < 0)
+            {
+                gosSpriteSwitcher.SwitchSpriteLeft();
+            }
+
+            if (verticalInput > 0)
+            {
+                gosSpriteSwitcher.SwitchSpriteUp();
+            }
+            
+            if(verticalInput < 0)
+            {
+                gosSpriteSwitcher.SwitchSpriteDown();
+            }
+            
             float newX = AdjustComponent(_movementController.Speed.x, horizontalInput);
             float newY = AdjustComponent(_movementController.Speed.y, verticalInput);
             _movementController.Speed = new Vector2(newX, newY);
@@ -42,7 +66,7 @@ namespace Gos
             if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.IsAiming)
             {
                 Direction = InputToAngle(horizontalInput, verticalInput);
-                AdjustSprite();
+                // AdjustSprite();
             }
         }
 
@@ -92,10 +116,10 @@ namespace Gos
             return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 6;
         }
         
-        private void AdjustSprite()
-        {
-            _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * Direction);
-        }
+        // private void AdjustSprite()
+        // {
+        //     _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * Direction);
+        // }
 
         public void AdjustSpeed(float multiplier, bool multiply)
         {

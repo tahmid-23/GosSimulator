@@ -34,9 +34,9 @@ public class GosCombat : MonoBehaviour
             }
         }
         
-        if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
-        {
-            _shootingCombat.ShootProjectile();
-        }
+        // if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
+        // {
+        //     _shootingCombat.ShootProjectile();
+        // }
     }
 }

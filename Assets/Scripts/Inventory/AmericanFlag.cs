@@ -18,7 +18,6 @@ namespace Inventory
 
         public override Sprite DisplayItem()
         {
-            Debug.Log(_sprite);
             return _sprite;
         }
     }

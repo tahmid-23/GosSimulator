@@ -4,7 +4,7 @@ namespace Inventory
 {
     public class TestGun : Projectile
     {
-        public TestGun() : base(10, 2)
+        public TestGun() : base(10, 2, 2)
         {
         }
 

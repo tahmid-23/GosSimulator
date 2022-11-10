@@ -23,6 +23,7 @@ namespace Inventory
             _items[1] = new Rock();
             _items[2] = new Frisbee();
             _items[3] = new AmericanFlag();
+            _items[4] = new WaterGun();
         }
 
         private void Update()

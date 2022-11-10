@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gos;
 using UnityEngine;
 using Inventory;
 
 public class GosCombat : MonoBehaviour
 {
-    public MeleeCombat gosMelee;
+    private MeleeCombat _gosMelee;
+    private GosAiming _gosAiming;
+    private ShootingCombat _shootingCombat;
+    
     public Inventory.Inventory _inventory;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        gosMelee = GetComponent<MeleeCombat>();
+        _gosAiming = GetComponent<GosAiming>();
+        _gosMelee = GetComponent<MeleeCombat>();
         _inventory = GetComponent<Inventory.Inventory>();
+        _shootingCombat = GetComponent<ShootingCombat>();
     }
 
     // Update is called once per frame
@@ -22,14 +27,16 @@ public class GosCombat : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && _inventory.getEquippedItem() is Melee)
         {
-            if (gosMelee.IsMeleeAllowed())
+            if (_gosMelee.IsMeleeAllowed())
             {
                 Debug.Log("Hola");
-                gosMelee.ConductMeleeAttack(transform.gameObject, gosMelee.ObjectClickedGameObject(),5);
+                _gosMelee.ConductMeleeAttack(transform.gameObject, _gosMelee.ObjectClickedGameObject(),5);
             }
-            // Debug.Log(gosMelee.objectClickedName());
-            // Debug.Log(gosMelee.isMeleeAllowed());
-            // Debug.Log("tf?"); 
+        }
+        
+        if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
+        {
+            _shootingCombat.ShootProjectile();
         }
     }
 }

@@ -23,6 +23,8 @@ namespace Damage
                 return;
             }
             
+            Debug.Log("Inside Change Health");
+            
             if (delta > 0)
             {
                 float newHealth = Math.Min(Health + delta, MaxHealth);

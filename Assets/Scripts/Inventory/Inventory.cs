@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Inventory
     public class Inventory : MonoBehaviour
     {
 
-        private readonly Item[] _items = new Item[6];
+        private ArrayList _items = new ArrayList();
 
         [SerializeField]
         private Image select;
@@ -38,17 +39,19 @@ namespace Inventory
 
             if (Input.GetButtonDown("Fire1") && _items[_equipped] != null)
             {
-                _items[_equipped].UseItem();
+                Item equipped = (Item) _items[_equipped];
+                equipped.UseItem();
             }
         }
 
         private void DisplayItems()
         {
-            for (int i = 0; i < _items.Length; i++)
+            for (int i = 0; i < _items.Count; i++)
             {
                 try
                 {
-                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = _items[i].DisplayItem();
+                    Item equipped = (Item) _items[_equipped];
+                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = equipped.DisplayItem();
                 }
                 catch (Exception)
                 {
@@ -59,7 +62,7 @@ namespace Inventory
 
         private void TestInput()
         {
-            for (int i = 0; i < Math.Min(9, _items.Length); i++)
+            for (int i = 0; i < Math.Min(9, _items.Count); i++)
             {
                 int key = i + 1;
                 if (key == 10)
@@ -82,7 +85,17 @@ namespace Inventory
 
         public Item getEquippedItem()
         {
-            return _items[_equipped];
+            return (Item) _items[_items.Count - 1];
+        }
+
+        public void AddItem(Item item)
+        {
+            _items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            _items.Remove(item);
         }
     }
 }

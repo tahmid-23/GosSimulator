@@ -30,7 +30,7 @@ public class GosCombat : MonoBehaviour
             if (_gosMelee.IsMeleeAllowed())
             {
                 Debug.Log("Hola");
-                _gosMelee.ConductMeleeAttack(transform.gameObject, _gosMelee.ObjectClickedGameObject(),5);
+                _gosMelee.ConductMeleeAttack();
             }
         }
         

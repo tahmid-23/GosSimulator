@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
+using Opposition;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -12,6 +14,7 @@ public class MeleeCombat : MonoBehaviour
 
     private bool charge_boolean = false;
     private GameObject otherGameObject;
+    private Melee _currentWeapon;
 
     private BoxCollider2D _boxCollider2D;
 
@@ -24,18 +27,15 @@ public class MeleeCombat : MonoBehaviour
     {
         if (collision.gameObject.name == "Enemy")
         {
+            collision.gameObject.GetComponent<OppDamageReceiver>().ChangeHealth(_currentWeapon.GetDamage());
             charge_boolean = false;
             transform.position += new Vector3(-2, 0);
         }
     }
 
     void Update()
-    { 
-        if (CollisionDetection.IsTouching(transform.gameObject, otherGameObject))
-        {
-            Debug.Log("Touched");
-        }
-        
+    {
+
         if (charge_boolean)
         {
             double dx = (otherGameObject.transform.position.x - transform.position.x);
@@ -66,8 +66,10 @@ public class MeleeCombat : MonoBehaviour
     }
 
     // Speed from 1-5? Idk it works for now
-    public void ConductMeleeAttack(GameObject initialPlayer, GameObject targetPlayer, int speed)
+    public void ConductMeleeAttack()
     {
+        Inventory.Inventory _inventory = GetComponent<Inventory.Inventory>();
+        _currentWeapon = (Melee) _inventory.getEquippedItem();
         charge_boolean = true;
     }
 

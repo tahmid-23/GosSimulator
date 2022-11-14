@@ -17,12 +17,12 @@ namespace NPC
         {
             Inventory.Inventory gosInventory = GameObject.Find("Gos").GetComponent<Inventory.Inventory>();
             
-            Debug.Log("Hi my name is Clown P and I'm a massive circus");
+            Debug.Log("Hi my name is Jester P and I'm a massive circus");
 
             if (!rockGiven)
             {
                 
-                Debug.Log("Hey let me give you something");
+                Debug.Log("Hey let me give you something cuz Im a Jester");
                 Debug.Log("You have been given a rock");
                 gosInventory.AddItem(new Rock());
             }

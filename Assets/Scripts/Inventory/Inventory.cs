@@ -21,10 +21,10 @@ namespace Inventory
 
         private void Start()
         {
-            _items[1] = new Rock();
-            _items[2] = new Frisbee();
-            _items[3] = new AmericanFlag();
-            _items[4] = new WaterGun();
+            _items.Add(new Rock());
+            _items.Add(new Frisbee());
+            _items.Add(new AmericanFlag());
+            _items.Add(new WaterGun());
         }
 
         private void Update()

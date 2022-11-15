@@ -3,41 +3,32 @@ using UnityEngine;
 
 namespace AI
 {
-    public class FollowGosGoal : IAIGoal
+    public class FollowGosGoal : MonoBehaviour
     {
 
-        private readonly Transform _gosTransform;
+        [SerializeField]
+        private Transform gosTransform;
 
-        private readonly Rigidbody2D _aiRigidbody2D;
+        private Rigidbody2D _aiRigidbody2D;
 
-        private readonly MovementController _movementController;
+        private MovementController _movementController;
 
-        private readonly float _speed;
+        [SerializeField]
+        private float speed;
 
-        public FollowGosGoal(Transform gosTransform, Rigidbody2D aiRigidbody2D, MovementController movementController, float speed)
+        private void Awake()
         {
-            _gosTransform = gosTransform;
-            _aiRigidbody2D = aiRigidbody2D;
-            _movementController = movementController;
-            _speed = speed;
+            _aiRigidbody2D = GetComponent<Rigidbody2D>();
+            _movementController = GetComponent<MovementController>();
         }
 
-        public void Start()
+        private void Update()
         {
-            
-        }
-
-        public void Update()
-        {
-            Vector2 gosPosition = _gosTransform.position, aiPosition = _aiRigidbody2D.position;
-            Vector2 direction = _speed * (gosPosition - aiPosition);
+            Vector2 gosPosition = gosTransform.position, aiPosition = _aiRigidbody2D.position;
+            Vector2 direction = gosPosition - aiPosition;
             direction.Normalize();
-            _movementController.Speed = direction;
+            _movementController.Speed = speed * direction;
         }
 
-        public void End()
-        {
-            
-        }
     }
 }

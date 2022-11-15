@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - main_character
-  - Opp
+  - Enemy
   layers:
   - Default
   - TransparentFX

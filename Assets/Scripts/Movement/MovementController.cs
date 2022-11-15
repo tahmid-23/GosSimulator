@@ -19,10 +19,12 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            Vector2 center = transform.TransformPoint(_boxCollider2D.offset);
+            Transform gosTransform = transform;
+            Vector2 center = gosTransform.TransformPoint(_boxCollider2D.offset);
             Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
             
-            RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, _boxCollider2D.size, 0F, resultSpeed, resultSpeed.magnitude);
+            RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, gosTransform.localScale * _boxCollider2D.size,
+                0F, resultSpeed, resultSpeed.magnitude);
             foreach (RaycastHit2D raycast in raycasts)
             {
                 if (!raycast.collider || raycast.collider == _boxCollider2D) continue;

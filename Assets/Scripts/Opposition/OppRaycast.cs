@@ -10,7 +10,7 @@ namespace Opposition
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.forward, DistanceRay);
             
-            if(hit.collider != null && hit.collider.CompareTag("main_character"))
+            if(hit.collider != null && hit.collider.CompareTag("Player"))
             { 
                 Debug.Log("collision");
             }

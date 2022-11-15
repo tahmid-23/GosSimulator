@@ -5,16 +5,14 @@ namespace Inventory
 {
     public abstract class Projectile : Weapon
     {
-        private readonly float _fireRate;
-        private double _bulletSpeed;
-        private double _bulletDistance;
-        private GameObject _projectilePrefab = Resources.Load("Prefabs/Bullet") as GameObject;
-
-        protected Projectile(float damage, float rate, double bulletSpeed) : base(damage)
-        {
-            _fireRate = rate;
-            _bulletSpeed = bulletSpeed;
-        }
+        [field: SerializeField]
+        public float FireRate { get; private set; }
+        [field: SerializeField]
+        public double BulletSpeed { get; private set; }
+        [field: SerializeField]
+        public double BulletDistance { get; private set; }
+        [field: SerializeField]
+        public GameObject ProjectilePrefab { get; private set; }
 
         public void Fire()
         {
@@ -23,23 +21,13 @@ namespace Inventory
 
         public float GetRate()
         {
-            return _fireRate;
-        }
-
-
-        public double GetBulletSpeed()
-        {
-            return _bulletSpeed;
+            return FireRate;
         }
 
         public double GetBulletDistance()
         {
-            return GetProjectilePrefab().GetComponent<BulletBehaviour>().distance;
+            return ProjectilePrefab.GetComponent<BulletBehaviour>().distance;
         }
 
-        public GameObject GetProjectilePrefab()
-        {
-            return _projectilePrefab;
-        }
     }
 }

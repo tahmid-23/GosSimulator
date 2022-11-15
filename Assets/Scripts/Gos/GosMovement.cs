@@ -1,4 +1,6 @@
+using System;
 using Movement;
+using Sprites;
 using UnityEngine;
 
 namespace Gos
@@ -23,15 +25,44 @@ namespace Gos
         [SerializeField]
         private float deceleration = 2F;
 
-        [SerializeField]
-        private GosSpriteSwitcher gosSpriteSwitcher;
+        private GosSpriteSwitcher _gosSpriteSwitcher;
+        
+        [Serializable]
+        public class Base
+        {
+
+            [SerializeReference]
+            public int baseF;
+            
+        }
+        
+        [Serializable]
+        public class DerivedA
+        {
+
+            [SerializeReference]
+            public int hello;
+
+        }
+        
+        [Serializable]
+        public class DerivedB
+        {
+
+            [SerializeReference]
+            public int goodbye;
+
+        }
+        
+        [SerializeReference]
+        public Base b;
 
         private void Awake()
         {
             _gosAim = GetComponent<GosAiming>();
             _movementController = GetComponent<MovementController>();
             // _square = transform.GetChild(0);
-            gosSpriteSwitcher = GetComponent<GosSpriteSwitcher>();
+            _gosSpriteSwitcher = GetComponent<GosSpriteSwitcher>();
         }
 
         private void FixedUpdate()
@@ -41,22 +72,22 @@ namespace Gos
 
             if (horizontalInput > 0)
             {
-                gosSpriteSwitcher.SwitchSpriteRight();
+                _gosSpriteSwitcher.SwitchSpriteRight();
             }
 
             if (horizontalInput < 0)
             {
-                gosSpriteSwitcher.SwitchSpriteLeft();
+                _gosSpriteSwitcher.SwitchSpriteLeft();
             }
 
             if (verticalInput > 0)
             {
-                gosSpriteSwitcher.SwitchSpriteUp();
+                _gosSpriteSwitcher.SwitchSpriteUp();
             }
             
             if(verticalInput < 0)
             {
-                gosSpriteSwitcher.SwitchSpriteDown();
+                _gosSpriteSwitcher.SwitchSpriteDown();
             }
             
             float newX = AdjustComponent(_movementController.Speed.x, horizontalInput);
@@ -72,6 +103,7 @@ namespace Gos
 
         private float AdjustComponent(float component, float input)
         {
+            component = Mathf.Min(component, maxSpeed);
             if (input != 0)
             {
                 float sign = Mathf.Sign(input);

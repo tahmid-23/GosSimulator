@@ -1,19 +1,14 @@
-using UnityEngine;
-
 namespace Inventory
 {
     public class TestGun : Projectile
     {
-        public TestGun() : base(10, 2, 2)
+
+        public override void Use()
         {
+            
         }
 
-        public override Sprite DisplayItem()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void Use()
+        public override void VisualUpdate()
         {
             throw new System.NotImplementedException();
         }

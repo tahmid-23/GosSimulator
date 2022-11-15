@@ -24,7 +24,7 @@ namespace NPC
                 
                 Debug.Log("Hey let me give you something cuz Im a Jester");
                 Debug.Log("You have been given a rock");
-                gosInventory.AddItem(new Rock());
+                gosInventory.AddItem<Rock>();
             }
         }
     }

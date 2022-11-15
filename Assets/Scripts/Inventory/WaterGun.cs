@@ -5,26 +5,20 @@ namespace Inventory
     public class WaterGun : Projectile
     {
         private double _percentFull = 100.0;
-        private Sprite _sprite = Resources.Load<Sprite>("Sprites/watergun");
-
-        public WaterGun() : base(10, 1, 20)
-        {
-            
-        }
 
         public void FillUp()
         {
             _percentFull = 100.0;
         }
 
-        protected override void Use()
+        public override void Use()
         {
-            Debug.Log("Used");
+            Debug.Log("Used WaterGun");
         }
 
-        public override Sprite DisplayItem()
+        public override void VisualUpdate()
         {
-            return _sprite;
+            throw new System.NotImplementedException();
         }
     }
 }

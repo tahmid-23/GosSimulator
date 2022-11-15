@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Combat;
 using Gos;
 using UnityEngine;
 using Inventory;
@@ -25,7 +26,7 @@ public class GosCombat : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetMouseButtonDown(0) && _inventory.getEquippedItem() is Melee)
+        if (Input.GetMouseButtonDown(0) && _inventory.GetEquippedItem() is Melee)
         {
             if (_gosMelee.IsMeleeAllowed())
             {

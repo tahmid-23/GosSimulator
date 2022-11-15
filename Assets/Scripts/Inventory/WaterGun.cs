@@ -15,5 +15,10 @@ namespace Inventory
         {
             Debug.Log("Used WaterGun");
         }
+
+        public override void VisualUpdate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

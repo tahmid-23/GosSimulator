@@ -9,5 +9,10 @@ namespace Inventory
         {
             Debug.Log("angered the opps");
         }
+
+        public override void VisualUpdate()
+        {
+            
+        }
     }
 }

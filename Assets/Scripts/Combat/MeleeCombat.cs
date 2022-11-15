@@ -1,85 +1,89 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Damage;
 using Inventory;
-using Opposition;
+using Movement;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Utils;
 
-public class MeleeCombat : MonoBehaviour
+namespace Combat
 {
-    // Update is called once per frame
-    public double _radius = 5.0;
-
-    private bool charge_boolean = false;
-    private GameObject otherGameObject;
-    private Melee _currentWeapon;
-
-    private BoxCollider2D _boxCollider2D;
-
-    void Start()
+    public class MeleeCombat : MonoBehaviour
     {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
-    }
+        [SerializeField]
+        public double radius = 5.0;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Enemy")
+        private bool _chargeBoolean = false;
+        private Camera _camera;
+        private MovementController _movementController;
+        private GameObject _otherGameObject;
+        private Melee _currentWeapon;
+
+        private void Start()
         {
-            collision.gameObject.GetComponent<OppDamageReceiver>().ChangeHealth(_currentWeapon.Damage);
-            charge_boolean = false;
-            transform.position += new Vector3(-2, 0);
+            _camera = Camera.main;
+            _movementController = GetComponent<MovementController>();
         }
-    }
 
-    void Update()
-    {
-
-        if (charge_boolean)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            double dx = (otherGameObject.transform.position.x - transform.position.x);
-            double dy = (otherGameObject.transform.position.y - transform.position.y);
+            if (_currentWeapon != null && collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.gameObject.GetComponent<IDamageReceiver>().ChangeHealth(_currentWeapon.Damage);
+                _chargeBoolean = false;
+                _movementController.Speed += new Vector2(-2, 0);
+            }
+        }
+
+        private void Update()
+        {
+            if (_chargeBoolean)
+            {
+                double dx = (_otherGameObject.transform.position.x - transform.position.x);
+                double dy = (_otherGameObject.transform.position.y - transform.position.y);
                 
-            transform.position += new Vector3((float) dx * Time.deltaTime, (float) dy * Time.deltaTime);
+                transform.position += new Vector3((float) dx * Time.deltaTime, (float) dy * Time.deltaTime);
+            }
         }
-    }
 
-    public GameObject ObjectClickedGameObject()
-    {
-        RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        otherGameObject = rayHit.rigidbody.gameObject;
-        return rayHit.rigidbody.gameObject;
-    }
+        public GameObject ObjectClickedGameObject()
+        {
+            RaycastHit2D rayHit = Physics2D.GetRayIntersection(_camera.ScreenPointToRay(Input.mousePosition));
+            _otherGameObject = rayHit.rigidbody.gameObject;
+            return _otherGameObject;
+        }
 
-    public bool IsMeleeAllowed()
-    {
-        RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        Transform other = rayHit.transform;
+        public bool IsMeleeAllowed()
+        {
+            RaycastHit2D rayHit = Physics2D.GetRayIntersection(_camera.ScreenPointToRay(Input.mousePosition));
+            Transform other = rayHit.transform;
+            if (other == null)
+            {
+                return false;
+            }
+        
+            double dx = Math.Abs(other.position.x - GetX());
+            double dy = Math.Abs(other.position.y - GetY());
 
-        double dx = Math.Abs(other.position.x - getX());
-        double dy = Math.Abs(other.position.y - getY());
+            double length = Math.Sqrt((dx * dx) + (dy * dy));
 
-        double length = Math.Sqrt((dx * dx) + (dy * dy));
+            return (length < radius);
+        }
 
-        return (length < _radius);
-    }
+        // Speed from 1-5? Idk it works for now
+        public void ConductMeleeAttack()
+        {
+            Inventory.Inventory inventory = GetComponent<Inventory.Inventory>();
+            _currentWeapon = (Melee) inventory.GetEquippedItem();
+            _chargeBoolean = true;
+        }
 
-    // Speed from 1-5? Idk it works for now
-    public void ConductMeleeAttack()
-    {
-        Inventory.Inventory _inventory = GetComponent<Inventory.Inventory>();
-        _currentWeapon = (Melee) _inventory.getEquippedItem();
-        charge_boolean = true;
-    }
+        private double GetX()
+        {
+            return transform.position.x;
+        }
 
-    private double getX()
-    {
-        return transform.position.x;
-    }
-
-    private double getY()
-    {
-        return transform.position.y;
+        private double GetY()
+        {
+            return transform.position.y;
+        }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,15 +27,15 @@ namespace Inventory
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
-            if (items[_equipped] != null && items[_equipped] is Throwable)
+            Item equippedItem = GetEquippedItem();
+            if (items[_equipped] != null)
             {
-               ((Throwable) items[_equipped]).DisplayThrowingArc();
+               equippedItem.VisualUpdate();
             }
 
-            if (Input.GetButtonDown("Fire1") && items[_equipped] != null)
+            if (Input.GetButtonDown("Fire1"))
             {
-                Item equipped = items[_equipped];
-                equipped.Use();
+                equippedItem.Use();
             }
         }
 
@@ -44,15 +43,8 @@ namespace Inventory
         {
             for (int i = 0; i < items.Count; i++)
             {
-                try
-                {
-                    Item equipped = items[_equipped];
-                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = equipped.DisplaySprite;
-                }
-                catch (Exception)
-                {
-                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = emptySprite;
-                }
+                Item item = items[i];
+                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.DisplaySprite;
             }
         }
 
@@ -79,7 +71,7 @@ namespace Inventory
             select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
         }
 
-        public Item getEquippedItem()
+        public Item GetEquippedItem()
         {
             return items[_equipped];
         }

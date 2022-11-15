@@ -103,6 +103,7 @@ namespace Gos
 
         private float AdjustComponent(float component, float input)
         {
+            component = Mathf.Min(component, maxSpeed);
             if (input != 0)
             {
                 float sign = Mathf.Sign(input);

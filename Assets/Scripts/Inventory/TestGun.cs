@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Inventory
 {
     public class TestGun : Projectile
@@ -8,6 +6,11 @@ namespace Inventory
         public override void Use()
         {
             
+        }
+
+        public override void VisualUpdate()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

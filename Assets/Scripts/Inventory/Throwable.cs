@@ -7,9 +7,6 @@ namespace Inventory
     {
 
         [SerializeField]
-        private Camera mainCamera;
-
-        [SerializeField]
         private Transform player;
 
         [SerializeField]
@@ -23,6 +20,8 @@ namespace Inventory
 
         [SerializeField]
         private float throwRange;
+        
+        private Camera _mainCamera;
 
         private static Vector3 GetTrajectory(Vector3 playerPos, Vector3 target, float height, float x)
         {
@@ -34,10 +33,15 @@ namespace Inventory
             return new Vector3(x, -k * (x - a) * (x - b));
         }
 
-        public void DisplayThrowingArc()
+        private void Start()
+        {
+            _mainCamera = Camera.main;
+        }
+
+        public override void VisualUpdate()
         {
             Vector3 playerPos = player.position;
-            Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
 
             float r = Mathf.Min(Vector3.Distance(playerPos, mousePos), throwRange);

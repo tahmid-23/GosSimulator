@@ -38,7 +38,7 @@ public class ShootingCombat : MonoBehaviour
 
     public void ActivateWeapon()
     {
-        Projectile castedWeapon = (Projectile) _inventory.getEquippedItem();
+        Projectile castedWeapon = (Projectile) _inventory.GetEquippedItem();
         
         _bulletSpeed = (float) castedWeapon.BulletSpeed;
         _bulletDamage = castedWeapon.Damage;

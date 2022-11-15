@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Inventory
 {
     public class Rock : Throwable

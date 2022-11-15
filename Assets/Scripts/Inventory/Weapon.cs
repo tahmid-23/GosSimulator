@@ -1,17 +1,12 @@
+using UnityEngine;
+
 namespace Inventory
 {
     public abstract class Weapon : Item
     {
-        private readonly float _damage;
 
-        protected Weapon(float damage)
-        {
-            _damage = damage;
-        }
+        [field: SerializeField]
+        public float Damage { get; private set; }
 
-        public float GetDamage()
-        {
-            return _damage;
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,50 +9,45 @@ namespace Inventory
     public class Inventory : MonoBehaviour
     {
 
-        private ArrayList _items = new ArrayList();
+        [SerializeField]
+        private List<Item> items;
+
+        [SerializeField]
+        private GameObject hotbar;
 
         [SerializeField]
         private Image select;
 
-        [SerializeField] private Sprite emptySprite;
-
-        [SerializeField] private GameObject hotbar;
+        [SerializeField]
+        private Sprite emptySprite;
 
         private int _equipped;
-
-        private void Start()
-        {
-            _items.Add(new Rock());
-            _items.Add(new Frisbee());
-            _items.Add(new AmericanFlag());
-            _items.Add(new WaterGun());
-        }
 
         private void Update()
         {
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
-            if (_items[_equipped] != null && _items[_equipped] is Throwable)
+            if (items[_equipped] != null && items[_equipped] is Throwable)
             {
-               ((Throwable) _items[_equipped]).DisplayThrowingArc();
+               ((Throwable) items[_equipped]).DisplayThrowingArc();
             }
 
-            if (Input.GetButtonDown("Fire1") && _items[_equipped] != null)
+            if (Input.GetButtonDown("Fire1") && items[_equipped] != null)
             {
-                Item equipped = (Item) _items[_equipped];
-                equipped.UseItem();
+                Item equipped = items[_equipped];
+                equipped.Use();
             }
         }
 
         private void DisplayItems()
         {
-            for (int i = 0; i < _items.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 try
                 {
-                    Item equipped = (Item) _items[_equipped];
-                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = equipped.DisplayItem();
+                    Item equipped = items[_equipped];
+                    hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = equipped.DisplaySprite;
                 }
                 catch (Exception)
                 {
@@ -62,7 +58,7 @@ namespace Inventory
 
         private void TestInput()
         {
-            for (int i = 0; i < Math.Min(9, _items.Count); i++)
+            for (int i = 0; i < Math.Min(9, items.Count); i++)
             {
                 int key = i + 1;
                 if (key == 10)
@@ -85,17 +81,12 @@ namespace Inventory
 
         public Item getEquippedItem()
         {
-            return (Item) _items[_items.Count - 1];
+            return items[_equipped];
         }
 
-        public void AddItem(Item item)
+        public void AddItem<T>() where T : Item
         {
-            _items.Add(item);
-        }
-
-        public void RemoveItem(Item item)
-        {
-            _items.Remove(item);
+            items.Add(gameObject.AddComponent<T>());
         }
     }
 }

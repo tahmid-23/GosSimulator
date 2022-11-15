@@ -5,20 +5,9 @@ namespace Inventory
 {
     public class AmericanFlag: Melee
     {
-        private Sprite _sprite = Resources.Load<Sprite>("Sprites/flag");
-        public AmericanFlag() : base(10, 1, 2)
+        public override void Use()
         {
-            
-        }
-
-        protected override void Use()
-        {
-            
-        }
-
-        public override Sprite DisplayItem()
-        {
-            return _sprite;
+            Debug.Log("angered the opps");
         }
     }
 }

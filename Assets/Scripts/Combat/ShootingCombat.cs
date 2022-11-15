@@ -40,9 +40,9 @@ public class ShootingCombat : MonoBehaviour
     {
         Projectile castedWeapon = (Projectile) _inventory.getEquippedItem();
         
-        _bulletSpeed = (float) castedWeapon.GetBulletSpeed();
-        _bulletDamage = castedWeapon.GetDamage();
-        _bullet = castedWeapon.GetProjectilePrefab();
+        _bulletSpeed = (float) castedWeapon.BulletSpeed;
+        _bulletDamage = castedWeapon.Damage;
+        _bullet = castedWeapon.ProjectilePrefab;
         _bulletDistance = castedWeapon.GetBulletDistance();
     }
 

@@ -2,15 +2,12 @@ using UnityEngine;
 
 namespace Inventory
 {
-    public abstract class Item
+    public abstract class Item : MonoBehaviour
     {
-        public abstract Sprite DisplayItem();
 
-        protected abstract void Use();
+        [field: SerializeField]
+        public Sprite DisplaySprite { get; private set; }
 
-        public void UseItem()
-        {
-            Use();
-        }
+        public abstract void Use();
     }
 }

@@ -27,7 +27,7 @@ public class MeleeCombat : MonoBehaviour
     {
         if (collision.gameObject.name == "Enemy")
         {
-            collision.gameObject.GetComponent<OppDamageReceiver>().ChangeHealth(_currentWeapon.GetDamage());
+            collision.gameObject.GetComponent<OppDamageReceiver>().ChangeHealth(_currentWeapon.Damage);
             charge_boolean = false;
             transform.position += new Vector3(-2, 0);
         }

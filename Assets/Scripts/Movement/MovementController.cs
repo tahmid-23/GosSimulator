@@ -5,7 +5,7 @@ namespace Movement
     public class MovementController : MonoBehaviour
     {
 
-        public CollisionHandler OnCollision;
+        public CollisionHandler OnCollision { get; set; }= delegate { };
         
         public Vector2 Speed { get; set; } = Vector2.zero;
 

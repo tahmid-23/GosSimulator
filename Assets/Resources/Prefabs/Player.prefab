@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccd6029538e9494eb5a4d6013c336f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 5
+  radius: 5
 --- !u!114 &8456134153637361483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 8456134153637361530}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
@@ -273,7 +273,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &8456134153637361473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplaySprite>k__BackingField: {fileID: 0}
   <Damage>k__BackingField: 10
-  mainCamera: {fileID: 0}
   player: {fileID: 8456134153637361492}
   bulletPrefab: {fileID: 6680471186748605539, guid: 5b9ba2a7725b285469a26a91e544e8d1, type: 3}
   testObj: {fileID: 0}

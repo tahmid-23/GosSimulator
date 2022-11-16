@@ -24,15 +24,17 @@ namespace Movement
             Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
             
             RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, gosTransform.localScale * _boxCollider2D.size,
-                0F, resultSpeed, resultSpeed.magnitude);
+                0F, resultSpeed.normalized, resultSpeed.magnitude);
             foreach (RaycastHit2D raycast in raycasts)
             {
-                if (!raycast.collider || raycast.collider == _boxCollider2D) continue;
+                if (raycast.collider == null || raycast.collider == _boxCollider2D) continue;
                 
                 float projection = Vector2.Dot(resultSpeed, raycast.normal);
                 if (projection >= 0) continue;
                 
-                resultSpeed -= (projection + raycast.distance) * raycast.normal;
+                Vector2 reduction = (projection + raycast.distance) * raycast.normal;
+                resultSpeed -= reduction;
+                Speed -= projection / Time.fixedDeltaTime * raycast.normal; // next speed should be completely zeroed
             }
             
             _rigidbody2D.MovePosition(_rigidbody2D.position + resultSpeed);

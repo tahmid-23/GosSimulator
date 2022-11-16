@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Inventory
 {
-    public class Inventory : MonoBehaviour
+    public class PlayerInventory : MonoBehaviour
     {
 
         [SerializeField]
@@ -74,6 +74,12 @@ namespace Inventory
         public Item GetEquippedItem()
         {
             return items[_equipped];
+        }
+
+        public bool TryGetEquippedItem<T>(out T item) where T : Item
+        {
+            item = GetEquippedItem() as T;
+            return item != null;
         }
 
         public void AddItem<T>() where T : Item

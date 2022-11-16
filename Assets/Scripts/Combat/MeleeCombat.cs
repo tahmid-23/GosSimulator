@@ -71,8 +71,8 @@ namespace Combat
         // Speed from 1-5? Idk it works for now
         public void ConductMeleeAttack()
         {
-            Inventory.Inventory inventory = GetComponent<Inventory.Inventory>();
-            _currentWeapon = (Melee) inventory.GetEquippedItem();
+            PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+            _currentWeapon = (Melee) playerInventory.GetEquippedItem();
             _chargeBoolean = true;
         }
 

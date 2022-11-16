@@ -1,43 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using Combat;
-using Gos;
-using UnityEngine;
 using Inventory;
+using UnityEngine;
 
-public class GosCombat : MonoBehaviour
+namespace Gos
 {
-    private MeleeCombat _gosMelee;
-    private GosAiming _gosAiming;
-    private ShootingCombat _shootingCombat;
+    public class GosCombat : MonoBehaviour
+    {
+        private MeleeCombat _gosMelee;
+        private GosAiming _gosAiming;
+        private ShootingCombat _shootingCombat;
     
-    public Inventory.Inventory _inventory;
+        private PlayerInventory _playerInventory;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _gosAiming = GetComponent<GosAiming>();
-        _gosMelee = GetComponent<MeleeCombat>();
-        _inventory = GetComponent<Inventory.Inventory>();
-        _shootingCombat = GetComponent<ShootingCombat>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        if (Input.GetMouseButtonDown(0) && _inventory.GetEquippedItem() is Melee)
+        // Start is called before the first frame update
+        void Start()
         {
-            if (_gosMelee.IsMeleeAllowed())
-            {
-                Debug.Log("Hola");
-                _gosMelee.ConductMeleeAttack();
-            }
+            _gosAiming = GetComponent<GosAiming>();
+            _gosMelee = GetComponent<MeleeCombat>();
+            _playerInventory = GetComponent<PlayerInventory>();
+            _shootingCombat = GetComponent<ShootingCombat>();
         }
+
+        // Update is called once per frame
+        private void Update()
+        {
         
-        // if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
-        // {
-        //     _shootingCombat.ShootProjectile();
-        // }
+            if (Input.GetMouseButtonDown(0) && _playerInventory.GetEquippedItem() is Melee)
+            {
+                if (_gosMelee.IsMeleeAllowed())
+                {
+                    Debug.Log("Hola");
+                    _gosMelee.ConductMeleeAttack();
+                }
+            }
+        
+            // if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
+            // {
+            //     _shootingCombat.ShootProjectile();
+            // }
+        }
     }
 }

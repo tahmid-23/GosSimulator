@@ -4,11 +4,11 @@ namespace Inventory
 {
     public class WaterGun : Projectile
     {
-        private double _percentFull = 100.0;
+        private float _percentFull = 100.0F;
 
         public void FillUp()
         {
-            _percentFull = 100.0;
+            _percentFull = 100.0F;
         }
 
         public override void Use()

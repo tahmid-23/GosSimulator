@@ -27,10 +27,10 @@ namespace Gos
         
             if (Input.GetMouseButtonDown(0) && _playerInventory.GetEquippedItem() is Melee)
             {
-                if (_gosMelee.IsMeleeAllowed())
+                if (_gosMelee.IsMeleeAllowed(out MeleeCombat.AttackContext context))
                 {
                     Debug.Log("Hola");
-                    _gosMelee.ConductMeleeAttack();
+                    _gosMelee.ConductMeleeAttack(context);
                 }
             }
         

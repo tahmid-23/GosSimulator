@@ -13,7 +13,7 @@ namespace Movement
 
         private Rigidbody2D _rigidbody2D;
 
-        public delegate void CollisionHandler(RaycastHit2D collisionRaycast);
+        public delegate void CollisionHandler(RaycastHit2D collisionRaycast, Vector2 initialSpeed);
 
         private void Awake()
         {
@@ -25,6 +25,7 @@ namespace Movement
         {
             Transform gosTransform = transform;
             Vector2 center = gosTransform.TransformPoint(_boxCollider2D.offset);
+            Vector2 initialSpeed = Speed;
             Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
             
             RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, gosTransform.localScale * _boxCollider2D.size,
@@ -46,9 +47,9 @@ namespace Movement
             }
 
             _rigidbody2D.MovePosition(_rigidbody2D.position + resultSpeed);
-            foreach (RaycastHit2D raycast in collidingRaycasts)
+            for (int i = 0; i < collidingRaycastCount; ++i)
             {
-                OnCollision(raycast);
+                OnCollision(collidingRaycasts[i], initialSpeed);
             }
         }
 

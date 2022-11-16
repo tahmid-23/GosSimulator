@@ -112,7 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccd6029538e9494eb5a4d6013c336f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 20
+  chargeSpeed: 1
+  chargeRecoil: 1
 --- !u!114 &8456134153637361483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95966279c1049e8ae808c5009de05af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 8456134153637361473}
 --- !u!114 &8456134153637361481
 MonoBehaviour:
   m_ObjectHideFlags: 0

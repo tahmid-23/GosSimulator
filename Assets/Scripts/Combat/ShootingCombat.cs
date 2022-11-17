@@ -32,13 +32,20 @@ namespace Combat
             _collider = GetComponent<BoxCollider2D>();
         }
 
-        public void ShootProjectile()
+        public bool IsShootingAllowed(out Projectile projectile)
         {
-            if (!_playerInventory.TryGetEquippedItem(out Projectile projectile))
+            if (!_gosAiming.IsAiming)
             {
-                return;
+                projectile = null;
+                return false;
             }
 
+            _playerInventory.TryGetEquippedItem(out projectile);
+            return projectile != null;
+        }
+
+        public void ShootProjectile(Projectile projectile)
+        {
             Vector2 position = transform.position;
             Vector3 direction = new Vector3(Mathf.Cos(_gosAiming.Aiming.Angle), Mathf.Sin(_gosAiming.Aiming.Angle));
                 
@@ -51,7 +58,7 @@ namespace Combat
                     raycast.collider.gameObject.TryGetComponent(out HeightBehaviour heightBehaviour))
                 {
                     int height = heightBehaviour.Height;
-                    if (height <= bulletHeight)
+                    if (height > bulletHeight)
                     {
                         withHeight.Add(raycast);
                         heights[raycast] = height;

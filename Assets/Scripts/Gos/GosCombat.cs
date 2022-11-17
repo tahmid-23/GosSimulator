@@ -24,20 +24,17 @@ namespace Gos
         // Update is called once per frame
         private void Update()
         {
-        
-            if (Input.GetMouseButtonDown(0) && _playerInventory.GetEquippedItem() is Melee)
+            if (Input.GetMouseButtonDown(0))
             {
                 if (_gosMelee.IsMeleeAllowed(out MeleeCombat.AttackContext context))
                 {
-                    Debug.Log("Hola");
                     _gosMelee.ConductMeleeAttack(context);
                 }
+                else if (_shootingCombat.IsShootingAllowed(out Projectile projectile))
+                {
+                    _shootingCombat.ShootProjectile(projectile);
+                }
             }
-        
-            // if (_gosAiming.IsAiming && Input.GetButtonDown("Fire1") && _inventory.getEquippedItem() is Projectile)
-            // {
-            //     _shootingCombat.ShootProjectile();
-            // }
         }
     }
 }

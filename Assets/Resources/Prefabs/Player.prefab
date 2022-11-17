@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8456134153637361480}
   - component: {fileID: 8456134153637361481}
   - component: {fileID: 8456134153637361486}
-  - component: {fileID: 8456134153637361487}
   - component: {fileID: 8456134153637361484}
   - component: {fileID: 8456134153637361485}
   - component: {fileID: 8456134153637361474}
@@ -26,6 +25,8 @@ GameObject:
   - component: {fileID: 8456134153637361479}
   - component: {fileID: 8456134153637361476}
   - component: {fileID: 8456134153637361477}
+  - component: {fileID: 8616015322503954152}
+  - component: {fileID: 2644227262478790741}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -113,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 20
-  chargeSpeed: 1
-  chargeRecoil: 1
+  chargeSpeed: 20
+  chargeRecoil: 20
 --- !u!114 &8456134153637361483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,13 +131,6 @@ MonoBehaviour:
   maxSpeed: 10
   acceleration: 1
   deceleration: 2
-  b:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8456134153637361480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,21 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimSpeedMultiplier: 0.5
---- !u!114 &8456134153637361487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8456134153637361530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a521a53bb62cede4d87963c7825c06ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 75
-  bulletHeight: 2
-  bulletDamage: 5
 --- !u!114 &8456134153637361484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,8 +312,7 @@ MonoBehaviour:
   <Damage>k__BackingField: 10
   player: {fileID: 8456134153637361492}
   bulletPrefab: {fileID: 6680471186748605539, guid: 5b9ba2a7725b285469a26a91e544e8d1, type: 3}
-  testObj: {fileID: 0}
-  testHeight: {fileID: 0}
+  particleCount: 5
   throwRange: 5
 --- !u!114 &8456134153637361477
 MonoBehaviour:
@@ -352,3 +330,34 @@ MonoBehaviour:
   <Damage>k__BackingField: 10
   <AttackRate>k__BackingField: 1
   <AttackRange>k__BackingField: 2
+--- !u!114 &8616015322503954152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8456134153637361530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedbf027f0d146f6845e83b81e198b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHeight: 0
+--- !u!114 &2644227262478790741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8456134153637361530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b40a86f056f044e84599fb25712f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DisplaySprite>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 5
+  <FireRate>k__BackingField: 5
+  <BulletSpeed>k__BackingField: 5
+  <BulletDistance>k__BackingField: 20
+  <BulletPrefab>k__BackingField: {fileID: 6680471186748605539, guid: 5b9ba2a7725b285469a26a91e544e8d1, type: 3}

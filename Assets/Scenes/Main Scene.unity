@@ -765,7 +765,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2578839440838249186
 PrefabInstance:
@@ -1006,6 +1006,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2644227262478790741, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: <BulletSpeed>k__BackingField
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: hotbar
       value: 
@@ -1014,6 +1018,14 @@ PrefabInstance:
       propertyPath: select
       value: 
       objectReference: {fileID: 672876953}
+    - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: items.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: items.Array.data[2]
+      value: 
+      objectReference: {fileID: 8456134153706645927}
     - target: {fileID: 8456134153637361476, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: testObj
       value: 
@@ -1026,14 +1038,6 @@ PrefabInstance:
       propertyPath: testHeight
       value: 
       objectReference: {fileID: 2578839440838249187}
-    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
-      propertyPath: chargeSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
-      propertyPath: chargeRecoil
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1086,5 +1090,17 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8456134153637361487, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+--- !u!114 &8456134153706645927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2644227262478790741, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+  m_PrefabInstance: {fileID: 8456134153706645925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b40a86f056f044e84599fb25712f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

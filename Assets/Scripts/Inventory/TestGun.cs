@@ -10,7 +10,7 @@ namespace Inventory
 
         public override void VisualUpdate()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

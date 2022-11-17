@@ -34,7 +34,8 @@ namespace Movement
             int collidingRaycastCount = 0;
             foreach (RaycastHit2D raycast in raycasts)
             {
-                if (raycast.collider == null || raycast.collider == _boxCollider2D) continue;
+                Collider2D raycastCollider = raycast.collider;
+                if (raycastCollider == null || raycastCollider == _boxCollider2D || raycastCollider.isTrigger) continue;
                 
                 float projection = Vector2.Dot(resultSpeed, raycast.normal);
                 if (projection >= 0) continue;

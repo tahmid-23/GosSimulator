@@ -75,21 +75,23 @@ namespace Gos
         {
             if (input != 0)
             {
-                float sign = Mathf.Sign(input);
-
-                if (sign == Mathf.Sign(input))
+                float inputSign = Mathf.Sign(input), componentSign = Mathf.Sign(component);
+                float acceleratedSpeed = component + inputSign * acceleration;
+                if (Mathf.Abs(component) > maxSpeed)
                 {
-                    float newSpeed = component + sign * acceleration;
-                    // If a player is already speeding, already allow them to continue
-                    if (Mathf.Abs(component) > maxSpeed || Mathf.Abs(newSpeed) <= maxSpeed)
+                    if (inputSign != componentSign)
                     {
-                        return newSpeed;
+                        return acceleratedSpeed;
                     }
-
-                    return sign * maxSpeed;
                 }
-                
-                return component - Mathf.Sign(component) * deceleration;
+                else if (Mathf.Abs(acceleratedSpeed) > maxSpeed)
+                {
+                    return maxSpeed * componentSign;
+                }
+                else
+                {
+                    return acceleratedSpeed;
+                }
             }
             if (Mathf.Abs(component) < deceleration) {
                 return 0;

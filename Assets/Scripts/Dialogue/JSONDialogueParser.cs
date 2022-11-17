@@ -2,36 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Dialogue
 {
     public class JSONDialogueParser
     {
-        public static void SerializeJSON()
+        public static List<Conversation> SerializeJSON(String jsonName)
         {
-            String jsonString = File.ReadAllText("../../Resources/Dialogues/JPIntro.json");
-            List<WholeJSON> texts = JsonConvert.DeserializeObject<List<WholeJSON>>(jsonString);
-            
-            Console.WriteLine(texts);
+            String filepath = "Dialogues/" + jsonName;
+            String jsonString = Resources.Load<TextAsset>(filepath).ToString();
+            // String jsonString = Resources.LoadAll<TextAsset>("Dialogues/")[0].ToString();
+            JArray jArray = JArray.Parse(jsonString);
+
+            Debug.Log(jsonString);
+            List<Conversation> list = new List<Conversation>();
+
+            foreach (JObject jObject in jArray)
+            {
+                JArray _fieldsList = (JArray) jObject["fields"];
+                list.Add(new Conversation((int) jObject["id"], _fieldsList.ToObject<List<String>>()));
+            }
+
+            // IList<Conversation> texts = JsonSerializer.Deserialize<IList<Conversation>>(jsonString);
+            return list;
         }
 
-        static void Main(string[] args)
+        public static Conversation GetDialogueByID(String jsonName, int id)
         {
-            SerializeJSON();
+            return SerializeJSON(jsonName)[id - 1];
         }
-    }
-
-    class WholeJSON
-    {
-        private IList<Conversation> conversations;
-    }
-
-    class Conversation
-    {
-        private int id;
-        private List<String> fields;
     }
 }

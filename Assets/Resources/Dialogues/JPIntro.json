@@ -1,13 +1,11 @@
-{
-  "conversations": [
-    {
-      "id": 1,
-      "fields": [
-        "Hey I haven’t studied at all for Beisenberg’s test at all.",
-        "I heard that Lucrative Larry already has the answers for sale on the blacktop, but I don’t have the Gos Coins to buy it yet.",
-        "If you could somehow get them for me, I would be willing to help you out for anything that you need. ",
-        "Trust me, it will be worth your effort."
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "fields": [
+      "Hey I haven’t studied at all for Beisenberg’s test at all.",
+      "I heard that Lucrative Larry already has the answers for sale on the blacktop, but I don’t have the Gos Coins to buy it yet.",
+      "If you could somehow get them for me, I would be willing to help you out for anything that you need. ",
+      "Trust me, it will be worth your effort."
+    ]
+  }
+]

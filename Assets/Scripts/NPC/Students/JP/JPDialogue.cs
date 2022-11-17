@@ -1,14 +1,20 @@
 using System;
+using Dialogue;
 using Inventory;
 using UnityEngine;
 
 namespace NPC
 {
-    public class JP: NPCBase
+    public class JPDialogue: NPCBase
     {
         public bool rockGiven = false;
+
+        void Start()
+        {
+            
+        }
         
-        public JP() : base(Classification.Ally, 100, 10)
+        public JPDialogue() : base(Classification.Ally, 100, 10)
         {
             
         }

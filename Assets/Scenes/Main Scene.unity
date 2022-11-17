@@ -151,7 +151,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177778289}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -396,7 +396,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425127548}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -620,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &997622445
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -722,7 +722,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997622444}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -1008,6 +1008,14 @@ PrefabInstance:
       propertyPath: testHeight
       value: 
       objectReference: {fileID: 2578839440838249187}
+    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: chargeSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: chargeRecoil
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: m_RootOrder
       value: 2

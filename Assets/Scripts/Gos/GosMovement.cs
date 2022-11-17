@@ -26,36 +26,6 @@ namespace Gos
         private float deceleration = 2F;
 
         private GosSpriteSwitcher _gosSpriteSwitcher;
-        
-        [Serializable]
-        public class Base
-        {
-
-            [SerializeReference]
-            public int baseF;
-            
-        }
-        
-        [Serializable]
-        public class DerivedA
-        {
-
-            [SerializeReference]
-            public int hello;
-
-        }
-        
-        [Serializable]
-        public class DerivedB
-        {
-
-            [SerializeReference]
-            public int goodbye;
-
-        }
-        
-        [SerializeReference]
-        public Base b;
 
         private void Awake()
         {
@@ -103,18 +73,23 @@ namespace Gos
 
         private float AdjustComponent(float component, float input)
         {
-            component = Mathf.Min(component, maxSpeed);
             if (input != 0)
             {
                 float sign = Mathf.Sign(input);
-                float newSpeed = component + sign * acceleration;
-                if (Mathf.Abs(newSpeed) > maxSpeed)
+
+                if (sign == Mathf.Sign(input))
                 {
-                    // sign of input must equal sign of speed
+                    float newSpeed = component + sign * acceleration;
+                    // If a player is already speeding, already allow them to continue
+                    if (Mathf.Abs(component) > maxSpeed || Mathf.Abs(newSpeed) <= maxSpeed)
+                    {
+                        return newSpeed;
+                    }
+
                     return sign * maxSpeed;
                 }
                 
-                return newSpeed;
+                return component - Mathf.Sign(component) * deceleration;
             }
             if (Mathf.Abs(component) < deceleration) {
                 return 0;
@@ -147,11 +122,6 @@ namespace Gos
 
             return Mathf.PI - Mathf.Sign(vertical) * Mathf.PI / 6;
         }
-        
-        // private void AdjustSprite()
-        // {
-        //     _square.eulerAngles = Vector3.forward * (Mathf.Rad2Deg * Direction);
-        // }
 
         public void AdjustSpeed(float multiplier, bool multiply)
         {

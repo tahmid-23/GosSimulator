@@ -4,12 +4,16 @@ namespace Movement
 {
     public class MovementController : MonoBehaviour
     {
+
+        public CollisionHandler OnCollision { get; set; }= delegate { };
         
         public Vector2 Speed { get; set; } = Vector2.zero;
 
         private BoxCollider2D _boxCollider2D;
 
         private Rigidbody2D _rigidbody2D;
+
+        public delegate void CollisionHandler(RaycastHit2D collisionRaycast, Vector2 initialSpeed);
 
         private void Awake()
         {
@@ -21,21 +25,32 @@ namespace Movement
         {
             Transform gosTransform = transform;
             Vector2 center = gosTransform.TransformPoint(_boxCollider2D.offset);
+            Vector2 initialSpeed = Speed;
             Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
             
             RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, gosTransform.localScale * _boxCollider2D.size,
-                0F, resultSpeed, resultSpeed.magnitude);
+                0F, resultSpeed.normalized, resultSpeed.magnitude);
+            RaycastHit2D[] collidingRaycasts = new RaycastHit2D[raycasts.Length];
+            int collidingRaycastCount = 0;
             foreach (RaycastHit2D raycast in raycasts)
             {
-                if (!raycast.collider || raycast.collider == _boxCollider2D) continue;
+                if (raycast.collider == null || raycast.collider == _boxCollider2D) continue;
                 
                 float projection = Vector2.Dot(resultSpeed, raycast.normal);
                 if (projection >= 0) continue;
                 
-                resultSpeed -= (projection + raycast.distance) * raycast.normal;
+                Vector2 reduction = (projection + raycast.distance) * raycast.normal;
+                resultSpeed -= reduction;
+                Speed -= projection / Time.fixedDeltaTime * raycast.normal; // next speed should be completely zeroed
+
+                collidingRaycasts[collidingRaycastCount++] = raycast;
             }
-            
+
             _rigidbody2D.MovePosition(_rigidbody2D.position + resultSpeed);
+            for (int i = 0; i < collidingRaycastCount; ++i)
+            {
+                OnCollision(collidingRaycasts[i], initialSpeed);
+            }
         }
 
     }

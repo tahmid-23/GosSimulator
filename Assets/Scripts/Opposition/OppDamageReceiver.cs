@@ -7,6 +7,8 @@ namespace Opposition
 {
     public class OppDamageReceiver : BasicDamageReceiver
     {
+
+        private HitAnimation _hitAnimation;
         
         protected override bool OnHeal(float amount)
         {
@@ -16,8 +18,11 @@ namespace Opposition
         protected override bool OnDamage(float amount)
         {
             Debug.Log($"Opp: -{amount}");
-            HitAnimation hitAnimation = gameObject.GetOrAddComponent<HitAnimation>();
-            hitAnimation.duration = 100;
+            if (_hitAnimation == null)
+            {
+                _hitAnimation = gameObject.AddComponent<HitAnimation>();
+            }
+            _hitAnimation.duration = 100;
             
             return true;
         }

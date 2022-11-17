@@ -15,7 +15,7 @@ namespace NPC
 
         private void OnMouseDown()
         {
-            Inventory.Inventory gosInventory = GameObject.Find("Gos").GetComponent<Inventory.Inventory>();
+            PlayerInventory gosInventory = GameObject.Find("Gos").GetComponent<PlayerInventory>();
             
             Debug.Log("Hi my name is Jester P and I'm a massive circus");
 

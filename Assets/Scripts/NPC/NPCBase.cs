@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace NPC
 {
-    public class NPCBase: MonoBehaviour
+    public abstract class NPCBase: MonoBehaviour
     {
         private Classification _classification;
         private float _hp;
@@ -19,7 +19,7 @@ namespace NPC
         private bool _interactable;
         private bool _interacting;
         private List<String> _currentConversation;
-        private int _currentInteractionIndex;
+        protected int _currentInteractionIndex;
         
         //these should be set by a subclass (aka specfic npc class)
         protected int _interactionID;
@@ -88,7 +88,7 @@ namespace NPC
 
         private void Interact()
         {
-            changeInteractionState();
+            ChangeInteractionState();
             _currentConversation = JSONDialogueParser.GetDialogueByID(_dialogueFile, _interactionID).GetFields();
             _currentInteractionIndex = -1;
             NextInteraction();
@@ -96,17 +96,19 @@ namespace NPC
 
         private void NextInteraction()
         {
+            BetweenInteractions();
+            
             _currentInteractionIndex++;
             if (_currentInteractionIndex == _currentConversation.Count)
             {
-                changeInteractionState();
+                ChangeInteractionState();
                 return;
             }
 
             _npcSpeech.text = _currentConversation[_currentInteractionIndex];
         }
 
-        private void changeInteractionState()
+        private void ChangeInteractionState()
         {
             //flip the state of interaction
             _interacting = !_interacting;
@@ -115,5 +117,7 @@ namespace NPC
             //if the interaction is taking place, npcUI should be active
             _npcUI.SetActive(_interacting);
         }
+
+        protected abstract void BetweenInteractions();
     }
 }

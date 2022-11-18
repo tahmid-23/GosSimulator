@@ -8,10 +8,17 @@ namespace Dialogue
         private int _id { get; set; }
         private List<String> _fields { get; set; }
 
-        public Conversation(int id, List<String> fields)
+        private List<Response> _responses;
+
+        public Conversation(int id, List<String> fields) : this(id, fields, new List<Response>())
         {
-            this._id = id;
-            this._fields = fields;
+        }
+
+        public Conversation(int id, List<String> fields, List<Response> responses)
+        {
+            _id = id;
+            _fields = fields;
+            _responses = responses;
         }
 
         public int GetID()
@@ -22,6 +29,11 @@ namespace Dialogue
         public List<String> GetFields()
         {
             return _fields;
+        }
+
+        public List<Response> GetResponses()
+        {
+            return _responses;
         }
     }
 }

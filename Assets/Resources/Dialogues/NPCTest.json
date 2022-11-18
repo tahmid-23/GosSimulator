@@ -3,9 +3,51 @@
     "id": 1,
     "fields": [
       "You are interacting with an NPC.",
-      "I heard that Lucrative Larry already has the answers for sale on the blacktop, but I don’t have the Gos Coins to buy it yet.",
-      "If you could somehow get them for me, I would be willing to help you out for anything that you need. ",
-      "Trust me, it will be worth your effort."
-    ]
+      "Press SPACE to go to the next dialogue.",
+      "You can even make choices that will affect what I say.",
+      "For example, do you want to hear a joke?"
+    ],
+	"responses": [
+		{
+			"response": "Yes!",
+			"id": 2
+		},
+		{
+			"response": "No!",
+			"id": 3
+		}
+	]
+  },
+  
+  {
+	"id": 2,
+    "fields": [
+      "Have you heard of the book Dune?"
+    ],
+	"responses": [
+		{
+			"response": "Yes, I love Dune!",
+			"id": 4
+		},
+		{
+			"response": "No, what's Dune?",
+			"id": 4
+		}
+	]
+  },
+  
+  {
+	"id": 3,
+	"fields": [
+		"Ok, see you later!"
+	]
+  },
+  
+  {
+	"id": 4,
+	"fields": [
+		"Dune your mom!",
+		"Ha ha!"
+	]
   }
 ]

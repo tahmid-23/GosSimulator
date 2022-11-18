@@ -14,11 +14,12 @@ namespace NPC
         private GameObject _speechBubble;
         private GameObject _gosUI;
         private GameObject _npcUI;
-        private GameObject _gos;
+        private GameObject _speechPanel;
         private Text _npcSpeech;
+        private Button[] _responseButtons = new Button[3];
         private bool _interactable;
         private bool _interacting;
-        private List<String> _currentConversation;
+        private Conversation _currentConversation;
         protected int _currentInteractionIndex;
         
         //these should be set by a subclass (aka specfic npc class)
@@ -52,9 +53,14 @@ namespace NPC
             _speechBubble = transform.Find("Speech Bubble").gameObject;
             _gosUI = GameObject.Find("UI Canvas");
             _npcUI = GameObject.Find("NPC Canvas");
-            _npcSpeech = _npcUI.transform.Find("Panel").Find("Text (Legacy)").GetComponent<Text>();
+            _speechPanel = _npcUI.transform.Find("Speech Panel").gameObject;
+            _npcSpeech = _speechPanel.transform.Find("Text (Legacy)").GetComponent<Text>();
+            for (int i = 0; i < _responseButtons.Length; i++)
+            {
+                _responseButtons[i] = _npcUI.transform.Find("Response " + (i+1)).GetComponent<Button>();
+                _responseButtons[i].gameObject.SetActive(false);
+            }
             _npcUI.SetActive(false);
-            _gos = GameObject.Find("Player");
         }
 
         public void Update()
@@ -66,6 +72,7 @@ namespace NPC
             }
             else if (_interactable && Input.GetKeyDown(KeyCode.Space))
             {
+                ChangeInteractionState();
                 Interact();
             }
         }
@@ -88,8 +95,13 @@ namespace NPC
 
         private void Interact()
         {
-            ChangeInteractionState();
-            _currentConversation = JSONDialogueParser.GetDialogueByID(_dialogueFile, _interactionID).GetFields();
+            foreach (Button b in _responseButtons)
+            {
+                b.gameObject.SetActive(false);
+            }
+
+            _speechPanel.SetActive(true);
+            _currentConversation = JSONDialogueParser.GetDialogueByID(_dialogueFile, _interactionID);
             _currentInteractionIndex = -1;
             NextInteraction();
         }
@@ -97,15 +109,41 @@ namespace NPC
         private void NextInteraction()
         {
             BetweenInteractions();
-            
+
             _currentInteractionIndex++;
-            if (_currentInteractionIndex == _currentConversation.Count)
+            List<String> dialogueList = _currentConversation.GetFields();
+            if (_currentInteractionIndex >= dialogueList.Count)
             {
-                ChangeInteractionState();
+                if (_currentConversation.GetResponses().Count > 0)
+                {
+                    GenerateResponses();
+                }
+                else
+                {
+                    ChangeInteractionState();
+                }
                 return;
             }
 
-            _npcSpeech.text = _currentConversation[_currentInteractionIndex];
+            _npcSpeech.text = dialogueList[_currentInteractionIndex];
+        }
+
+        private void GenerateResponses()
+        {
+            List<Response> responses = _currentConversation.GetResponses();
+            _speechPanel.SetActive(false);
+            for (int i = 0; i < Math.Min(responses.Count, _responseButtons.Length); i++)
+            {
+                Button b = _responseButtons[i];
+                Response r = responses[i];
+                b.GetComponentInChildren<Text>().text = r.getResponseText();
+                b.onClick.AddListener(() =>
+                {
+                    _interactionID = r.getGoToID();
+                    Interact();
+                });
+                _responseButtons[i].gameObject.SetActive(true);
+            }
         }
 
         private void ChangeInteractionState()
@@ -119,5 +157,7 @@ namespace NPC
         }
 
         protected abstract void BetweenInteractions();
+        
+        
     }
 }

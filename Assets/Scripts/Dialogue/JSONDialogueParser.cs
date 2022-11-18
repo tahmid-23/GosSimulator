@@ -10,9 +10,9 @@ using UnityEngine;
 
 namespace Dialogue
 {
-    public class JSONDialogueParser
+    public static class JSONDialogueParser
     {
-        public static List<Conversation> SerializeJSON(String jsonName)
+        private static List<Conversation> SerializeJSON(String jsonName)
         {
             String filepath = "Dialogues/" + jsonName;
             String jsonString = Resources.Load<TextAsset>(filepath).ToString();
@@ -24,8 +24,17 @@ namespace Dialogue
 
             foreach (JObject jObject in jArray)
             {
-                JArray _fieldsList = (JArray) jObject["fields"];
-                list.Add(new Conversation((int) jObject["id"], _fieldsList.ToObject<List<String>>()));
+                JArray fieldsList = (JArray) jObject["fields"];
+                List<Response> rlist = new List<Response>();
+                JArray responseList = (JArray) jObject["responses"];
+                if (!(responseList is null))
+                {
+                    foreach (JObject r in responseList)
+                    {
+                        rlist.Add(new Response((string) r["response"], (int) r["id"]));
+                    }
+                }
+                list.Add(new Conversation((int) jObject["id"], fieldsList.ToObject<List<String>>(), rlist));
             }
 
             // IList<Conversation> texts = JsonSerializer.Deserialize<IList<Conversation>>(jsonString);

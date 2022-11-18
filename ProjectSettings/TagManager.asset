@@ -12,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - ShopBackground
+  - AboveShop
   - 
   - 
   - 
@@ -39,6 +39,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: ShopBackground
+    uniqueID: 4174548869
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Shop Prefab
+    uniqueID: 372006671
     locked: 0

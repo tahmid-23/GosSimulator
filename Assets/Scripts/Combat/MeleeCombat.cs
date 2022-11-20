@@ -34,6 +34,8 @@ namespace Combat
 
         private Camera _camera;
 
+        private Collider2D _collider2D;
+
         private MovementController _movementController;
 
         private PlayerInventory _playerInventory;
@@ -47,6 +49,7 @@ namespace Combat
         private void Awake()
         {
             _camera = Camera.main;
+            _collider2D = GetComponent<Collider2D>();
             _movementController = GetComponent<MovementController>();
             _movementController.OnCollision += OnCollision;
             _playerInventory = GetComponent<PlayerInventory>();
@@ -86,14 +89,25 @@ namespace Combat
                 return false;
             }
             
-            RaycastHit2D rayHit = Physics2D.GetRayIntersection(_camera.ScreenPointToRay(Input.mousePosition));
-            Transform otherTransform = rayHit.transform;
-            if (otherTransform == null)
+            RaycastHit2D[] rayHits = Physics2D.GetRayIntersectionAll(_camera.ScreenPointToRay(Input.mousePosition));
+            RaycastHit2D intendedHit = new RaycastHit2D();
+            bool hasHit = false;
+            foreach (RaycastHit2D rayHit in rayHits)
+            {
+                if (rayHit.collider != null && !rayHit.collider.isTrigger && rayHit.collider != _collider2D)
+                {
+                    intendedHit = rayHit;
+                    hasHit = true;
+                    break;
+                }
+            }
+            if (!hasHit)
             {
                 attackContext = null;
                 return false;
             }
 
+            Transform otherTransform = intendedHit.transform;
             Vector2 selfPosition = transform.position, otherPosition = otherTransform.position;
             float sqrLength = (otherPosition - selfPosition).sqrMagnitude;
             bool inRange = sqrLength <= radius * radius;

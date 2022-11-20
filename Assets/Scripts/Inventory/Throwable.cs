@@ -20,9 +20,14 @@ namespace Inventory
         
         private Camera _mainCamera;
 
-        private void Start()
+        private GameObject[] _bullets;
+
+        private void Awake()
         {
             _mainCamera = Camera.main;
+            _bullets = new GameObject[particleCount];
+
+            OnEquipped += RefreshBullets;
         }
 
         public override void VisualUpdate()
@@ -36,15 +41,33 @@ namespace Inventory
             
             Vector3 finalVec = new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta));
 
-            for (int i = 0; i < particleCount; ++i)
+            for (int i = 0; i < _bullets.Length; ++i)
             {
-                float x = (float) i / (particleCount - 1);
+                float x = (float) i / (_bullets.Length - 1);
                 float y = -4 * x * (x - 1);
                 Vector3 transformedVector = new Vector2(finalVec.x * x, finalVec.y * x + y); // linear algebra
 
-                GameObject newBullet = Instantiate(bulletPrefab);
-                newBullet.transform.position = transformedVector + playerPos;
-                Destroy(newBullet, 4 * Time.deltaTime);
+                _bullets[i].transform.position = transformedVector + playerPos;
+            }
+        }
+
+        private void RefreshBullets(bool equipped)
+        {
+            if (equipped)
+            {
+                _bullets = new GameObject[particleCount];
+                for (int i = 0; i < _bullets.Length; ++i)
+                {
+                    _bullets[i] = Instantiate(bulletPrefab);
+                }
+            }
+            else
+            {
+                foreach (GameObject bullet in _bullets)
+                {
+                    Destroy(bullet);
+                }
+                _bullets = Array.Empty<GameObject>();
             }
         }
 

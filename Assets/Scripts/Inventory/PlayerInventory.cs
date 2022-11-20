@@ -20,6 +20,8 @@ namespace Inventory
         [SerializeField]
         private Sprite emptySprite;
 
+        private Item _lastEquippedItem = null;
+
         private int _equipped;
 
         private void Update()
@@ -28,9 +30,18 @@ namespace Inventory
             TestInput();
             UpdateEquippedSlot();
             Item equippedItem = GetEquippedItem();
-            if (items[_equipped] != null)
+            if (equippedItem != null)
             {
-               equippedItem.VisualUpdate();
+                if (_lastEquippedItem != equippedItem)
+                {
+                    if (_lastEquippedItem != null)
+                    {
+                        _lastEquippedItem.OnEquipped(false);
+                    }
+                    equippedItem.OnEquipped(true);
+                    _lastEquippedItem = equippedItem;
+                }
+                equippedItem.VisualUpdate();
             }
 
             if (Input.GetButtonDown("Fire1"))

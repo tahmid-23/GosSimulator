@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Currency;
 using Inventory;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,33 +9,49 @@ namespace Shop
 {
     public class ShopManager : MonoBehaviour
     {
-        void Start()
-        {
-            // SetImage(Resources.Load<Sprite>("Sprites/speech_bubble"));
-            // SetShopItemPrice(new ShopItemPrice(50));
-            // Debug.Log(gameObject.name);
-            
-            // GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
-            // GameObject shopItem = Instantiate(shopItemPrefab, transform);
-            // shopItem.transform.Translate(new Vector3(0, 0, 0));
-            //     
-            // SetImage(shopItem, "flag");
-            // SetShopItemPrice(shopItem, 50);
-        }
+        [SerializeField]
+        private GameObject cannotPurchase;
 
+        [SerializeField]
+        private GameObject canPurchase;
+
+        [SerializeField]
+        private PlayerInventory gosInventory;
+        
+        List<GameObject> instantiatedItems = new List<GameObject>();
+        
+        private KeyValuePair<String, double> _selectedItem;
         public List<GameObject> InstantiateShopItems(List<StackedItem> items)
         {
-            List<GameObject> instantiatedItems = new List<GameObject>();
+            instantiatedItems = new List<GameObject>();
             
             for (int i = 0; i < items.Count; i++)
             {
                 GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
                 GameObject shopItem = Instantiate(shopItemPrefab, transform);
                 shopItem.transform.Translate(new Vector3(50 * i, 0, 0));
+
+                StackedItem item = items[i];
                 
-                SetImage(shopItem, items[i].GetSprite());
-                SetShopItemPrice(shopItem, items[i].GetCost());
-                
+                SetImage(shopItem, item.GetSprite());
+                SetShopItemPrice(shopItem, item.GetCost());
+                shopItem.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    _selectedItem = new KeyValuePair<string, double>(item.GetDisplayName(), item.GetCost());
+                    // Debug.Log($"You bought {item.GetDisplayName()} for {item.GetCost()} gos coins");
+                    // Debug.Log("Item: " + _selectedItem.Key);
+                    // Debug.Log("Cost: " + _selectedItem.Value);
+
+                    if (item.GetCost() > MakeThisASingleton.GetCosCoins())
+                    {
+                        cannotPurchase.SetActive(true);
+                    }
+                    else
+                    {
+                        canPurchase.SetActive(true);
+                    }
+                });
+
                 instantiatedItems.Add(shopItem);
             }
 
@@ -47,6 +64,8 @@ namespace Shop
             {
                 Destroy(specificItem);
             }
+
+            instantiatedItems = new List<GameObject>();
         }
 
         public void SetImage(GameObject itemBox, String sprite)
@@ -57,6 +76,19 @@ namespace Shop
         public void SetShopItemPrice(GameObject itemBox, double price)
         {
             itemBox.transform.Find("Cost").GetComponent<Text>().text = $"Cost:{price}";
+        }
+
+        public void HideCannotPurchasePopUp()
+        {
+            transform.Find("CannotPurchase").gameObject.SetActive(false);
+        }
+
+        public void HideCanPurchasePopUp()
+        {
+            transform.Find("CanPurchase").gameObject.SetActive(false);
+            MakeThisASingleton.ChangeGosCoins(-1 * _selectedItem.Value);
+            gosInventory.LookUpAndAdd(_selectedItem.Key);
+            DestroyShopItems(instantiatedItems);
         }
     }
 }

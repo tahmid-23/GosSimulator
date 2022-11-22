@@ -5,11 +5,13 @@ namespace Inventory
     public class StackedItem
     {
         private int _amount;
+        private String _displayName;
         private String _sprite;
         private double _cost;
 
-        public StackedItem(int amount, string sprite, double cost)
+        public StackedItem(int amount, string sprite, double cost, String displayName)
         {
+            this._displayName = displayName;
             this._amount = amount;
             this._sprite = sprite;
             this._cost = cost;
@@ -43,6 +45,11 @@ namespace Inventory
         public void SetCost(double cost)
         {
             this._cost = cost;
+        }
+
+        public String GetDisplayName()
+        {
+            return _displayName;
         }
     }
 }

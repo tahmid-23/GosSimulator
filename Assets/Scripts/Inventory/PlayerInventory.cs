@@ -86,5 +86,18 @@ namespace Inventory
         {
             items.Add(gameObject.AddComponent<T>());
         }
+
+        public void LookUpAndAdd(String itemName)
+        {
+            if (itemName.Equals("American Flag"))
+            { 
+                AddItem<AmericanFlag>();
+            }
+            
+            else if (itemName.Equals("Water Gun"))
+            {
+                AddItem<WaterGun>();
+            }
+        }
     }
 }

@@ -14,8 +14,9 @@ namespace Shop
 
         private void Start()
         {
-            AddItem(new StackedItem(1, "flag", 50));
-            AddItem(new StackedItem(1, "watergun",50));
+            AddItem(new StackedItem(1, "flag", 50, "American Flag"));
+            AddItem(new StackedItem(1, "watergun",500, "Water Gun"));
+            
         }
     }
 }

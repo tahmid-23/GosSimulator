@@ -14,17 +14,18 @@ namespace Shop
             // SetShopItemPrice(new ShopItemPrice(50));
             // Debug.Log(gameObject.name);
             
-            GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
-            GameObject shopItem = Instantiate(shopItemPrefab, transform);
-            shopItem.transform.Translate(new Vector3(0, 0, 0));
-                
-            SetImage(shopItem, "flag");
-            SetShopItemPrice(shopItem, 50);
-            
+            // GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
+            // GameObject shopItem = Instantiate(shopItemPrefab, transform);
+            // shopItem.transform.Translate(new Vector3(0, 0, 0));
+            //     
+            // SetImage(shopItem, "flag");
+            // SetShopItemPrice(shopItem, 50);
         }
 
-        public void InstantiateItems(List<StackedItem> items)
+        public List<GameObject> InstantiateShopItems(List<StackedItem> items)
         {
+            List<GameObject> instantiatedItems = new List<GameObject>();
+            
             for (int i = 0; i < items.Count; i++)
             {
                 GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
@@ -33,6 +34,18 @@ namespace Shop
                 
                 SetImage(shopItem, items[i].GetSprite());
                 SetShopItemPrice(shopItem, items[i].GetCost());
+                
+                instantiatedItems.Add(shopItem);
+            }
+
+            return instantiatedItems;
+        }
+
+        public void DestroyShopItems(List<GameObject> items)
+        {
+            foreach (GameObject specificItem in items)
+            {
+                Destroy(specificItem);
             }
         }
 

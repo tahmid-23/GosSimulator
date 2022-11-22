@@ -21,6 +21,7 @@ namespace NPC
         private bool _interacting;
         private Conversation _currentConversation;
         protected int _currentInteractionIndex;
+        protected bool _ableToMoveOn = true;
         
         //these should be set by a subclass (aka specfic npc class)
         protected int _interactionID;
@@ -66,14 +67,18 @@ namespace NPC
         public void Update()
         {
             _speechBubble.SetActive(_interactable);
-           if (_interacting && Input.GetKeyDown(KeyCode.Space))
+
+            if (_ableToMoveOn)
             {
-                NextInteraction();
-            }
-            else if (_interactable && Input.GetKeyDown(KeyCode.Space))
-            {
-                ChangeInteractionState();
-                Interact();
+                if (_interacting && Input.GetKeyDown(KeyCode.Space))
+                {
+                    NextInteraction();
+                }
+                else if (_interactable && Input.GetKeyDown(KeyCode.Space))
+                {
+                    ChangeInteractionState();
+                    Interact();
+                }
             }
         }
 
@@ -156,8 +161,16 @@ namespace NPC
             _npcUI.SetActive(_interacting);
         }
 
+        protected void PreventDialogue()
+        {
+            _ableToMoveOn = false;
+        }
+
+        protected void AllowDialogue()
+        {
+            _ableToMoveOn = true;
+        }
+
         protected abstract void BetweenInteractions();
-        
-        
     }
 }

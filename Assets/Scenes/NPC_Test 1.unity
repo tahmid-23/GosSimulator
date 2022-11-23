@@ -1190,6 +1190,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &619675277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+  m_PrefabInstance: {fileID: 8456134153706645925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfa9e0b0cb58c740a088bf5a718eca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &672516178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,7 +1234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannotPurchase: {fileID: 1122066092}
-  canPurchase: {fileID: 0}
+  canPurchase: {fileID: 1302342001}
+  gosInventory: {fileID: 619675277}
 --- !u!114 &672516180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2248,7 +2260,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 672516179}
         m_TargetAssemblyTypeName: Shop.ShopManager, Scripts
-        m_MethodName: HideCannotPurchasePopUp
+        m_MethodName: HideCanPurchasePopUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2553,7 +2565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1302342002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3191,6 +3203,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4599990339956198735, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599990340194765359, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599990340559099748, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4599990340568035882, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3283,6 +3307,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4599990341066428504, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599990341192310900, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599990341224310230, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 725c96cce047070449600fc4911fbfc0, type: 3}
 --- !u!1001 &8456134153706645925
@@ -3312,6 +3348,10 @@ PrefabInstance:
       propertyPath: testHeight
       value: 
       objectReference: {fileID: 2578839440838249187}
+    - target: {fileID: 8456134153637361476, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: <DisplaySprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: e413af91366f41e4cbaab7bdc5a6b38c, type: 3}
     - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: chargeSpeed
       value: 20

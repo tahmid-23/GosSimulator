@@ -39,11 +39,17 @@ namespace Inventory
             }
         }
 
+        private void Start()
+        {
+            AddItem<WaterGun>();
+        }
+
         private void DisplayItems()
         {
             for (int i = 0; i < items.Count; i++)
             {
                 Item item = items[i];
+                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
                 hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.DisplaySprite;
             }
         }
@@ -98,6 +104,13 @@ namespace Inventory
             {
                 AddItem<WaterGun>();
             }
+            
+            else if (itemName.Equals("Beisenburg Test Answers"))
+            {
+                AddItem<TestAnswers>();
+            }
+
+            DisplayItems();
         }
     }
 }

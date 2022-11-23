@@ -29,7 +29,7 @@ namespace Shop
             {
                 GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
                 GameObject shopItem = Instantiate(shopItemPrefab, transform);
-                shopItem.transform.Translate(new Vector3(50 * i, 0, 0));
+                shopItem.transform.Translate(new Vector3(250 * i, 0, 0));
 
                 StackedItem item = items[i];
                 
@@ -38,9 +38,6 @@ namespace Shop
                 shopItem.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     _selectedItem = new KeyValuePair<string, double>(item.GetDisplayName(), item.GetCost());
-                    // Debug.Log($"You bought {item.GetDisplayName()} for {item.GetCost()} gos coins");
-                    // Debug.Log("Item: " + _selectedItem.Key);
-                    // Debug.Log("Cost: " + _selectedItem.Value);
 
                     if (item.GetCost() > MakeThisASingleton.GetCosCoins())
                     {

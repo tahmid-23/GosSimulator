@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Inventory
@@ -11,6 +12,11 @@ namespace Inventory
             _percentFull = 100.0F;
         }
 
+        private void Start()
+        {
+            this.DisplaySprite = Resources.Load<Sprite>("Sprites/watergun");
+        }
+
         public override void Use()
         {
             Debug.Log("Used WaterGun");
@@ -18,7 +24,7 @@ namespace Inventory
 
         public override void VisualUpdate()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

@@ -29,14 +29,8 @@ namespace Inventory
             ItemStack equippedItem = GetEquippedItem();
             if (equippedItem != _lastEquipped)
             {
-                if (_lastEquipped != null)
-                {
-                    _lastEquipped.Item.Unequip(gameObject);
-                }
-                if (equippedItem != null)
-                {
-                    equippedItem.Item.Equip(gameObject);
-                }
+                _lastEquipped?.Item.Unequip(gameObject);
+                equippedItem?.Item.Equip(gameObject);
             }
 
             _lastEquipped = equippedItem;

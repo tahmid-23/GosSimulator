@@ -502,9 +502,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 251209950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab662cf3f13e454ea57d0a9068b6cb2c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe5d0dff9bf24a57adcd8c3f7e2a5e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entries:
+  - <Item>k__BackingField: {fileID: 11400000, guid: 44b9b3d8b7d7f784c8056545e97b935a, type: 2}
+    <Cost>k__BackingField: 200
+    <DisplayName>k__BackingField: Test Answers
+  - <Item>k__BackingField: {fileID: 11400000, guid: 75e2bcc0b79fe754993c724163fd8532, type: 2}
+    <Cost>k__BackingField: 500
+    <DisplayName>k__BackingField: Water Gun
   shopManager: {fileID: 672516179}
 --- !u!1 &252431188
 GameObject:
@@ -676,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415002805}
-  - component: {fileID: 415002804}
+  - component: {fileID: 415002806}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -684,18 +691,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &415002804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415002803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f20391ab64e4a21b67f5d964754fee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &415002805
 Transform:
   m_ObjectHideFlags: 0
@@ -709,8 +704,20 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415002806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415002803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f20391ab64e4a21b67f5d964754fee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &425127548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,6 +1337,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &716217794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+  m_PrefabInstance: {fileID: 8456134153706645925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &721544473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,7 +2417,6 @@ RectTransform:
   - {fileID: 970283473}
   - {fileID: 2100879346}
   - {fileID: 1071043749}
-  - {fileID: 1405821905}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2732,13 +2743,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405821904}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1154051030}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1405821906
 MonoBehaviour:
@@ -3328,6 +3339,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1733256278432396893, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 716217794}
+    - target: {fileID: 1733256278432396893, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6680471186748605539, guid: 5b9ba2a7725b285469a26a91e544e8d1, type: 3}
+    - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: test
+      value: 
+      objectReference: {fileID: 11400000, guid: a4380da1605be054cbbad056456ef850, type: 2}
+    - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
+      propertyPath: test2
+      value: 
+      objectReference: {fileID: 11400000, guid: a4380da1605be054cbbad056456ef850, type: 2}
     - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: hotbar
       value: 
@@ -3352,14 +3379,6 @@ PrefabInstance:
       propertyPath: <DisplaySprite>k__BackingField
       value: 
       objectReference: {fileID: 21300000, guid: e413af91366f41e4cbaab7bdc5a6b38c, type: 3}
-    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
-      propertyPath: chargeSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8456134153637361482, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
-      propertyPath: chargeRecoil
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -10,7 +10,7 @@ namespace Opposition
         private GameObject _bullet;
         private Transform op_transform;
         
-        private void Start()
+        private void Awake()
         {
             op_transform = GetComponent<Transform>();
             aiming = GetComponent<OppAiming>();

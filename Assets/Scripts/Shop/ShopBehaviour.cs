@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Inventory;
 using UnityEngine;
 
 namespace Shop
 {
-    public abstract class ShopBase: MonoBehaviour
+    public class ShopBehaviour: MonoBehaviour
     {
-        private List<StackedItem> _stackedItems = new List<StackedItem>();
+        [SerializeField]
+        private List<ShopEntry> entries = new List<ShopEntry>();
         
         [SerializeField]
         private ShopManager shopManager;
@@ -16,7 +16,7 @@ namespace Shop
         
         public void EnableShop()
         {
-            _instantiatedItems = shopManager.InstantiateShopItems(_stackedItems);
+            _instantiatedItems = shopManager.InstantiateShopItems(entries);
         }
 
         public void DisableShop()
@@ -24,12 +24,7 @@ namespace Shop
             shopManager.DestroyShopItems(_instantiatedItems);
         }
 
-        protected void AddItem(StackedItem item)
-        {
-            _stackedItems.Add(item);
-        }
-
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.K))
             {

@@ -49,7 +49,7 @@ namespace NPC
             _schoolbookFollowers += delta;
         }
 
-        public void Start()
+        private void Awake()
         {
             _speechBubble = transform.Find("Speech Bubble").gameObject;
             _gosUI = GameObject.Find("UI Canvas");
@@ -64,7 +64,7 @@ namespace NPC
             _npcUI.SetActive(false);
         }
 
-        public void Update()
+        private void Update()
         {
             _speechBubble.SetActive(_interactable);
 

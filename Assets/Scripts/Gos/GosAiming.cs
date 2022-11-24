@@ -25,7 +25,7 @@ namespace Gos
             _gosMovement = GetComponent<GosMovement>();
         }
 
-        public void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

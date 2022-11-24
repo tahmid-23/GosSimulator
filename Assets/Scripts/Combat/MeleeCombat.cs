@@ -1,4 +1,3 @@
-using Damage;
 using Inventory;
 using Movement;
 using UnityEngine;
@@ -38,8 +37,6 @@ namespace Combat
 
         private PlayerInventory _playerInventory;
 
-        private Melee _currentWeapon;
-
         private AttackContext _currentContext;
 
         private bool _charging;
@@ -78,9 +75,9 @@ namespace Combat
                 attackContext = null;
                 return false;
             }
-            
-            bool isWieldingMelee = _playerInventory.TryGetEquippedItem(out Melee attackWeapon);
-            if (!isWieldingMelee)
+
+            Melee attackWeapon = _playerInventory.GetEquippedItem().Item as Melee;
+            if (attackWeapon == null)
             {
                 attackContext = null;
                 return false;
@@ -126,10 +123,7 @@ namespace Combat
                 return;
             }
             
-            if (collidedWith.TryGetComponent(out IDamageReceiver damageReceiver))
-            {
-                damageReceiver.ChangeHealth(_currentContext.AttackWeapon.Damage);
-            }
+            _currentContext.AttackWeapon.HandleAttack(collidedWith);
 
             _movementController.Speed += chargeRecoil * collisionRaycast.normal;
             

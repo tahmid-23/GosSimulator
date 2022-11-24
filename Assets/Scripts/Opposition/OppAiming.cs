@@ -13,7 +13,7 @@ namespace Opposition
         private Rigidbody2D _body;
         private float _angle;
 
-        private void Start()
+        private void Awake()
         {
             _aiming = GetComponent<Aiming>();
             _body = GetComponent<Rigidbody2D>();

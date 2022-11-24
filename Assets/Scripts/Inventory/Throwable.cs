@@ -1,50 +1,34 @@
-using System;
 using UnityEngine;
 
 namespace Inventory
 {
-    public abstract class Throwable : Weapon
+    [CreateAssetMenu(menuName = "Throwable", fileName = "Assets/Resources/Items/Throwable")]
+    public class Throwable : Item
     {
 
-        [SerializeField]
-        private Transform player;
+        [field: SerializeField]
+        public int ParticleCount { get; private set; }
 
-        [SerializeField]
-        private GameObject bulletPrefab;
+        [field: SerializeField]
+        public float ThrowRange { get; private set; }
 
-        [SerializeField]
-        private int particleCount = 5;
-
-        [SerializeField]
-        private float throwRange;
-        
-        private Camera _mainCamera;
-
-        private void Start()
+        public override void Equip(GameObject player)
         {
-            _mainCamera = Camera.main;
+            base.Equip(player);
+            if (player.TryGetComponent(out ArcRenderer arcRenderer))
+            {
+                arcRenderer.Throwable = this;
+                arcRenderer.enabled = true;
+            }
         }
 
-        public override void VisualUpdate()
+        public override void Unequip(GameObject player)
         {
-            Vector3 playerPos = player.position;
-            Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-
-            float r = Mathf.Min(Vector3.Distance(playerPos, mousePos), throwRange);
-            float theta = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x);
-            
-            Vector3 finalVec = new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta));
-
-            for (int i = 0; i < particleCount; ++i)
+            base.Equip(player);
+            if (player.TryGetComponent(out ArcRenderer arcRenderer))
             {
-                float x = (float) i / (particleCount - 1);
-                float y = -4 * x * (x - 1);
-                Vector3 transformedVector = new Vector2(finalVec.x * x, finalVec.y * x + y); // linear algebra
-
-                GameObject newBullet = Instantiate(bulletPrefab);
-                newBullet.transform.position = transformedVector + playerPos;
-                Destroy(newBullet, 4 * Time.deltaTime);
+                arcRenderer.Throwable = null;
+                arcRenderer.enabled = false;
             }
         }
 

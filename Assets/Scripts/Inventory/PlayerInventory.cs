@@ -9,7 +9,7 @@ namespace Inventory
     {
 
         [SerializeField]
-        private List<Item> items;
+        private List<ItemStack> items;
 
         [SerializeField]
         private GameObject hotbar;
@@ -17,8 +17,7 @@ namespace Inventory
         [SerializeField]
         private Image select;
 
-        [SerializeField]
-        private Sprite emptySprite;
+        private ItemStack _lastEquipped = null;
 
         private int _equipped;
 
@@ -27,30 +26,29 @@ namespace Inventory
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
-            Item equippedItem = GetEquippedItem();
-            if (items[_equipped] != null)
+            ItemStack equippedItem = GetEquippedItem();
+            if (equippedItem != _lastEquipped)
             {
-               equippedItem.VisualUpdate();
+                if (_lastEquipped != null)
+                {
+                    _lastEquipped.Item.Unequip(gameObject);
+                }
+                if (equippedItem != null)
+                {
+                    equippedItem.Item.Equip(gameObject);
+                }
             }
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                equippedItem.Use();
-            }
-        }
-
-        private void Start()
-        {
-            AddItem<WaterGun>();
+            _lastEquipped = equippedItem;
         }
 
         private void DisplayItems()
         {
             for (int i = 0; i < items.Count; i++)
             {
-                Item item = items[i];
+                Item item = items[i].Item;
                 hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.DisplaySprite;
+                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
             }
         }
 
@@ -77,40 +75,15 @@ namespace Inventory
             select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
         }
 
-        public Item GetEquippedItem()
+        public ItemStack GetEquippedItem()
         {
             return items[_equipped];
         }
 
-        public bool TryGetEquippedItem<T>(out T item) where T : Item
+        public void AddItem(ItemStack itemStack)
         {
-            item = GetEquippedItem() as T;
-            return item != null;
+            items.Add(itemStack);
         }
 
-        public void AddItem<T>() where T : Item
-        {
-            items.Add(gameObject.AddComponent<T>());
-        }
-
-        public void LookUpAndAdd(String itemName)
-        {
-            if (itemName.Equals("American Flag"))
-            { 
-                AddItem<AmericanFlag>();
-            }
-            
-            else if (itemName.Equals("Water Gun"))
-            {
-                AddItem<WaterGun>();
-            }
-            
-            else if (itemName.Equals("Beisenburg Test Answers"))
-            {
-                AddItem<TestAnswers>();
-            }
-
-            DisplayItems();
-        }
     }
 }

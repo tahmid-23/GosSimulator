@@ -13,7 +13,7 @@ namespace Bullet
 
         private int _aliveTime;
 
-        private void Start()
+        private void Awake()
         {
             _duration = Mathf.FloorToInt(distance / (speed.magnitude * Time.deltaTime));
         }

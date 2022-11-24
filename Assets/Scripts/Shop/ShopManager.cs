@@ -20,26 +20,26 @@ namespace Shop
         
         List<GameObject> instantiatedItems = new List<GameObject>();
         
-        private KeyValuePair<String, double> _selectedItem;
-        public List<GameObject> InstantiateShopItems(List<StackedItem> items)
+        private ShopEntry _selectedEntry;
+        public List<GameObject> InstantiateShopItems(List<ShopEntry> shopEntries)
         {
             instantiatedItems = new List<GameObject>();
             
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < shopEntries.Count; i++)
             {
                 GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
                 GameObject shopItem = Instantiate(shopItemPrefab, transform);
                 shopItem.transform.Translate(new Vector3(250 * i, 0, 0));
 
-                StackedItem item = items[i];
+                ShopEntry entry = shopEntries[i];
                 
-                SetImage(shopItem, item.GetSprite());
-                SetShopItemPrice(shopItem, item.GetCost());
+                SetImage(shopItem, entry.Item.Sprite);
+                SetShopItemPrice(shopItem, entry.Cost);
                 shopItem.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    _selectedItem = new KeyValuePair<string, double>(item.GetDisplayName(), item.GetCost());
+                    _selectedEntry = entry;
 
-                    if (item.GetCost() > MakeThisASingleton.GetCosCoins())
+                    if (entry.Cost > GosCoins.Instance.Coins)
                     {
                         cannotPurchase.SetActive(true);
                     }
@@ -65,9 +65,9 @@ namespace Shop
             instantiatedItems = new List<GameObject>();
         }
 
-        public void SetImage(GameObject itemBox, String sprite)
+        public void SetImage(GameObject itemBox, Sprite sprite)
         {
-            itemBox.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprites/{sprite}");
+            itemBox.transform.Find("Image").GetComponent<Image>().sprite = sprite;
         }
 
         public void SetShopItemPrice(GameObject itemBox, double price)
@@ -83,8 +83,8 @@ namespace Shop
         public void HideCanPurchasePopUp()
         {
             transform.Find("CanPurchase").gameObject.SetActive(false);
-            MakeThisASingleton.ChangeGosCoins(-1 * _selectedItem.Value);
-            gosInventory.LookUpAndAdd(_selectedItem.Key);
+            GosCoins.Instance.Coins -= _selectedEntry.Cost;
+            gosInventory.AddItem(new ItemStack(_selectedEntry.Item));
             DestroyShopItems(instantiatedItems);
         }
     }

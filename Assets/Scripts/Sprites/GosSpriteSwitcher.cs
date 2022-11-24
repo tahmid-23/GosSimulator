@@ -7,7 +7,7 @@ namespace Sprites
         private SpriteRenderer _spriteRenderer;
         private Sprite _currentSprite;
 
-        private void Start()
+        private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             DefaultSprite();

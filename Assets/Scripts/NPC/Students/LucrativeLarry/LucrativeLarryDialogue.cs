@@ -14,7 +14,7 @@ namespace NPC.Students.LucrativeLarry
         {
             if (_currentInteractionIndex == 0)
             {
-                GetComponent<LucrativeLarryShop>().EnableShop();
+                GetComponent<ShopBehaviour>().EnableShop();
             }
         }
     }

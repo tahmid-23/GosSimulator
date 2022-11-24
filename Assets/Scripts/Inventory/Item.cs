@@ -2,14 +2,22 @@ using UnityEngine;
 
 namespace Inventory
 {
-    public abstract class Item : MonoBehaviour
+    [CreateAssetMenu(menuName = "Item", fileName = "Assets/Resources/Items/Item")]
+    public class Item : ScriptableObject
     {
 
         [field: SerializeField]
-        public Sprite DisplaySprite { get; set; }
+        public Sprite Sprite { get; private set; }
 
-        public abstract void Use();
+        public virtual void Equip(GameObject player)
+        {
+            
+        }
 
-        public abstract void VisualUpdate();
+        public virtual void Unequip(GameObject player)
+        {
+            
+        }
+
     }
 }

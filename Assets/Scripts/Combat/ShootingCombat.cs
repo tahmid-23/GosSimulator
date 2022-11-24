@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Bullet;
-using Damage;
 using Gos;
 using Height;
 using Inventory;
@@ -17,10 +15,6 @@ namespace Combat
         private Collider2D _collider;
 
         private PlayerInventory _playerInventory;
-    
-        private float _bulletSpeed;
-
-        private float _bulletDamage;
 
         [SerializeField] 
         private int bulletHeight;
@@ -40,7 +34,7 @@ namespace Combat
                 return false;
             }
 
-            _playerInventory.TryGetEquippedItem(out projectile);
+            projectile = _playerInventory.GetEquippedItem().Item as Projectile;
             return projectile != null;
         }
 
@@ -76,12 +70,7 @@ namespace Combat
                 if (height > maxHeight)
                 {
                     maxHeight = height;
-                    if (raycast.collider.gameObject.TryGetComponent(out IDamageReceiver damageReceiver))
-                    {
-                        damageReceiver.ChangeHealth(_bulletDamage);
-                        bulletDistance = raycast.distance;
-                        break;
-                    }
+                    projectile.HandleAttack(raycast.collider.gameObject);
                 }
                 if (height >= bulletHeight)
                 {
@@ -90,16 +79,7 @@ namespace Combat
                 }
             }
             
-            InstantiateBullet(projectile, direction, bulletDistance);
-        }
-
-        private void InstantiateBullet(Projectile projectile, Vector3 direction, float bulletDistance)
-        {
-            GameObject bullet = Instantiate(projectile.BulletPrefab, transform.position, Quaternion.identity);
-            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-
-            bulletBehaviour.speed = projectile.BulletSpeed * direction;
-            bulletBehaviour.distance = bulletDistance;
+            projectile.Shoot(transform.position, direction, bulletDistance);
         }
     }
 }

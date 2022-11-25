@@ -75,7 +75,7 @@ namespace Inventory
 
         public ItemStack GetEquippedItem()
         {
-            return items[_equipped];
+            return items.Count == 0 ? null : items[_equipped];
         }
 
         public void AddItem(ItemStack itemStack)

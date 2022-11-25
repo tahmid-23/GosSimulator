@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Movement;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace AI
 
         private MovementController _movementController;
 
+        private Vector3 _restPosition;
+
         private void Awake()
         {
             _movementController = GetComponent<MovementController>();
@@ -22,6 +25,7 @@ namespace AI
 
         private void Start()
         {
+            _restPosition = transform.position;
             StartCoroutine(FindSpills().GetEnumerator());
         }
 
@@ -29,19 +33,64 @@ namespace AI
         {
             while (true)
             {
-                GameObject spill = GameObject.FindWithTag("Spill");
-                if (spill != null)
-                {
-                    yield return StartCoroutine(Clean(spill).GetEnumerator());
-                }
-
+                yield return StartCoroutine(CleanAllSpills().GetEnumerator());
                 yield return new WaitForSeconds(1);
             }
         }
 
+        private IEnumerable CleanAllSpills()
+        {
+            bool anySpills = false;
+            while (true) 
+            {
+                Vector3 startPosition = transform.position;
+                GameObject[] spills = GameObject.FindGameObjectsWithTag("Spill");
+                if (spills.Length == 0)
+                {
+                    if (anySpills)
+                    {
+                        yield return StartCoroutine(ReturnToRest().GetEnumerator());
+                    }
+
+                    break;
+                }
+
+                anySpills = true;
+                GameObject closestSpill = FindClosestSpill(spills, startPosition);
+                yield return StartCoroutine(Clean(closestSpill).GetEnumerator());
+            }
+        }
+
+        private static GameObject FindClosestSpill(IReadOnlyList<GameObject> spills, Vector3 startPosition)
+        {
+            GameObject closest = spills[0];
+            float closestDistance = (closest.transform.position - startPosition).sqrMagnitude;
+            for (int i = 1; i < spills.Count; ++i)
+            {
+                GameObject newSpill = spills[i];
+                float newDistance = (newSpill.transform.position - startPosition).sqrMagnitude;
+
+                if (newDistance < closestDistance)
+                {
+                    closest = newSpill;
+                    closestDistance = newDistance;
+                }
+            }
+
+            return closest;
+        }
+
+        private IEnumerable ReturnToRest()
+        {
+            while (MoveTowards(_restPosition))
+            {
+                yield return new WaitForFixedUpdate();
+            }
+            _movementController.Speed = Vector2.zero;
+        }
+
         private IEnumerable Clean(GameObject spill)
         {
-            Vector3 initialPosition = transform.position;
             Vector3 spillPosition = spill.transform.position;
 
             while (spill != null && MoveTowards(spillPosition))
@@ -57,18 +106,12 @@ namespace AI
                     break;
                 }
 
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForEndOfFrame();
             }
             if (spill != null)
             {
                 Destroy(spill);
             }
-
-            while (MoveTowards(initialPosition))
-            {
-                yield return new WaitForEndOfFrame();
-            }
-            _movementController.Speed = Vector2.zero;
         }
 
         private bool MoveTowards(Vector3 position)

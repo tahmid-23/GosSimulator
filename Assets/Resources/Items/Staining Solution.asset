@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8da6512bfb0143cc8039fc0f06cc36fb, type: 3}
-  m_Name: Rock
+  m_Name: Staining Solution
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 62ce01ddca719d34ea9648c586a7cc94, type: 3}
+  <Sprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   <ParticleCount>k__BackingField: 5
-  <ThrowRange>k__BackingField: 10
+  <ThrowRange>k__BackingField: 20
   <ThrownObjectPrefab>k__BackingField: {fileID: 2578839439969649203, guid: 86dcfd63371a7d74091f98d8bf4029bf, type: 3}
   <Iterations>k__BackingField: 180
+  <Action>k__BackingField: {fileID: 11400000, guid: f8560d4858df7ef4fb4c87c9a51e6901, type: 2}

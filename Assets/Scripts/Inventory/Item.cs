@@ -19,5 +19,9 @@ namespace Inventory
             
         }
 
+        public virtual void Use(GameObject player)
+        {
+
+        }
     }
 }

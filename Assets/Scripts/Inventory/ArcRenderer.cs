@@ -35,9 +35,6 @@ namespace Inventory
         }
 
         [SerializeField]
-        private Transform player;
-
-        [SerializeField]
         private GameObject bulletPrefab;
 
         private GameObject[] _bullets = Array.Empty<GameObject>();
@@ -56,7 +53,7 @@ namespace Inventory
                 return;
             }
             
-            Vector3 playerPos = player.position;
+            Vector3 playerPos = transform.position;
             Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
 

@@ -32,6 +32,10 @@ namespace Inventory
                 _lastEquipped?.Item.Unequip(gameObject);
                 equippedItem?.Item.Equip(gameObject);
             }
+            if (equippedItem != null && Input.GetButtonDown("Fire1"))
+            {
+                equippedItem.Item.Use(gameObject);
+            }
 
             _lastEquipped = equippedItem;
         }

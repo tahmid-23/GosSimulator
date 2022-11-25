@@ -29,21 +29,11 @@ namespace Inventory
             ItemStack equippedItem = GetEquippedItem();
             if (equippedItem != _lastEquipped)
             {
-<<<<<<< Updated upstream
                 _lastEquipped?.Item.Unequip(gameObject);
                 equippedItem?.Item.Equip(gameObject);
             }
 
             _lastEquipped = equippedItem;
-=======
-               // equippedItem.VisualUpdate();
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                equippedItem.Use();
-            }
->>>>>>> Stashed changes
         }
 
         private void DisplayItems()

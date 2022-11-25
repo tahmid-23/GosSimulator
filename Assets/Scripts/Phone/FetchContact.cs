@@ -4,9 +4,9 @@ namespace Phone
 {
     public static class FetchContact
     {
-        public static Contact GetContact(String npcName)
+        public static Contact GetContact(string npcName)
         {
-            if (String.Equals(npcName, "Lucrative Larry"))
+            if (string.Equals(npcName, "Lucrative Larry"))
             {
                 return new Contact("Lucrative Larry", "2015646966");
             }

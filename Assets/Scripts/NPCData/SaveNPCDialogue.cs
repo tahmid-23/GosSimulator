@@ -7,10 +7,10 @@ namespace NPCData
 {
     public static class SaveNPCDialogue
     {
-        public static void SaveDialogue(NPCDialogueData _npcDialogueData, String filename)
+        public static void SaveDialogue(NPCDialogueData _npcDialogueData, string filename)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            String path = Application.persistentDataPath + filename;
+            string path = Application.persistentDataPath + filename;
             FileStream stream = new FileStream(path, FileMode.Create);
             
             formatter.Serialize(stream, _npcDialogueData);
@@ -18,7 +18,7 @@ namespace NPCData
             stream.Close();
         }
 
-        public static NPCDialogueData LoadNPCDialogue(String filename)
+        public static NPCDialogueData LoadNPCDialogue(string filename)
         {
             if (File.Exists(filename))
             {

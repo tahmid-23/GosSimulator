@@ -12,10 +12,10 @@ namespace Dialogue
 {
     public static class JSONDialogueParser
     {
-        private static List<Conversation> SerializeJSON(String jsonName)
+        private static List<Conversation> SerializeJSON(string jsonName)
         {
-            String filepath = "Dialogues/" + jsonName;
-            String jsonString = Resources.Load<TextAsset>(filepath).ToString();
+            string filepath = "Dialogues/" + jsonName;
+            string jsonString = Resources.Load<TextAsset>(filepath).ToString();
             // String jsonString = Resources.LoadAll<TextAsset>("Dialogues/")[0].ToString();
             JArray jArray = JArray.Parse(jsonString);
 
@@ -34,14 +34,14 @@ namespace Dialogue
                         rlist.Add(new Response((string) r["response"], (int) r["id"]));
                     }
                 }
-                list.Add(new Conversation((int) jObject["id"], fieldsList.ToObject<List<String>>(), rlist));
+                list.Add(new Conversation((int) jObject["id"], fieldsList.ToObject<List<string>>(), rlist));
             }
 
             // IList<Conversation> texts = JsonSerializer.Deserialize<IList<Conversation>>(jsonString);
             return list;
         }
 
-        public static Conversation GetDialogueByID(String jsonName, int id)
+        public static Conversation GetDialogueByID(string jsonName, int id)
         {
             return SerializeJSON(jsonName)[id - 1];
         }

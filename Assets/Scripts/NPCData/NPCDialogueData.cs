@@ -7,15 +7,15 @@ namespace NPCData
     public class NPCDialogueData
     {
         private int _conversationID = 1;
-        private String _dialogueFile = "JPIntro";
+        private string _dialogueFile = "JPIntro";
 
-        public NPCDialogueData(String dialogueFile, int conversationID)
+        public NPCDialogueData(string dialogueFile, int conversationID)
         {
             this._conversationID = conversationID;
             this._dialogueFile = dialogueFile;
         }
 
-        public void SetInteractionID(String dialogueFile, int conversationID)
+        public void SetInteractionID(string dialogueFile, int conversationID)
         {
             this._dialogueFile = dialogueFile;
             this._conversationID = conversationID;
@@ -26,7 +26,7 @@ namespace NPCData
             return _conversationID;
         }
 
-        public String GetDialogueFile()
+        public string GetDialogueFile()
         {
             return _dialogueFile;
         }

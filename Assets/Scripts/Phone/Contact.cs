@@ -4,10 +4,10 @@ namespace Phone
 {
     public class Contact
     {
-        private String _fullName;
-        private String _phoneNumber;
+        private string _fullName;
+        private string _phoneNumber;
 
-        public Contact(String fullName, String phoneNumber)
+        public Contact(string fullName, string phoneNumber)
         {
             this._fullName = fullName;
             this._phoneNumber = phoneNumber;

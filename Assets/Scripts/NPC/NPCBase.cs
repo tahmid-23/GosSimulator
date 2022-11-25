@@ -25,12 +25,12 @@ namespace NPC
         
         //these should be set by a subclass (aka specfic npc class)
         protected int _interactionID;
-        protected String _dialogueFile;
+        protected string _dialogueFile;
         //you should be able to change these as you like in the subclass
         //for example if after one interaction you want to update the id to a conversation
         //you can do that in the subclass
 
-        protected NPCBase(Classification classification, float hp, int schoolbookFollowers, int interactionID, String dialogueFile)
+        protected NPCBase(Classification classification, float hp, int schoolbookFollowers, int interactionID, string dialogueFile)
         {
             _classification = classification;
             _hp = hp;
@@ -123,7 +123,7 @@ namespace NPC
             BetweenInteractions();
 
             _currentInteractionIndex++;
-            List<String> dialogueList = _currentConversation.GetFields();
+            List<string> dialogueList = _currentConversation.GetFields();
             if (_currentInteractionIndex >= dialogueList.Count)
             {
                 if (_currentConversation.GetResponses().Count > 0)

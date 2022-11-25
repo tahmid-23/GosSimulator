@@ -1,17 +1,16 @@
 using System;
 using System.IO;
-using Dialogue;
 using Inventory;
 using NPCData;
 using UnityEngine;
 
-namespace NPC
+namespace NPC.Students.JP
 {
     public class JPDialogue: NPCBase
     {
         public JPDialogue() : base(Classification.Ally, 100, 10)
         {
-            String path = Application.persistentDataPath + "/JP.npc";
+            string path = Application.persistentDataPath + "/JP.npc";
             if (!File.Exists(path))
             {
                 SaveNPCDialogue.SaveDialogue(new NPCDialogueData("JPIntro", 1), path);

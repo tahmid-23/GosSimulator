@@ -26,7 +26,7 @@ namespace Movement
             Transform gosTransform = transform;
             Vector2 center = gosTransform.TransformPoint(_boxCollider2D.offset);
             Vector2 initialSpeed = Speed;
-            Vector2 resultSpeed = Speed * Time.fixedDeltaTime;
+            Vector2 resultSpeed = initialSpeed * Time.fixedDeltaTime;
             
             RaycastHit2D[] raycasts = Physics2D.BoxCastAll(center, gosTransform.localScale * _boxCollider2D.size,
                 0F, resultSpeed.normalized, resultSpeed.magnitude);

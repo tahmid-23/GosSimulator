@@ -38,6 +38,13 @@ namespace NPC
             _interactionID = interactionID;
             _dialogueFile = dialogueFile;
         }
+        
+        protected NPCBase(Classification classification, float hp, int schoolbookFollowers)
+        {
+            _classification = classification;
+            _hp = hp;
+            _schoolbookFollowers = schoolbookFollowers;
+        }
 
         public float GetHP()
         {
@@ -169,6 +176,12 @@ namespace NPC
         protected void AllowDialogue()
         {
             _ableToMoveOn = true;
+        }
+
+        protected void SetDialogue(String filename, int interaction)
+        {
+            this._dialogueFile = filename;
+            this._interactionID = interaction;
         }
 
         protected abstract void BetweenInteractions();

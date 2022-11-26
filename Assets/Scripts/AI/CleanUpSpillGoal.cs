@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Movement;
+using Scene;
 using UnityEngine;
 
 namespace AI
@@ -16,11 +17,17 @@ namespace AI
 
         private MovementController _movementController;
 
+        [SerializeField]
+        private GameObject guardedDoor;
+
+        private TriggerSceneSwitcher _guardedSceneSwitcher;
+
         private Vector3 _restPosition;
 
         private void Awake()
         {
             _movementController = GetComponent<MovementController>();
+            _guardedSceneSwitcher = guardedDoor.GetComponent<TriggerSceneSwitcher>();
         }
 
         private void Start()
@@ -40,6 +47,7 @@ namespace AI
 
         private IEnumerable CleanAllSpills()
         {
+            _guardedSceneSwitcher.WarpEnabled = true;
             bool anySpills = false;
             while (true) 
             {
@@ -59,6 +67,7 @@ namespace AI
                 GameObject closestSpill = FindClosestSpill(spills, startPosition);
                 yield return StartCoroutine(Clean(closestSpill).GetEnumerator());
             }
+            _guardedSceneSwitcher.WarpEnabled = false;
         }
 
         private static GameObject FindClosestSpill(IReadOnlyList<GameObject> spills, Vector3 startPosition)

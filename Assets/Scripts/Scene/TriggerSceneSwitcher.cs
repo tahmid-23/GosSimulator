@@ -16,17 +16,20 @@ namespace Scene
         [SerializeField]
         private Vector3 destinationPosition;
 
-        private Collider2D _trigger;
-
-        private void Awake()
-        {
-            _trigger = GetComponent<Collider2D>();
-        }
+        [field: SerializeField]
+        public bool WarpEnabled { get; set; } = true;
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            SceneManager.LoadScene(sceneName);
-            player.position = destinationPosition;
+            if (!WarpEnabled)
+            {
+                return;
+            }
+            if (col.gameObject.CompareTag("Player"))
+            {
+                //SceneManager.LoadScene(sceneName);
+                player.position = destinationPosition;
+            }
         }
 
     }

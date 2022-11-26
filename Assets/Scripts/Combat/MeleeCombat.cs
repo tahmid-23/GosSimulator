@@ -37,6 +37,8 @@ namespace Combat
 
         private PlayerInventory _playerInventory;
 
+        private Collider2D _collider2D;
+        
         private AttackContext _currentContext;
 
         private bool _charging;
@@ -47,6 +49,7 @@ namespace Combat
             _movementController = GetComponent<MovementController>();
             _movementController.OnCollision += OnCollision;
             _playerInventory = GetComponent<PlayerInventory>();
+            _collider2D = GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -83,8 +86,16 @@ namespace Combat
                 return false;
             }
             
-            RaycastHit2D rayHit = Physics2D.GetRayIntersection(_camera.ScreenPointToRay(Input.mousePosition));
-            Transform otherTransform = rayHit.transform;
+            RaycastHit2D[] rayHits = Physics2D.GetRayIntersectionAll(_camera.ScreenPointToRay(Input.mousePosition));
+            Transform otherTransform = null;
+            foreach (RaycastHit2D rayHit in rayHits)
+            {
+                if (rayHit.collider != null && rayHit.collider != _collider2D && !rayHit.collider.isTrigger)
+                {
+                    otherTransform = rayHit.transform;
+                    break;
+                }
+            }
             if (otherTransform == null)
             {
                 attackContext = null;

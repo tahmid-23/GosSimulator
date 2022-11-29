@@ -83,5 +83,46 @@ namespace Inventory
             items.Add(itemStack);
         }
 
+        public bool HasItem(String itemName)
+        {
+            List<String> itemNames = new List<string>();
+            
+            foreach(ItemStack itemArr in items)
+            {
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            foreach (String nameArr in itemNames)
+            {
+                if (nameArr.Equals(itemName))
+                {
+                    return true;
+                }  
+            }
+
+            return false;
+        }
+
+        public void RemoveItem(String itemName) {
+            List<String> itemNames = new List<String>();
+
+            foreach (ItemStack itemArr in items){
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            int i = 0;
+
+            foreach (String nameArr in itemNames)
+            {
+                if (nameArr.Equals(itemName))
+                {    
+                    break;
+                }
+
+                i++;
+            }
+
+            items.RemoveAt(i);
+        }
     }
 }

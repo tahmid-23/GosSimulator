@@ -18,11 +18,22 @@ namespace Shop
         [SerializeField]
         private PlayerInventory gosInventory;
         
+        [SerializeField]
+        private GameObject shopObject;
+
+        [SerializeField]
+        private GameObject npcObject;
+
         List<GameObject> instantiatedItems = new List<GameObject>();
         
         private ShopEntry _selectedEntry;
         public List<GameObject> InstantiateShopItems(List<ShopEntry> shopEntries)
         {
+            npcObject.SetActive(false);
+            shopObject.SetActive(true);
+            
+            instantiatedItems.Clear();
+
             instantiatedItems = new List<GameObject>();
             
             for (int i = 0; i < shopEntries.Count; i++)
@@ -57,6 +68,9 @@ namespace Shop
 
         public void DestroyShopItems(List<GameObject> items)
         {
+            shopObject.SetActive(false);
+            npcObject.SetActive(true);
+
             foreach (GameObject specificItem in items)
             {
                 Destroy(specificItem);
@@ -83,7 +97,9 @@ namespace Shop
         public void HideCanPurchasePopUp()
         {
             transform.Find("CanPurchase").gameObject.SetActive(false);
-            GosCoins.Instance.Coins -= _selectedEntry.Cost;
+            // GosCoins.Instance.Coins -= _selectedEntry.Cost;
+            // GosCoins.Instance.Cost -= GosCoins.ChangeGosCoins(_selectedEntry.Cost);
+            GosCoins.ChangeGosCoins(_selectedEntry.Cost);
             gosInventory.AddItem(new ItemStack(_selectedEntry.Item));
             DestroyShopItems(instantiatedItems);
         }

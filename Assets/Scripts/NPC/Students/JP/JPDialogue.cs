@@ -8,29 +8,45 @@ namespace NPC.Students.JP
 {
     public class JPDialogue: NPCBase
     {
+        [SerializeField]
+        private PlayerInventory gosInventory;
+        
         public JPDialogue() : base(Classification.Ally, 100, 10)
         {
-            string path = Application.persistentDataPath + "/JP.npc";
-            if (!File.Exists(path))
+
+        }
+
+        void Awake()
+        {
+            base.Awake();
+            // This will cause issues and remove this
+            // All this does is sets it to 1 for testing purposes
+            SetDialogue("JPIntro", 1);
+            if (!PlayerPrefs.HasKey("JPConversation"))
             {
-                SaveNPCDialogue.SaveDialogue(new NPCDialogueData("JPIntro", 1), path);
+                PlayerPrefs.SetInt("JPConversation", 1);
                 SetDialogue("JPIntro", 1);
             }
             else
             {
-                NPCDialogueData dialogueData = SaveNPCDialogue.LoadNPCDialogue(path);
-                SetDialogue(dialogueData.GetDialogueFile(), dialogueData.GetConversationID());
+                SetDialogue("JPIntro", PlayerPrefs.GetInt("JPConversation"));
+            }
+        
+            if(PlayerPrefs.GetInt("JPConversation") == 1) {
+                if(gosInventory.HasItem("Test Answers")) {
+                    PlayerPrefs.SetInt("JPConversation", 2);
+                    SetDialogue("JPIntro", 2);
+                }
             }
         }
-
-        private void OnMouseDown()
-        {
-            PlayerInventory gosInventory = GameObject.Find("Gos").GetComponent<PlayerInventory>();
-        }
-
+        
         protected override void BetweenInteractions()
         {
-            
+            // if(base._interactionID == 2) {
+            //     if(_currentConversationIndex == 0) {
+            //        gosInventory.RemoveItem("Test Answers");
+            //     }
+            // } 
         }
     }
 }

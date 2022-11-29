@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bc8e36a83848eba5649742784ad994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speechPanel: {fileID: 1584611915}
 --- !u!1 &252431188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,6 +1266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c385a69c0194a0ea8c7c2431569e92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannotPurchase: {fileID: 0}
+  canPurchase: {fileID: 0}
+  gosInventory: {fileID: 0}
 --- !u!114 &1554693532
 MonoBehaviour:
   m_ObjectHideFlags: 0

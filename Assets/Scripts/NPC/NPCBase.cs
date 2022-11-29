@@ -13,10 +13,11 @@ namespace NPC
         private int _schoolbookFollowers;
         private GameObject _speechBubble;
         private GameObject _gosUI;
-        private GameObject _npcUI;
-        private GameObject _speechPanel;
-        private Text _npcSpeech;
-        private Button[] _responseButtons = new Button[3];
+        private static GameObject _npcUI;
+        private static GameObject _speechPanel;
+        private static Text _npcSpeech;
+        private static Button[] _responseButtons = new Button[3];
+        private static bool uiSetupCompleted = false;
         private bool _interactable;
         private bool _interacting;
         private Conversation _currentConversation;
@@ -56,19 +57,22 @@ namespace NPC
             _schoolbookFollowers += delta;
         }
 
-        private void Awake()
+        protected void Awake()
         {
             _speechBubble = transform.Find("Speech Bubble").gameObject;
-            _gosUI = GameObject.Find("UI Canvas");
-            _npcUI = GameObject.Find("NPC Canvas");
-            _speechPanel = _npcUI.transform.Find("Speech Panel").gameObject;
-            _npcSpeech = _speechPanel.transform.Find("Text (Legacy)").GetComponent<Text>();
-            for (int i = 0; i < _responseButtons.Length; i++)
-            {
-                _responseButtons[i] = _npcUI.transform.Find("Response " + (i+1)).GetComponent<Button>();
-                _responseButtons[i].gameObject.SetActive(false);
+            if (!uiSetupCompleted) {
+                _npcUI = GameObject.Find("NPC Canvas");
+                _speechPanel = _npcUI.transform.Find("Speech Panel").gameObject;
+                _npcSpeech = _speechPanel.transform.Find("Text (Legacy)").GetComponent<Text>();
+                for (int i = 0; i < _responseButtons.Length; i++)
+                {
+                    _responseButtons[i] = _npcUI.transform.Find("Response " + (i+1)).GetComponent<Button>();
+                    _responseButtons[i].gameObject.SetActive(false);
+                }
+                _npcUI.SetActive(false);
+                uiSetupCompleted = true;
             }
-            _npcUI.SetActive(false);
+            _gosUI = GameObject.Find("UI Canvas");
         }
 
         private void Update()

@@ -105,7 +105,7 @@ namespace AI
 
         private IEnumerable Clean(GameObject spill)
         {
-            Vector3 spillPosition = spill.transform.position;
+            Vector3 spillPosition = GetSpillPosition(spill);
 
             _animator.SetBool("Walking", true);
             while (spill != null && MoveTowards(spillPosition))
@@ -115,22 +115,21 @@ namespace AI
             _movementController.Speed = Vector2.zero;
             _animator.SetBool("Walking", false);
 
-            _animator.SetBool("Mopping", true);
-            for (int i = 0; i < totalCleanTime; ++i)
-            {
-                if (spill == null)
-                {
-                    break;
-                }
-
-                yield return new WaitForEndOfFrame();
-            }
-            _animator.SetBool("Mopping", false);
+            yield return StartCoroutine(MopSpill(spill).GetEnumerator());
 
             if (spill != null)
             {
                 Destroy(spill);
             }
+        }
+
+        private static Vector3 GetSpillPosition(GameObject spill)
+        {
+            float height = spill.GetComponent<SpriteRenderer>().size.y;
+            Vector3 spillPosition = spill.transform.position;
+            spillPosition.y += height / 2;
+
+            return spillPosition;
         }
 
         private bool MoveTowards(Vector3 position)
@@ -147,6 +146,28 @@ namespace AI
 
             _movementController.Speed = delta / Time.fixedDeltaTime;
             return false;
+        }
+
+        private IEnumerable MopSpill(GameObject spill)
+        {
+            _animator.SetBool("Mopping", true);
+
+            Transform spillTransform = spill.transform;
+            for (int i = 0; i < totalCleanTime; ++i)
+            {
+                if (spill == null)
+                {
+                    break;
+                }
+
+                if (i == totalCleanTime / 4 || i == totalCleanTime / 2 || i == 3 * totalCleanTime / 4)
+                {
+                    spillTransform.localScale *= 0.5F;
+                }
+
+                yield return new WaitForEndOfFrame();
+            }
+            _animator.SetBool("Mopping", false);
         }
 
     }

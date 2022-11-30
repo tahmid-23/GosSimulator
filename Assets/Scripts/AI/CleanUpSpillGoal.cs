@@ -15,10 +15,12 @@ namespace AI
         [SerializeField]
         private float speed;
 
-        private MovementController _movementController;
-
         [SerializeField]
         private GameObject guardedDoor;
+
+        private Animator _animator;
+
+        private MovementController _movementController;
 
         private TriggerSceneSwitcher _guardedSceneSwitcher;
 
@@ -26,6 +28,7 @@ namespace AI
 
         private void Awake()
         {
+            _animator = GetComponent<Animator>();
             _movementController = GetComponent<MovementController>();
             _guardedSceneSwitcher = guardedDoor.GetComponent<TriggerSceneSwitcher>();
         }
@@ -91,23 +94,28 @@ namespace AI
 
         private IEnumerable ReturnToRest()
         {
+            _animator.SetBool("Walking", true);
             while (MoveTowards(_restPosition))
             {
                 yield return new WaitForFixedUpdate();
             }
             _movementController.Speed = Vector2.zero;
+            _animator.SetBool("Walking", false);
         }
 
         private IEnumerable Clean(GameObject spill)
         {
             Vector3 spillPosition = spill.transform.position;
 
+            _animator.SetBool("Walking", true);
             while (spill != null && MoveTowards(spillPosition))
             {
                 yield return new WaitForFixedUpdate();
             }
             _movementController.Speed = Vector2.zero;
+            _animator.SetBool("Walking", false);
 
+            _animator.SetBool("Mopping", true);
             for (int i = 0; i < totalCleanTime; ++i)
             {
                 if (spill == null)
@@ -117,6 +125,8 @@ namespace AI
 
                 yield return new WaitForEndOfFrame();
             }
+            _animator.SetBool("Mopping", false);
+
             if (spill != null)
             {
                 Destroy(spill);

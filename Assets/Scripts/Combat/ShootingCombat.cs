@@ -14,14 +14,14 @@ namespace Combat
 
         private Collider2D _collider;
 
-        private PlayerInventory _playerInventory;
+        private ICurrentItemProvider _currentItemProvider;
 
         [SerializeField] 
         private int bulletHeight;
 
         private void Awake()
         {
-            _playerInventory = GetComponent<PlayerInventory>();
+            _currentItemProvider = GetComponent<ICurrentItemProvider>();
             _gosAiming = GetComponent<GosAiming>();
             _collider = GetComponent<BoxCollider2D>();
         }
@@ -34,7 +34,7 @@ namespace Combat
                 return false;
             }
 
-            projectile = _playerInventory.GetEquippedItem().Item as Projectile;
+            projectile = _currentItemProvider.GetEquippedItem() as Projectile;
             return projectile != null;
         }
 

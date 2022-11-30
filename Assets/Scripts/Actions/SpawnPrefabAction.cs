@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Actions
 {
-    [CreateAssetMenu(fileName = "Assets/Resources/Actions/SpawnPrefab", menuName = "Spawn Prefab Action")]
+    [CreateAssetMenu(fileName = "Assets/Resources/Actions/Spawn Prefab", menuName = "Spawn Prefab Action")]
     public class SpawnPrefabAction : Action
     {
 

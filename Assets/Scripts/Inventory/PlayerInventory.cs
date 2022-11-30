@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Inventory
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : MonoBehaviour, ICurrentItemProvider
     {
 
         [SerializeField]
@@ -26,7 +26,7 @@ namespace Inventory
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
-            ItemStack equippedItem = GetEquippedItem();
+            ItemStack equippedItem = GetEquippedItemStack();
             if (equippedItem != _lastEquipped)
             {
                 _lastEquipped?.Item.Unequip(gameObject);
@@ -73,9 +73,14 @@ namespace Inventory
             select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
         }
 
-        public ItemStack GetEquippedItem()
+        public ItemStack GetEquippedItemStack()
         {
             return items.Count == 0 ? null : items[_equipped];
+        }
+
+        public Item GetEquippedItem()
+        {
+            return GetEquippedItemStack().Item;
         }
 
         public void AddItem(ItemStack itemStack)

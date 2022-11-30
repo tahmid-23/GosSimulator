@@ -1,3 +1,4 @@
+using Damage;
 using Inventory;
 using Movement;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Combat
 
         private MovementController _movementController;
 
-        private PlayerInventory _playerInventory;
+        private ICurrentItemProvider _currentItemProvider;
 
         private Collider2D _collider2D;
         
@@ -48,7 +49,7 @@ namespace Combat
             _camera = Camera.main;
             _movementController = GetComponent<MovementController>();
             _movementController.OnCollision += OnCollision;
-            _playerInventory = GetComponent<PlayerInventory>();
+            _currentItemProvider = GetComponent<ICurrentItemProvider>();
             _collider2D = GetComponent<Collider2D>();
         }
 
@@ -79,7 +80,7 @@ namespace Combat
                 return false;
             }
 
-            Melee attackWeapon = _playerInventory.GetEquippedItem().Item as Melee;
+            Melee attackWeapon = _currentItemProvider.GetEquippedItem() as Melee;
             if (attackWeapon == null)
             {
                 attackContext = null;
@@ -90,7 +91,8 @@ namespace Combat
             Transform otherTransform = null;
             foreach (RaycastHit2D rayHit in rayHits)
             {
-                if (rayHit.collider != null && rayHit.collider != _collider2D && !rayHit.collider.isTrigger)
+                if (rayHit.collider != null && rayHit.collider != _collider2D && !rayHit.collider.isTrigger
+                    && rayHit.collider.gameObject.GetComponent<IDamageReceiver>() != null)
                 {
                     otherTransform = rayHit.transform;
                     break;

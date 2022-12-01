@@ -19,10 +19,10 @@ namespace Gos
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // if (_gosMelee.IsMeleeAllowed(out MeleeCombat.AttackContext context))
-                // {
-                //     _gosMelee.ConductMeleeAttack(context);
-                // }
+                if (_gosMelee.IsMeleeAllowed(out MeleeCombat.AttackContext context))
+                {
+                    _gosMelee.ConductMeleeAttack(context);
+                }
                 if (_shootingCombat.IsShootingAllowed(out Projectile projectile))
                 {
                     _shootingCombat.ShootProjectile(projectile);

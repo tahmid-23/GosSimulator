@@ -17,7 +17,7 @@ namespace Inventory
         {
             if (gameObject.TryGetComponent(out IDamageReceiver damageReceiver))
             {
-                damageReceiver.ChangeHealth(Damage);
+                damageReceiver.ChangeHealth(-Damage);
             }
         }
 

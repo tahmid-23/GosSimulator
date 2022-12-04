@@ -226,7 +226,7 @@ MonoBehaviour:
   reward:
     <Item>k__BackingField: {fileID: 11400000, guid: 0369240fc00251445ae74e75cde67f6e, type: 2}
     <Amount>k__BackingField: 1
-  onCollect: {fileID: 0}
+  onCollect: {fileID: 11400000, guid: 218dd23c7d69c894b9e7485493ad96e5, type: 2}
 --- !u!61 &333849759
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.380859
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361492, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: m_LocalPosition.z

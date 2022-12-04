@@ -8,7 +8,7 @@ namespace Inventory
     {
 
         [field: SerializeField]
-        public float AttackRate { get; private set; }
+        public int AttackRate { get; private set; }
 
         [field: SerializeField]
         public float AttackRange { get; private set; }

@@ -22,6 +22,7 @@ namespace Inventory
         private int _equipped = 0;
 
         private void Awake() {
+            SaveItems();
             LoadItems();
         }
 
@@ -90,15 +91,9 @@ namespace Inventory
         public void AddItem(ItemStack itemStack)
         {
             items.Add(itemStack);
-            int i;
+            int newIndex = items.Count;
 
-            for(i = 0; i < 6; i++) {
-                if(!PlayerPrefs.HasKey($"ItemStore{i}")) {
-                    break;
-                }
-            }
-
-            PlayerPrefs.SetString($"ItemStore{i}", itemStack.Item.name);
+            PlayerPrefs.SetString($"ItemStore{newIndex}", itemStack.Item.name);
         }
 
         public bool HasItem(String itemName)
@@ -140,8 +135,17 @@ namespace Inventory
                     break;
                 }
                 String store_string = PlayerPrefs.GetString($"ItemStore{i}");
-                if(store_string != null) {
-                    items.Add(new ItemStack(Resources.Load<Item>($"Items/{store_string}")));
+                if (store_string != null)
+                {
+                    ItemStack stack = new ItemStack(Resources.Load<Item>($"Items/{store_string}"));
+                    if (i < items.Count)
+                    {
+                        items[i] = stack;
+                    }
+                    else
+                    {
+                        items.Add(stack);
+                    }
                 }
             }
         }

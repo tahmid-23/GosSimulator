@@ -24,9 +24,6 @@ namespace Combat
         }
 
         [SerializeField]
-        private float radius = 5.0F;
-
-        [SerializeField]
         private float chargeSpeed = 1.0F;
 
         [SerializeField]
@@ -83,7 +80,7 @@ namespace Combat
 
             Vector2 selfPosition = transform.position, otherPosition = target.position;
             float sqrLength = (otherPosition - selfPosition).sqrMagnitude;
-            bool inRange = sqrLength <= radius * radius;
+            bool inRange = sqrLength <= attackWeapon.AttackRange * attackWeapon.AttackRange;
             if (!inRange)
             {
                 attackContext = null;

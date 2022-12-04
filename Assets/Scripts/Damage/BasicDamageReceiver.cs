@@ -24,9 +24,7 @@ namespace Damage
             {
                 return;
             }
-            
-            Debug.Log("Inside Change Health");
-            
+
             if (delta > 0)
             {
                 float newHealth = Math.Min(Health + delta, MaxHealth);
@@ -49,6 +47,7 @@ namespace Damage
                 Health = 0;
                 OnDeath();
                 ChangeHealthHandler.Invoke(-Health);
+                Destroy(gameObject);
             }
         }
 

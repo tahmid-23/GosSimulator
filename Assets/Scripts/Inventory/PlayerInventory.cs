@@ -80,7 +80,7 @@ namespace Inventory
 
         public Item GetEquippedItem()
         {
-            return GetEquippedItemStack().Item;
+            return GetEquippedItemStack()?.Item;
         }
 
         public void AddItem(ItemStack itemStack)

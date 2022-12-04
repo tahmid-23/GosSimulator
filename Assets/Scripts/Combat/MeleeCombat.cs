@@ -32,13 +32,9 @@ namespace Combat
         [SerializeField]
         private float chargeRecoil = 1.0F;
 
-        private Camera _camera;
-
         private MovementController _movementController;
 
         private ICurrentItemProvider _currentItemProvider;
-
-        private Collider2D _collider2D;
         
         private AttackContext _currentContext;
 
@@ -46,11 +42,9 @@ namespace Combat
 
         private void Awake()
         {
-            _camera = Camera.main;
             _movementController = GetComponent<MovementController>();
             _movementController.OnCollision += OnCollision;
             _currentItemProvider = GetComponent<ICurrentItemProvider>();
-            _collider2D = GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -72,7 +66,7 @@ namespace Combat
             _movementController.Speed = chargeVector;
         }
 
-        public bool IsMeleeAllowed(out AttackContext attackContext)
+        public bool IsMeleeAllowed(Transform target, out AttackContext attackContext)
         {
             if (_charging)
             {
@@ -86,25 +80,8 @@ namespace Combat
                 attackContext = null;
                 return false;
             }
-            
-            RaycastHit2D[] rayHits = Physics2D.GetRayIntersectionAll(_camera.ScreenPointToRay(Input.mousePosition));
-            Transform otherTransform = null;
-            foreach (RaycastHit2D rayHit in rayHits)
-            {
-                if (rayHit.collider != null && rayHit.collider != _collider2D && !rayHit.collider.isTrigger
-                    && rayHit.collider.gameObject.GetComponent<IDamageReceiver>() != null)
-                {
-                    otherTransform = rayHit.transform;
-                    break;
-                }
-            }
-            if (otherTransform == null)
-            {
-                attackContext = null;
-                return false;
-            }
 
-            Vector2 selfPosition = transform.position, otherPosition = otherTransform.position;
+            Vector2 selfPosition = transform.position, otherPosition = target.position;
             float sqrLength = (otherPosition - selfPosition).sqrMagnitude;
             bool inRange = sqrLength <= radius * radius;
             if (!inRange)
@@ -113,7 +90,7 @@ namespace Combat
                 return false;
             }
 
-            attackContext = new AttackContext(attackWeapon, otherTransform.gameObject);
+            attackContext = new AttackContext(attackWeapon, target.gameObject);
             return true;
         }
 
@@ -131,14 +108,11 @@ namespace Combat
             }
 
             GameObject collidedWith = collisionRaycast.transform.gameObject;
-            if (collidedWith != _currentContext.Target)
+            if (collidedWith == _currentContext.Target)
             {
-                return;
+                _currentContext.AttackWeapon.HandleAttack(collidedWith);
+                _movementController.Speed += chargeRecoil * collisionRaycast.normal;
             }
-            
-            _currentContext.AttackWeapon.HandleAttack(collidedWith);
-
-            _movementController.Speed += chargeRecoil * collisionRaycast.normal;
             
             _currentContext = null;
             _charging = false;

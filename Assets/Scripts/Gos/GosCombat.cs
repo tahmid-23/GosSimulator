@@ -1,6 +1,9 @@
+using System;
 using Combat;
+using Damage;
 using Inventory;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gos
 {
@@ -8,18 +11,38 @@ namespace Gos
     {
         private MeleeCombat _gosMelee;
         private ShootingCombat _shootingCombat;
+        private Camera _camera;
+        private Collider2D _collider2D;
 
         private void Awake()
         {
             _gosMelee = GetComponent<MeleeCombat>();
             _shootingCombat = GetComponent<ShootingCombat>();
+            _camera = Camera.main;
+            _collider2D = GetComponent<Collider2D>();
         }
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+        {
+            _camera = Camera.main;
+        }
+        
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (_gosMelee.IsMeleeAllowed(out MeleeCombat.AttackContext context))
+                Transform meleeTarget = GetMeleeTarget();
+                if (meleeTarget != null && _gosMelee.IsMeleeAllowed(meleeTarget, out MeleeCombat.AttackContext context))
                 {
                     _gosMelee.ConductMeleeAttack(context);
                 }
@@ -29,5 +52,23 @@ namespace Gos
                 }
             }
         }
+
+        private Transform GetMeleeTarget()
+        {
+            RaycastHit2D[] rayHits = Physics2D.GetRayIntersectionAll(_camera.ScreenPointToRay(Input.mousePosition));
+            Transform target = null;
+            foreach (RaycastHit2D rayHit in rayHits)
+            {
+                if (rayHit.collider != null && rayHit.collider != _collider2D && !rayHit.collider.isTrigger
+                    && rayHit.collider.gameObject.GetComponent<IDamageReceiver>() != null)
+                {
+                    target = rayHit.transform;
+                    break;
+                }
+            }
+
+            return target;
+        }
+        
     }
 }

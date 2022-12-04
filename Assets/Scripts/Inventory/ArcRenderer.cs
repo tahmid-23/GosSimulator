@@ -20,7 +20,8 @@ namespace Inventory
                     _bullets = new GameObject[_throwable.ParticleCount];
                     for (int i = 0; i < _throwable.ParticleCount; ++i)
                     {
-                        _bullets[i] = Instantiate(bulletPrefab);
+                        GameObject bullet = Instantiate(bulletPrefab, gameObject.transform, true);
+                        _bullets[i] = bullet;
                     }
                 }
                 else
@@ -39,13 +40,6 @@ namespace Inventory
 
         private GameObject[] _bullets = Array.Empty<GameObject>();
 
-        private Camera _mainCamera;
-
-        private void Awake()
-        {
-            _mainCamera = Camera.main;
-        }
-
         private void Update()
         {
             if (Throwable == null)
@@ -54,7 +48,7 @@ namespace Inventory
             }
             
             Vector3 playerPos = transform.position;
-            Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
 
             float r = Mathf.Min(Vector3.Distance(playerPos, mousePos), Throwable.ThrowRange);

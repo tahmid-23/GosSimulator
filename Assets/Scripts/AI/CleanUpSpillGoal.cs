@@ -22,6 +22,8 @@ namespace AI
 
         private MovementController _movementController;
 
+        private Collider2D _guardedDoorCollider;
+
         private TriggerSceneSwitcher _guardedSceneSwitcher;
 
         private Vector3 _restPosition;
@@ -30,6 +32,7 @@ namespace AI
         {
             _animator = GetComponent<Animator>();
             _movementController = GetComponent<MovementController>();
+            _guardedDoorCollider = guardedDoor.GetComponent<Collider2D>();
             _guardedSceneSwitcher = guardedDoor.GetComponent<TriggerSceneSwitcher>();
         }
 
@@ -50,7 +53,8 @@ namespace AI
 
         private IEnumerable CleanAllSpills()
         {
-            _guardedSceneSwitcher.WarpEnabled = true;
+            SetDoorEnabled(true);
+            
             bool anySpills = false;
             while (true) 
             {
@@ -70,7 +74,13 @@ namespace AI
                 GameObject closestSpill = FindClosestSpill(spills, startPosition);
                 yield return StartCoroutine(Clean(closestSpill).GetEnumerator());
             }
-            _guardedSceneSwitcher.WarpEnabled = false;
+
+            SetDoorEnabled(false);
+        }
+
+        private void SetDoorEnabled(bool doorEnabled)
+        {
+            _guardedDoorCollider.isTrigger = doorEnabled;
         }
 
         private static GameObject FindClosestSpill(IReadOnlyList<GameObject> spills, Vector3 startPosition)

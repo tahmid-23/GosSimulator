@@ -16,13 +16,10 @@ namespace Collectible
         [SerializeField]
         private Action onCollect;
 
-        private Camera _mainCamera;
-
         private Collider2D _itemBounds;
 
         private void Awake()
         {
-            _mainCamera = Camera.main;
             _itemBounds = GetComponent<Collider2D>();
         }
 
@@ -45,7 +42,7 @@ namespace Collectible
                 return;
             }
 
-            if (!_itemBounds.OverlapPoint(_mainCamera.ScreenToWorldPoint(Input.mousePosition)))
+            if (!_itemBounds.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
             {
                 return;
             }

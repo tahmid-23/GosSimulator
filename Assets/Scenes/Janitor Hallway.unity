@@ -346,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 404311699}
     - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: items.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8456134153637361473, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
       propertyPath: items.Array.data[1].<Item>k__BackingField
@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalCleanTime: 720
-  speed: 2
+  speed: 5
   guardedDoor: {fileID: 2076901939}
 --- !u!114 &2078465803
 MonoBehaviour:

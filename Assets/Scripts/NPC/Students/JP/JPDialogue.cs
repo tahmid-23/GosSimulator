@@ -19,34 +19,29 @@ namespace NPC.Students.JP
         void Awake()
         {
             base.Awake();
-            // This will cause issues and remove this
-            // All this does is sets it to 1 for testing purposes
-            SetDialogue("JPIntro", 1);
-            if (!PlayerPrefs.HasKey("JPConversation"))
-            {
-                PlayerPrefs.SetInt("JPConversation", 1);
-                SetDialogue("JPIntro", 1);
-            }
-            else
-            {
-                SetDialogue("JPIntro", PlayerPrefs.GetInt("JPConversation"));
-            }
+            base.SetStatus("JPConversation", "JPIntro");
         
+            // Remove these 2 lines when done testing
+            PlayerPrefs.SetInt("JPConversation", 1);
+            PlayerPrefs.SetInt("BeisenburgConversation", 1);
+
             if(PlayerPrefs.GetInt("JPConversation") == 1) {
                 if(gosInventory.HasItem("Test Answers")) {
+                    Debug.Log("Cope and seethe");
                     PlayerPrefs.SetInt("JPConversation", 2);
                     SetDialogue("JPIntro", 2);
+                    PlayerPrefs.SetInt("BeisenburgConversation", 2);
                 }
             }
         }
         
         protected override void BetweenInteractions()
         {
-            // if(base._interactionID == 2) {
-            //     if(_currentConversationIndex == 0) {
-            //        gosInventory.RemoveItem("Test Answers");
-            //     }
-            // } 
+            if(base._interactionID == 2) {
+                if(_currentInteractionIndex == 0) {
+                   gosInventory.RemoveItem("Test Answers");
+                }
+            } 
         }
     }
 }

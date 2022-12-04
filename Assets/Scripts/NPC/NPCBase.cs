@@ -182,10 +182,26 @@ namespace NPC
             _ableToMoveOn = true;
         }
 
+        protected void SetConversationID(int id) {
+            this._interactionID = id;
+        }
+
         protected void SetDialogue(String filename, int interaction)
         {
             this._dialogueFile = filename;
             this._interactionID = interaction;
+        }
+
+        protected void SetStatus(String conversationID, String filename) {
+            if (!PlayerPrefs.HasKey(conversationID))
+            {
+                PlayerPrefs.SetInt(conversationID, 1);
+                SetDialogue(filename, 1);
+            }
+            else
+            {
+                SetDialogue(filename, PlayerPrefs.GetInt(conversationID));
+            }
         }
 
         protected abstract void BetweenInteractions();

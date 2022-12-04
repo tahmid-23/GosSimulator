@@ -21,6 +21,10 @@ namespace Inventory
 
         private int _equipped = 0;
 
+        private void Awake() {
+            LoadItems();
+        }
+
         private void Update()
         {
             DisplayItems();
@@ -86,6 +90,15 @@ namespace Inventory
         public void AddItem(ItemStack itemStack)
         {
             items.Add(itemStack);
+            int i;
+
+            for(i = 0; i < 6; i++) {
+                if(!PlayerPrefs.HasKey($"ItemStore{i}")) {
+                    break;
+                }
+            }
+
+            PlayerPrefs.SetString($"ItemStore{i}", itemStack.Item.name);
         }
 
         public bool HasItem(String itemName)
@@ -108,6 +121,31 @@ namespace Inventory
             return false;
         }
 
+        private void SaveItems() {
+            List<String> itemNames = new List<String>();
+
+            foreach (ItemStack itemArr in items) {
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            for(int i = 0; i < items.Count; i++) {
+                PlayerPrefs.SetString($"ItemStore{i}", itemNames[i]);
+            }
+        }
+
+        private void LoadItems() {
+            // Remember to include amounts some time later Im just lazy rn
+            for(int i = 0; i < 6; i++) {
+                if(!PlayerPrefs.HasKey($"ItemStore{i}")) {
+                    break;
+                }
+                String store_string = PlayerPrefs.GetString($"ItemStore{i}");
+                if(store_string != null) {
+                    items.Add(new ItemStack(Resources.Load<Item>($"Items/{store_string}")));
+                }
+            }
+        }
+
         public void RemoveItem(String itemName) {
             List<String> itemNames = new List<String>();
 
@@ -128,6 +166,14 @@ namespace Inventory
             }
 
             items.RemoveAt(i);
+        }
+
+        public void RefreshInventory() {
+            for(int i = 0; i < 6; i++) {
+                if(PlayerPrefs.HasKey($"ItemStore{i}")) {
+                    PlayerPrefs.DeleteKey($"ItemStore{i}");
+                }
+            }
         }
     }
 }

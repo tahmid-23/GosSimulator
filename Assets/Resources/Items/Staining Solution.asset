@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da6512bfb0143cc8039fc0f06cc36fb, type: 3}
   m_Name: Staining Solution
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: d0d960a71f6db164cbf44cd88b46e8b1, type: 3}
   <ParticleCount>k__BackingField: 5
   <ThrowRange>k__BackingField: 20
   <ThrownObjectPrefab>k__BackingField: {fileID: 2578839439969649203, guid: 86dcfd63371a7d74091f98d8bf4029bf, type: 3}

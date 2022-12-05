@@ -11,18 +11,18 @@ namespace Inventory
         [SerializeField]
         private List<ItemStack> items;
 
-        [SerializeField]
-        private GameObject hotbar;
+        private GameObject _hotbar;
 
-        [SerializeField]
         private Image select;
 
         private ItemStack _lastEquipped = null;
 
         private int _equipped = 0;
 
-        private void Awake() {
-            SaveItems();
+        private void Start() {
+            RefreshInventory();
+            _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
+            select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();
             LoadItems();
         }
 
@@ -50,8 +50,8 @@ namespace Inventory
             for (int i = 0; i < items.Count; i++)
             {
                 Item item = items[i].Item;
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Inventory
 
         private void UpdateEquippedSlot()
         {
-            select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
+            select.transform.SetParent(_hotbar.transform.GetChild(_equipped), false);
         }
 
         public ItemStack GetEquippedItemStack()
@@ -178,6 +178,11 @@ namespace Inventory
                     PlayerPrefs.DeleteKey($"ItemStore{i}");
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            SaveItems();
         }
     }
 }

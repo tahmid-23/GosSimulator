@@ -15,21 +15,26 @@ namespace Shop
         [SerializeField]
         private GameObject canPurchase;
 
-        [SerializeField]
-        private PlayerInventory gosInventory;
+        private PlayerInventory _gosInventory;
         
         [SerializeField]
         private GameObject shopObject;
 
-        [SerializeField]
-        private GameObject npcObject;
+        private GameObject _npcObject;
 
         List<GameObject> instantiatedItems = new List<GameObject>();
         
         private ShopEntry _selectedEntry;
+
+        private void Awake()
+        {
+            _gosInventory = GameObject.FindWithTag("Player").GetComponent<PlayerInventory>();
+            _npcObject = GameObject.Find("NPC Canvas");
+        }
+
         public List<GameObject> InstantiateShopItems(List<ShopEntry> shopEntries)
         {
-            npcObject.SetActive(false);
+            //_npcObject.GetComponent<Canvas>().enabled = false;
             shopObject.SetActive(true);
             
             instantiatedItems.Clear();
@@ -69,7 +74,7 @@ namespace Shop
         public void DestroyShopItems(List<GameObject> items)
         {
             shopObject.SetActive(false);
-            npcObject.SetActive(true);
+            _npcObject.GetComponent<Canvas>().enabled = true;
 
             foreach (GameObject specificItem in items)
             {
@@ -100,7 +105,7 @@ namespace Shop
             // GosCoins.Instance.Coins -= _selectedEntry.Cost;
             // GosCoins.Instance.Cost -= GosCoins.ChangeGosCoins(_selectedEntry.Cost);
             GosCoins.ChangeGosCoins(_selectedEntry.Cost);
-            gosInventory.AddItem(new ItemStack(_selectedEntry.Item));
+            _gosInventory.AddItem(new ItemStack(_selectedEntry.Item));
             DestroyShopItems(instantiatedItems);
         }
     }

@@ -29,8 +29,8 @@ namespace NPC.Teachers.Beisenburg
             }
         }
 
-        void Awake() {
-            base.Awake();
+        void Start() {
+            base.Start();
             base.SetStatus("BeisenburgConversation", "BeisenburgIntro");
         }
     }

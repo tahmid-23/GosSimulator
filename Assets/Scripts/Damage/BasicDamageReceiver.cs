@@ -7,9 +7,9 @@ namespace Damage
     {
         
         [field : SerializeField]
-        public float MaxHealth { get; protected set; }
+        public float MaxHealth { get; set; }
 
-        public float Health { get; private set; }
+        public float Health { get; set; }
 
         public IDamageReceiver.OnChangeHealth ChangeHealthHandler { get; set; } = delegate { };
 

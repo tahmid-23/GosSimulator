@@ -1,3 +1,4 @@
+using AI;
 using Damage;
 using Shooting;
 using Unity.VisualScripting;
@@ -29,6 +30,10 @@ namespace Opposition
 
         protected override void OnDeath()
         {
+            if (TryGetComponent(out CleanUpSpillGoal spillGoal))
+            {
+                CleanUpSpillGoal.alive = false;
+            }
             Destroy(gameObject);
         }
     }

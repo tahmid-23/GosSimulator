@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Damage;
 using Movement;
 using Scene;
 using UnityEngine;
@@ -8,6 +10,8 @@ namespace AI
 {
     public class CleanUpSpillGoal : MonoBehaviour
     {
+
+        public static bool alive = true;
 
         [SerializeField]
         private int totalCleanTime;
@@ -30,6 +34,11 @@ namespace AI
 
         private void Awake()
         {
+            if (!alive)
+            {
+                Destroy(gameObject);
+            }
+            
             _animator = GetComponent<Animator>();
             _movementController = GetComponent<MovementController>();
             _guardedDoorCollider = guardedDoor.GetComponent<Collider2D>();

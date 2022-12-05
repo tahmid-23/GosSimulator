@@ -136,11 +136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 23.081928
+      value: 20.051271
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5662
+      value: -0.0514
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1019,7 +1023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c31033b76874309926efe95c75b3679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gosCollider: {fileID: 8456134153706645926}
   followCollider: {fileID: 1876970250}
   lerp: 0.01
 --- !u!1 &540578391
@@ -2489,6 +2492,10 @@ PrefabInstance:
     - target: {fileID: 8632371079742840134, guid: 773d2971640b3b648b026675cc60a61e, type: 3}
       propertyPath: sceneName
       value: Blacktop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632371079742840134, guid: 773d2971640b3b648b026675cc60a61e, type: 3}
+      propertyPath: destinationPosition.x
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 773d2971640b3b648b026675cc60a61e, type: 3}
@@ -8143,11 +8150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 25
+      value: 22.4375
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.2817
       objectReference: {fileID: 0}
     - target: {fileID: 7467486082372503882, guid: 7cc6268687dc67f4e9bc41d27c48c0fa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8370,8 +8377,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
---- !u!61 &8456134153706645926 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8456134153637361475, guid: 035a6354feac6934d88749bdd2b8b333, type: 3}
-  m_PrefabInstance: {fileID: 8456134153706645925}
-  m_PrefabAsset: {fileID: 0}

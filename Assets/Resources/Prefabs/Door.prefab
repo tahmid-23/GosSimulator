@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8632371079742840134}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,6 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b27735e57ec41b1934d07e054a68b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   sceneName: 
   destinationPosition: {x: 0, y: 0, z: 0}

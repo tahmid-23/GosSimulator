@@ -6,23 +6,27 @@ namespace CameraView
     {
 
         [SerializeField]
-        private BoxCollider2D gosCollider;
-
-        [SerializeField]
         private BoxCollider2D followCollider;
 
         [Range(0.0F, 1.0F)]
         [SerializeField]
         private float lerp;
+        
+        private BoxCollider2D _gosCollider;
 
         private bool _isFollowingX = true;
 
         private bool _isFollowingY = true;
+        
+        private void Start()
+        {
+            _gosCollider = GameObject.FindWithTag("Player").GetComponent<BoxCollider2D>();
+        }
 
         private void LateUpdate()
         {
             Transform cameraTransform = transform;
-            Vector3 cameraPosition = cameraTransform.position, gosPosition = gosCollider.transform.position;
+            Vector3 cameraPosition = cameraTransform.position, gosPosition = _gosCollider.transform.position;
 
             Bounds followBounds = followCollider.bounds;
             float newX = cameraPosition.x, newY = cameraPosition.y;

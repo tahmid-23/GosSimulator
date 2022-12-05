@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -3490932045109013924}
   - component: {fileID: -8170326594786492291}
   - component: {fileID: -7420633739688377110}
+  - component: {fileID: 2310853460784444865}
   m_Layer: 0
   m_Name: Janitor (Hostile)
   m_TagString: Untagged
@@ -256,6 +257,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeSpeed: 5
   chargeRecoil: 10
+--- !u!114 &2310853460784444865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645882757711268466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b288448a32224401b5372ecf6fc6c11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7580038975977434565
 PrefabInstance:
   m_ObjectHideFlags: 0

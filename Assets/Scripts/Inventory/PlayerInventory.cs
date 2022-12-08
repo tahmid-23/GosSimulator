@@ -20,7 +20,6 @@ namespace Inventory
         private int _equipped = 0;
 
         private void Start() {
-            PlayerPrefs.DeleteAll();
             RefreshInventory();
             _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
             select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();

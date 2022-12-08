@@ -1,4 +1,6 @@
 using Damage;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gos
 {
@@ -17,7 +19,11 @@ namespace Gos
 
         protected override void OnDeath()
         {
-            
+            Destroy(GameObject.Find("UI Canvas"));
+            Destroy(GameObject.Find("Speech Panel"));
+            Destroy(GameObject.Find("NPC Canvas"));
+            Destroy(gameObject);
+            SceneManager.LoadScene("TitleScreen");
         }
     }
 }

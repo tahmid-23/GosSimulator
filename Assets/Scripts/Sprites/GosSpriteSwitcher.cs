@@ -7,17 +7,13 @@ namespace Sprites
         private SpriteRenderer _spriteRenderer;
         private Sprite _currentSprite;
 
-        [SerializeField]
-        private Sprite _upSprite;
+        public Sprite _upSprite;
 
-        [SerializeField]
-        private Sprite _downSprite;
+        public Sprite _downSprite;
 
-        [SerializeField]
-        private Sprite _leftSprite;
+        public Sprite _leftSprite;
 
-        [SerializeField]
-        private Sprite _rightSprite;
+        public Sprite _rightSprite;
 
 
 

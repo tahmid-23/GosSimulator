@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Damage;
 using Movement;
 using Scene;
 using UnityEngine;
@@ -8,6 +10,8 @@ namespace AI
 {
     public class CleanUpSpillGoal : MonoBehaviour
     {
+
+        public static bool alive = true;
 
         [SerializeField]
         private int totalCleanTime;
@@ -22,14 +26,22 @@ namespace AI
 
         private MovementController _movementController;
 
+        private Collider2D _guardedDoorCollider;
+
         private TriggerSceneSwitcher _guardedSceneSwitcher;
 
         private Vector3 _restPosition;
 
         private void Awake()
         {
+            if (!alive)
+            {
+                Destroy(gameObject);
+            }
+            
             _animator = GetComponent<Animator>();
             _movementController = GetComponent<MovementController>();
+            _guardedDoorCollider = guardedDoor.GetComponent<Collider2D>();
             _guardedSceneSwitcher = guardedDoor.GetComponent<TriggerSceneSwitcher>();
         }
 
@@ -50,7 +62,8 @@ namespace AI
 
         private IEnumerable CleanAllSpills()
         {
-            _guardedSceneSwitcher.WarpEnabled = true;
+            SetDoorEnabled(true);
+            
             bool anySpills = false;
             while (true) 
             {
@@ -70,7 +83,13 @@ namespace AI
                 GameObject closestSpill = FindClosestSpill(spills, startPosition);
                 yield return StartCoroutine(Clean(closestSpill).GetEnumerator());
             }
-            _guardedSceneSwitcher.WarpEnabled = false;
+
+            SetDoorEnabled(false);
+        }
+
+        private void SetDoorEnabled(bool doorEnabled)
+        {
+            _guardedDoorCollider.isTrigger = doorEnabled;
         }
 
         private static GameObject FindClosestSpill(IReadOnlyList<GameObject> spills, Vector3 startPosition)

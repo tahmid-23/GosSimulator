@@ -4,6 +4,7 @@ namespace Gos
 {
     public class GosDamageReceiver : BasicDamageReceiver
     {
+
         protected override bool OnHeal(float amount)
         {
             return true;

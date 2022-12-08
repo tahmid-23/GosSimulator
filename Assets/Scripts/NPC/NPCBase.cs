@@ -57,7 +57,7 @@ namespace NPC
             _schoolbookFollowers += delta;
         }
 
-        protected void Awake()
+        protected void Start()
         {
             _speechBubble = transform.Find("Speech Bubble").gameObject;
             if (!uiSetupCompleted) {
@@ -69,7 +69,7 @@ namespace NPC
                     _responseButtons[i] = _npcUI.transform.Find("Response " + (i+1)).GetComponent<Button>();
                     _responseButtons[i].gameObject.SetActive(false);
                 }
-                _npcUI.SetActive(false);
+                _npcUI.GetComponent<Canvas>().enabled = false;
                 uiSetupCompleted = true;
             }
             _gosUI = GameObject.Find("UI Canvas");
@@ -169,7 +169,7 @@ namespace NPC
             //if the interaction is taking place, gosUI should be inactive
             _gosUI.SetActive(!_interacting);
             //if the interaction is taking place, npcUI should be active
-            _npcUI.SetActive(_interacting);
+            _npcUI.GetComponent<Canvas>().enabled = _interacting;
         }
 
         protected void PreventDialogue()

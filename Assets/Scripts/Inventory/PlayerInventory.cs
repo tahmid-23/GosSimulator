@@ -11,17 +11,19 @@ namespace Inventory
         [SerializeField]
         private List<ItemStack> items;
 
-        [SerializeField]
-        private GameObject hotbar;
+        private GameObject _hotbar;
 
-        [SerializeField]
         private Image select;
 
         private ItemStack _lastEquipped = null;
 
         private int _equipped = 0;
 
-        private void Awake() {
+        private void Start() {
+            PlayerPrefs.DeleteAll();
+            RefreshInventory();
+            _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
+            select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();
             LoadItems();
         }
 
@@ -49,8 +51,8 @@ namespace Inventory
             for (int i = 0; i < items.Count; i++)
             {
                 Item item = items[i].Item;
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
             }
         }
 
@@ -74,7 +76,7 @@ namespace Inventory
 
         private void UpdateEquippedSlot()
         {
-            select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
+            select.transform.SetParent(_hotbar.transform.GetChild(_equipped), false);
         }
 
         public ItemStack GetEquippedItemStack()
@@ -90,15 +92,9 @@ namespace Inventory
         public void AddItem(ItemStack itemStack)
         {
             items.Add(itemStack);
-            int i;
+            int newIndex = items.Count;
 
-            for(i = 0; i < 6; i++) {
-                if(!PlayerPrefs.HasKey($"ItemStore{i}")) {
-                    break;
-                }
-            }
-
-            PlayerPrefs.SetString($"ItemStore{i}", itemStack.Item.name);
+            PlayerPrefs.SetString($"ItemStore{newIndex}", itemStack.Item.name);
         }
 
         public bool HasItem(String itemName)
@@ -140,8 +136,17 @@ namespace Inventory
                     break;
                 }
                 String store_string = PlayerPrefs.GetString($"ItemStore{i}");
-                if(store_string != null) {
-                    items.Add(new ItemStack(Resources.Load<Item>($"Items/{store_string}")));
+                if (store_string != null)
+                {
+                    ItemStack stack = new ItemStack(Resources.Load<Item>($"Items/{store_string}"));
+                    if (i < items.Count)
+                    {
+                        items[i] = stack;
+                    }
+                    else
+                    {
+                        items.Add(stack);
+                    }
                 }
             }
         }
@@ -164,8 +169,6 @@ namespace Inventory
 
                 i++;
             }
-
-            items.RemoveAt(i);
         }
 
         public void RefreshInventory() {
@@ -174,6 +177,11 @@ namespace Inventory
                     PlayerPrefs.DeleteKey($"ItemStore{i}");
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            SaveItems();
         }
     }
 }

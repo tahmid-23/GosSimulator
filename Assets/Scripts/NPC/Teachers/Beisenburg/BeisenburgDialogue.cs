@@ -9,8 +9,7 @@ namespace NPC.Teachers.Beisenburg
 {
     public class BeisenburgDialogue: NPCBase
     {
-        [SerializeField]
-        private PlayerInventory gosInventory;
+        private PlayerInventory _gosInventory;
 
         public BeisenburgDialogue() : base(Classification.Neutral, 100, 10, 1, "BeisenburgIntro")
         {
@@ -25,12 +24,13 @@ namespace NPC.Teachers.Beisenburg
             }
 
             else if(_currentInteractionIndex == 4) {
-                gosInventory.AddItem(new ItemStack(Resources.Load<Item>("Items/Test Answers")));
+                _gosInventory.AddItem(new ItemStack(Resources.Load<Item>("Items/Staining Solution")));
             }
         }
 
-        void Awake() {
-            base.Awake();
+        void Start() {
+            base.Start();
+            _gosInventory = GameObject.FindWithTag("Player").GetComponent<PlayerInventory>();
             base.SetStatus("BeisenburgConversation", "BeisenburgIntro");
         }
     }

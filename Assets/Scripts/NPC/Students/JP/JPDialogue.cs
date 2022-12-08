@@ -8,17 +8,17 @@ namespace NPC.Students.JP
 {
     public class JPDialogue: NPCBase
     {
-        [SerializeField]
-        private PlayerInventory gosInventory;
+        private PlayerInventory _gosInventory;
         
         public JPDialogue() : base(Classification.Ally, 100, 10)
         {
 
         }
 
-        void Awake()
+        void Start()
         {
-            base.Awake();
+            _gosInventory = GameObject.Find("Player").GetComponent<PlayerInventory>();
+            base.Start();
             base.SetStatus("JPConversation", "JPIntro");
         
             // Remove these 2 lines when done testing
@@ -26,7 +26,7 @@ namespace NPC.Students.JP
             PlayerPrefs.SetInt("BeisenburgConversation", 1);
 
             if(PlayerPrefs.GetInt("JPConversation") == 1) {
-                if(gosInventory.HasItem("Test Answers")) {
+                if(_gosInventory.HasItem("Test Answers")) {
                     Debug.Log("Cope and seethe");
                     PlayerPrefs.SetInt("JPConversation", 2);
                     SetDialogue("JPIntro", 2);
@@ -39,7 +39,7 @@ namespace NPC.Students.JP
         {
             if(base._interactionID == 2) {
                 if(_currentInteractionIndex == 0) {
-                   gosInventory.RemoveItem("Test Answers");
+                   _gosInventory.RemoveItem("Test Answers");
                 }
             } 
         }

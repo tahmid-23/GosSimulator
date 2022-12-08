@@ -10,8 +10,6 @@ namespace Gos
 
         public bool IsAiming { get; private set; }
 
-        private Camera _camera;
-
         private GosMovement _gosMovement;
         
         [Range(0.0f, 1.0f)]
@@ -21,7 +19,6 @@ namespace Gos
         private void Awake()
         {
             Aiming = GetComponent<Aiming>();
-            _camera = Camera.main;
             _gosMovement = GetComponent<GosMovement>();
         }
 
@@ -41,7 +38,7 @@ namespace Gos
 
         private float GetAngle()
         {
-            Vector3 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 playerPos = transform.position;
             float dy = mousePos.y - playerPos.y;
             float dx = mousePos.x - playerPos.x;

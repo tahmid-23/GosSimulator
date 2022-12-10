@@ -391,9 +391,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1939417185, guid: ef99376546ff82044ba5cc678b1da738, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939417185, guid: ef99376546ff82044ba5cc678b1da738, type: 3}
       propertyPath: guardedDoor
       value: 
       objectReference: {fileID: 2076901939}
+    - target: {fileID: 1939417185, guid: ef99376546ff82044ba5cc678b1da738, type: 3}
+      propertyPath: totalCleanTime
+      value: 720
+      objectReference: {fileID: 0}
     - target: {fileID: 3645882757711268464, guid: ef99376546ff82044ba5cc678b1da738, type: 3}
       propertyPath: m_RootOrder
       value: 2

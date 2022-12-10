@@ -2,6 +2,7 @@ using System;
 using Movement;
 using Sprites;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gos
 {
@@ -27,6 +28,8 @@ namespace Gos
 
         private GosSpriteSwitcher _gosSpriteSwitcher;
 
+        public bool locked = false;
+
         private void Awake()
         {
             _gosAim = GetComponent<GosAiming>();
@@ -37,8 +40,20 @@ namespace Gos
 
         private void FixedUpdate()
         {
+            if (locked)
+            {
+                return;
+            }
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
+
+            if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+            {
+                if (horizontalInput != 0 || verticalInput != 0)
+                {
+                    GameObject.Find("Move Tutorial")?.SetActive(false);
+                }
+            }
 
             if (horizontalInput > 0)
             {

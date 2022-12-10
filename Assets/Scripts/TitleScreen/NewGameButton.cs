@@ -8,7 +8,7 @@ public class NewGameButton : MonoBehaviour
     public void onClick()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("First Scene");
-        PlayerPrefs.SetInt("game_started", 1);
+        SceneManager.LoadScene("Tutorial");
+        PlayerPrefs.SetString("CurrentScene", "Tutorial");
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Dialogue;
+using Gos;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace NPC
@@ -87,6 +89,10 @@ namespace NPC
                 }
                 else if (_interactable && Input.GetKeyDown(KeyCode.Space))
                 {
+                    if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+                    {
+                        GameObject.Find("NPC Tutorial")?.SetActive(false);
+                    }
                     ChangeInteractionState();
                     Interact();
                 }
@@ -97,6 +103,14 @@ namespace NPC
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+                {
+                    GameObject obj = GameObject.Find("NPC Tutorial");
+                    if (obj is not null)
+                    {
+                        obj.GetComponent<Text>().text = "Press Space to Interact with an NPC";
+                    }
+                }
                 _interactable = true;
             }
         }
@@ -105,6 +119,14 @@ namespace NPC
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+                {
+                    GameObject obj = GameObject.Find("NPC Tutorial");
+                    if (obj is not null)
+                    {
+                        obj.GetComponent<Text>().text = "";
+                    }
+                }
                 _interactable = false;
             }
         }
@@ -170,6 +192,7 @@ namespace NPC
             _gosUI.SetActive(!_interacting);
             //if the interaction is taking place, npcUI should be active
             _npcUI.GetComponent<Canvas>().enabled = _interacting;
+            GameObject.Find("Player").GetComponent<GosMovement>().locked = _interacting;
         }
 
         protected void PreventDialogue()

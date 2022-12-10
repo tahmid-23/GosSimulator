@@ -45,6 +45,7 @@ namespace Shop
             {
                 GameObject shopItemPrefab = Resources.Load<GameObject>("Prefabs/ItemBox");
                 GameObject shopItem = Instantiate(shopItemPrefab, transform);
+                shopItem.transform.SetSiblingIndex(0);
                 shopItem.transform.Translate(new Vector3(250 * i, 0, 0));
 
                 ShopEntry entry = shopEntries[i];
@@ -61,6 +62,7 @@ namespace Shop
                     }
                     else
                     {
+                        canPurchase.transform.GetChild(0).GetComponent<Text>().text = $"Are you sure that you want to purchase this for {entry.Cost} gos coin";
                         canPurchase.SetActive(true);
                     }
                 });
@@ -102,9 +104,14 @@ namespace Shop
         public void HideCanPurchasePopUp()
         {
             transform.Find("CanPurchase").gameObject.SetActive(false);
+        }
+
+        public void BuyItem()
+        {
+            HideCanPurchasePopUp();
             // GosCoins.Instance.Coins -= _selectedEntry.Cost;
             // GosCoins.Instance.Cost -= GosCoins.ChangeGosCoins(_selectedEntry.Cost);
-            GosCoins.ChangeGosCoins(_selectedEntry.Cost);
+            GosCoins.ChangeGosCoins(-_selectedEntry.Cost);
             _gosInventory.AddItem(new ItemStack(_selectedEntry.Item));
             DestroyShopItems(instantiatedItems);
         }

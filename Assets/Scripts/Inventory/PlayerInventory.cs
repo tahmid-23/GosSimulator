@@ -19,8 +19,10 @@ namespace Inventory
 
         private int _equipped = 0;
 
+        private const int INVENTORY_SIZE = 6;
+
         private void Start() {
-            RefreshInventory();
+            //RefreshInventory();
             _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
             select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();
             LoadItems();
@@ -90,8 +92,12 @@ namespace Inventory
 
         public void AddItem(ItemStack itemStack)
         {
+            if (items.Count == INVENTORY_SIZE)
+            {
+                return;
+            }
             items.Add(itemStack);
-            int newIndex = items.Count;
+            int newIndex = items.Count-1;
 
             PlayerPrefs.SetString($"ItemStore{newIndex}", itemStack.Item.name);
         }

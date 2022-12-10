@@ -8055,7 +8055,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1951978322}
         m_TargetAssemblyTypeName: Shop.ShopManager, Scripts
-        m_MethodName: HideCanPurchasePopUp
+        m_MethodName: BuyItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

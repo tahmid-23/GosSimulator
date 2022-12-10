@@ -3,6 +3,7 @@ using System.IO;
 using Inventory;
 using NPCData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NPC.Students.JP
 {
@@ -20,16 +21,16 @@ namespace NPC.Students.JP
             _gosInventory = GameObject.Find("Player").GetComponent<PlayerInventory>();
             base.Start();
             base.SetStatus("JPConversation", "JPIntro");
-        
-            // Remove these 2 lines when done testing
-            PlayerPrefs.SetInt("JPConversation", 1);
-            PlayerPrefs.SetInt("BeisenburgConversation", 1);
 
-            if(PlayerPrefs.GetInt("JPConversation") == 1) {
+            if (SceneManager.GetActiveScene().name.Equals("First Scene"))
+            {
+                PlayerPrefs.SetInt("JPConversation", 2);
+                SetDialogue(_dialogueFile, 2);
+            }
+            if(PlayerPrefs.GetInt("JPConversation") == 2) {
                 if(_gosInventory.HasItem("Test Answers")) {
-                    Debug.Log("Cope and seethe");
-                    PlayerPrefs.SetInt("JPConversation", 2);
-                    SetDialogue("JPIntro", 2);
+                    PlayerPrefs.SetInt("JPConversation", 3);
+                    SetDialogue("JPIntro", 3);
                     PlayerPrefs.SetInt("BeisenburgConversation", 2);
                 }
             }
@@ -37,7 +38,15 @@ namespace NPC.Students.JP
         
         protected override void BetweenInteractions()
         {
-            if(base._interactionID == 2) {
+            if (_interactionID == 1)
+            {
+                if (_currentInteractionIndex == 9)
+                {
+                    PlayerPrefs.SetString("CurrentScene", "First Scene");
+                    SceneManager.LoadScene("First Scene");
+                }
+            }
+            if(base._interactionID == 3) {
                 if(_currentInteractionIndex == 0) {
                    _gosInventory.RemoveItem("Test Answers");
                 }

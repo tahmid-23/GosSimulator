@@ -18,8 +18,7 @@ namespace Dialogue
             string jsonString = Resources.Load<TextAsset>(filepath).ToString();
             // String jsonString = Resources.LoadAll<TextAsset>("Dialogues/")[0].ToString();
             JArray jArray = JArray.Parse(jsonString);
-
-            Debug.Log(jsonString);
+            
             List<Conversation> list = new List<Conversation>();
 
             foreach (JObject jObject in jArray)

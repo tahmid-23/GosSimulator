@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Currency
 {
@@ -36,5 +37,9 @@ namespace Currency
             PlayerPrefs.SetFloat("GosCoins", (float) GosCoins.Instance.Coins);
         }
 
+        public void Update()
+        {
+            GetComponent<Text>().text = Coins.ToString();
+        }
     }
 }

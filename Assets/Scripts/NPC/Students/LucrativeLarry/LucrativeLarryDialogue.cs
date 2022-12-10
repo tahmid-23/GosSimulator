@@ -20,6 +20,11 @@ namespace NPC.Students.LucrativeLarry
                 //GetComponent<ShopBehaviour>().EnableShop();
         		_shopBehaviour.EnableShop();
             }
+
+            if (_currentInteractionIndex == 1)
+            {
+                _shopBehaviour.DisableShop();
+            }
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Opposition
 
         protected override bool OnDamage(float amount)
         {
-            Debug.Log($"Opp: -{amount}");
             if (_hitAnimation == null)
             {
                 _hitAnimation = gameObject.AddComponent<HitAnimation>();

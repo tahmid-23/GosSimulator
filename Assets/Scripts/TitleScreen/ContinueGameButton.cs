@@ -9,11 +9,12 @@ public class ContinueGameButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Button>().interactable = PlayerPrefs.HasKey("game_started");
+        GetComponent<Button>().interactable = PlayerPrefs.HasKey("CurrentScene");
     }
 
     public void onClick()
     {
-        SceneManager.LoadScene("First Scene");
+        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentScene"));
     }
 }

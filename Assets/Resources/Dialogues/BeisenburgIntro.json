@@ -16,5 +16,14 @@
       "They contain a staining solution and when you throw them on the ground, they will create a mess for the Janitor.",
       "Don’t be seen, and make it quick."
     ]
+  },
+  {
+    "id": 3,
+    "fields": [
+      "Thank you for retrieving the flask.",
+      "Unfortunately this is the end of the demo.",
+      "More Gos Simulator is coming soon.",
+      "Press Space to return to the title screen."
+    ]
   }
 ]

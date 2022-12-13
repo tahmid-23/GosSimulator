@@ -8,7 +8,7 @@ namespace Utils
     public class Setup : MonoBehaviour
     {
 
-        private static bool isSetup = false;
+        public static bool isSetup = false;
 
         [SerializeField]
         private List<GameObject> prefabs;

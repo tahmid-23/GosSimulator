@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 public class ContinueGameButton : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ContinueGameButton : MonoBehaviour
 
     public void onClick()
     {
+        Setup.isSetup = false;
         SceneManager.LoadScene("Tutorial");
         SceneManager.LoadScene(PlayerPrefs.GetString("CurrentScene"));
     }

@@ -25,6 +25,11 @@ namespace CameraView
 
         private void LateUpdate()
         {
+            if (!_gosCollider)
+            {
+                return;
+            }
+
             Transform cameraTransform = transform;
             Vector3 cameraPosition = cameraTransform.position, gosPosition = _gosCollider.transform.position;
 

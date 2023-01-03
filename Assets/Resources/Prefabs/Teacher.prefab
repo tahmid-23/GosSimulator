@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7407063314952598391}
   - component: {fileID: 7407063314952598384}
   - component: {fileID: 7407063314952598385}
-  - component: {fileID: 7407063314952598386}
   - component: {fileID: 7407063314952598387}
   - component: {fileID: 7407063314952598396}
   - component: {fileID: 7407063314952598397}
@@ -144,19 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Height>k__BackingField: 2
---- !u!114 &7407063314952598386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7407063314952598399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da1ffb319ef346f9b702f8a899c9c892, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
 --- !u!61 &7407063314952598387
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -228,7 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2523349a8e5649ee91dac5a3d6526c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gosTransform: {fileID: 0}
   speed: 2
 --- !u!114 &4019020157859188939
 MonoBehaviour:

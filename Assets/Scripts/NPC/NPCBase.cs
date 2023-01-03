@@ -19,7 +19,7 @@ namespace NPC
         private static GameObject _speechPanel;
         private static Text _npcSpeech;
         private static Button[] _responseButtons = new Button[3];
-        private static bool uiSetupCompleted = false;
+        public static bool uiSetupCompleted = false;
         private bool _interactable;
         private bool _interacting;
         private Conversation _currentConversation;
@@ -66,6 +66,7 @@ namespace NPC
                 _npcUI = GameObject.Find("NPC Canvas");
                 _speechPanel = _npcUI.transform.Find("Speech Panel").gameObject;
                 _npcSpeech = _speechPanel.transform.Find("Text (Legacy)").GetComponent<Text>();
+                _speechPanel.SetActive(false);
                 for (int i = 0; i < _responseButtons.Length; i++)
                 {
                     _responseButtons[i] = _npcUI.transform.Find("Response " + (i+1)).GetComponent<Button>();

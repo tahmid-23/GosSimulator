@@ -61,10 +61,16 @@ namespace NPC
 
         protected void Start()
         {
-            _speechBubble = transform.Find("Speech Bubble").gameObject;
-            if (!uiSetupCompleted) {
-                _npcUI = GameObject.Find("NPC Canvas");
+            // _speechBubble = transform.Find("Speech Bubble").gameObject;
+            float y_pos = transform.position.y + 1;
+            _speechBubble = Instantiate(Resources.Load<GameObject>("Prefabs/Speech Bubble"), new Vector3(transform.position.x, y_pos, transform.position.z),
+                Quaternion.identity);
+            if (!uiSetupCompleted)
+            {
+                _npcUI = Instantiate(Resources.Load<GameObject>("Prefabs/NPC Canvas"), transform.position,
+                    Quaternion.identity);
                 _speechPanel = _npcUI.transform.Find("Speech Panel").gameObject;
+                // _speechPanel = Instantiate(Resources.Load<GameObject>("Prefabs/Speech Panel"), transform.position, Quaternion.identity);
                 _npcSpeech = _speechPanel.transform.Find("Text (Legacy)").GetComponent<Text>();
                 _speechPanel.SetActive(false);
                 for (int i = 0; i < _responseButtons.Length; i++)

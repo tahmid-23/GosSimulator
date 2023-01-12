@@ -22,7 +22,19 @@ namespace Inventory
 
         private Item _lastEquippedItem = null;
 
+<<<<<<< Updated upstream
         private int _equipped;
+=======
+        private void Start() {
+            // RefreshInventory();
+            PlayerPrefs.SetString("ItemStore0", "Water Gun");
+            PlayerPrefs.SetString("ItemStore1", "American Flag");
+            PlayerPrefs.DeleteKey("ItemStore2");
+            _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
+            select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();
+            LoadItems();
+        }
+>>>>>>> Stashed changes
 
         private void Update()
         {

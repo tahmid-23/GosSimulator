@@ -14,5 +14,31 @@ namespace Inventory
         [field: SerializeField]
         public GameObject BulletPrefab { get; private set; }
 
+<<<<<<< Updated upstream
+=======
+        [SerializeField]
+        private float bulletSpeed;
+        
+        [SerializeField]
+        private GameObject bulletPrefab;
+
+        public void Shoot(Vector3 position, Vector3 direction, float bulletDistance)
+        {
+            Debug.Log("A bullet has been shot");
+            GameObject bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+
+            bulletBehaviour.speed = bulletSpeed * direction;
+            bulletBehaviour.distance = bulletDistance;
+        }
+
+        public void HandleAttack(GameObject gameObject)
+        {
+            if (gameObject.TryGetComponent(out IDamageReceiver damageReceiver))
+            {
+                damageReceiver.ChangeHealth(-Damage);
+            }
+        }
+>>>>>>> Stashed changes
     }
 }

@@ -1,12 +1,9 @@
-using System;
-using Damage;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Bullet
+namespace PranjalCombat.Projectiles
 {
-    public class BulletBehaviour : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
-        
         public Vector3 speed;
 
         public float distance;
@@ -15,7 +12,13 @@ namespace Bullet
 
         private int _aliveTime;
 
-        private void Start()
+        public Projectile(Vector3 speed, float distance)
+        {
+            this.speed = speed;
+            this.distance = distance;
+        }
+
+        private void Awake()
         {
             _duration = Mathf.FloorToInt(distance / (speed.magnitude * Time.deltaTime));
         }
@@ -33,15 +36,6 @@ namespace Bullet
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            GameObject collisionObject = col.gameObject;
-            IDamageReceiver damageReceiver = collisionObject.GetComponent<IDamageReceiver>();
-
-            if (collisionObject.CompareTag("Enemy"))
-            {
-                damageReceiver.ChangeHealth(-10);
-            }
-        }
+        public abstract void Shoot();
     }
 }

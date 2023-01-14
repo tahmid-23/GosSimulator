@@ -18,19 +18,11 @@ namespace Inventory
         private ItemStack _lastEquipped = null;
 
         private int _equipped = 0;
-<<<<<<< HEAD
 
-<<<<<<< Updated upstream
-=======
-        
->>>>>>> pranjal
         private const int INVENTORY_SIZE = 6;
-
-=======
+        
         private Item _lastEquippedItem = null;
         
-        private int _equipped;
->>>>>>> Stashed changes
         private void Start() {
             //RefreshInventory();
             _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;

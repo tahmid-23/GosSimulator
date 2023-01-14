@@ -14,34 +14,17 @@ namespace Inventory
 
         [field: SerializeField]
         public float BulletDistance { get; private set; }
-<<<<<<< HEAD
-
-        [SerializeField]
-        private float bulletSpeed;
         
-        [SerializeField]
-        private GameObject bulletPrefab;
+        private float _bulletSpeed;
+        
+        private GameObject _bulletPrefab;
 
         public void Shoot(Vector3 position, Vector3 direction, float bulletDistance)
         {
-=======
-        [field: SerializeField]
-        public GameObject BulletPrefab { get; private set; }
-        
-        [SerializeField]
-        private float bulletSpeed;
-        
-        [SerializeField]
-        private GameObject bulletPrefab;
-
-        public void Shoot(Vector3 position, Vector3 direction, float bulletDistance)
-        {
-            Debug.Log("A bullet has been shot");
->>>>>>> pranjal
-            GameObject bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
+            GameObject bullet = Instantiate(_bulletPrefab, position, Quaternion.identity);
             BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
 
-            bulletBehaviour.speed = bulletSpeed * direction;
+            bulletBehaviour.speed = _bulletSpeed * direction;
             bulletBehaviour.distance = bulletDistance;
         }
 
@@ -52,9 +35,15 @@ namespace Inventory
                 damageReceiver.ChangeHealth(-Damage);
             }
         }
-<<<<<<< HEAD
-        
-=======
->>>>>>> pranjal
+
+        public GameObject GetBulletPrefab()
+        {
+            return _bulletPrefab;
+        }
+
+        public float GetBulletSpeed()
+        {
+            return _bulletSpeed;
+        }
     }
 }

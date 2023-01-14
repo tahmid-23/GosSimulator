@@ -46,6 +46,7 @@ namespace Gos
             }
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
+<<<<<<< Updated upstream
 
             if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
             {
@@ -55,6 +56,9 @@ namespace Gos
                 }
             }
 
+=======
+            
+>>>>>>> Stashed changes
             if (horizontalInput > 0)
             {
                 _gosSpriteSwitcher.SwitchSpriteRight();
@@ -74,7 +78,38 @@ namespace Gos
             {
                 _gosSpriteSwitcher.SwitchSpriteDown();
             }
+<<<<<<< Updated upstream
             
+=======
+            if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+            {
+                if (horizontalInput != 0 || verticalInput != 0)
+                {
+                    GameObject.Find("Move Tutorial")?.SetActive(false);
+                }
+            }
+
+            // if (horizontalInput > 0)
+            // {
+            //     _gosSpriteSwitcher.SwitchSpriteRight();
+            // }
+            //
+            // if (horizontalInput < 0)
+            // {
+            //     _gosSpriteSwitcher.SwitchSpriteLeft();
+            // }
+            //
+            // if (verticalInput > 0)
+            // {
+            //     _gosSpriteSwitcher.SwitchSpriteUp();
+            // }
+            //
+            // if(verticalInput < 0)
+            // {
+            //     _gosSpriteSwitcher.SwitchSpriteDown();
+            // }
+
+>>>>>>> Stashed changes
             float newX = AdjustComponent(_movementController.Speed.x, horizontalInput);
             float newY = AdjustComponent(_movementController.Speed.y, verticalInput);
             _movementController.Speed = new Vector2(newX, newY);

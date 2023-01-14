@@ -19,8 +19,14 @@ namespace Inventory
 
         private int _equipped = 0;
 
+<<<<<<< Updated upstream
         private const int INVENTORY_SIZE = 6;
 
+=======
+        private Item _lastEquippedItem = null;
+        
+        private int _equipped;
+>>>>>>> Stashed changes
         private void Start() {
             //RefreshInventory();
             _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;

@@ -1,6 +1,7 @@
 using Bullet;
 using Damage;
 using UnityEngine;
+using Damage;
 
 namespace Inventory
 {

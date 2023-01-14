@@ -79,7 +79,21 @@ namespace Combat
                 }
             }
             
+<<<<<<< Updated upstream
             projectile.Shoot(transform.position, direction, bulletDistance);
+=======
+            InstantiateBullet(projectile, direction, 200);
+        }
+
+        private void InstantiateBullet(Projectile projectile, Vector3 direction, float bulletDistance)
+        {
+            GameObject bullet = Instantiate(projectile.BulletPrefab, transform.position, Quaternion.identity);
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+
+            bulletBehaviour.speed = projectile.BulletSpeed * direction;
+            bulletBehaviour.distance = bulletDistance;
+            projectile.Shoot(transform.position, direction, projectile.BulletDistance);
+>>>>>>> Stashed changes
         }
     }
 }

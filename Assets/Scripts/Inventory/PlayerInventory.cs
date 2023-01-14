@@ -18,8 +18,12 @@ namespace Inventory
         private ItemStack _lastEquipped = null;
 
         private int _equipped = 0;
+<<<<<<< HEAD
 
 <<<<<<< Updated upstream
+=======
+        
+>>>>>>> pranjal
         private const int INVENTORY_SIZE = 6;
 
 =======

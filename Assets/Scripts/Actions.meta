@@ -1,12 +1,23 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: ed1cc6d7383d484cb561d295c7a86745
 <<<<<<< Updated upstream
 timeCreated: 1669400078
 =======
+=======
+<<<<<<<< HEAD:Assets/Resources/Actions.meta
+guid: 5df3e7b47b37ed9418188ec2f8d44f5e
+========
+guid: ed1cc6d7383d484cb561d295c7a86745
+>>>>>>>> pranjal:Assets/Scripts/Actions.meta
+>>>>>>> pranjal
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> pranjal

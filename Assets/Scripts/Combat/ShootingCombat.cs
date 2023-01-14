@@ -92,8 +92,13 @@ namespace Combat
 
             bulletBehaviour.speed = projectile.BulletSpeed * direction;
             bulletBehaviour.distance = bulletDistance;
+<<<<<<< HEAD
             projectile.Shoot(transform.position, direction, projectile.BulletDistance);
 >>>>>>> Stashed changes
+=======
+            
+            projectile.Shoot(transform.position, direction, projectile.BulletDistance);
+>>>>>>> pranjal
         }
     }
 }

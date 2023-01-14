@@ -1,3 +1,5 @@
+using System;
+using Damage;
 using UnityEngine;
 
 namespace Bullet
@@ -30,6 +32,16 @@ namespace Bullet
                 _aliveTime++;
             }
         }
-        
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            GameObject collisionObject = col.gameObject;
+            IDamageReceiver damageReceiver = collisionObject.GetComponent<IDamageReceiver>();
+
+            if (collisionObject.CompareTag("Enemy"))
+            {
+                damageReceiver.ChangeHealth(-10);
+            }
+        }
     }
 }

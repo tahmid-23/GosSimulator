@@ -34,13 +34,27 @@ namespace PranjalCombat.WeaponInterfaces
 
             if (Input.GetMouseButton(0))
             {
-                
+                Projectile castedWeapon = (Projectile) _weapon;
+                _weapon.Shoot(_player.position, GetDirection(), 100);
             }
         }
 
         public void SetWeapon(Weapon weapon)
         {
             this._weapon = weapon;
+        }
+
+        private Vector3 GetDirection() {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 playerPos = transform.position;
+            float dy = mousePos.y - playerPos.y;
+            float dx = mousePos.x - playerPos.x;
+    
+            float angle = Mathf.Atan2(dy, dx);
+
+            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
+
+            return direction;
         }
     }
 }

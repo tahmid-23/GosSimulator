@@ -88,7 +88,6 @@ namespace Combat
                 }
             }*/
             
-<<<<<<< Updated upstream
             InstantiateBullet(projectile, direction, bulletDistance);
         }
 
@@ -99,9 +98,7 @@ namespace Combat
 
             bulletBehaviour.speed = projectile.BulletSpeed * direction;
             bulletBehaviour.distance = bulletDistance;
-=======
             projectile.Shoot(transform.position, direction, projectile.BulletDistance);
->>>>>>> Stashed changes
         }
     }
 }

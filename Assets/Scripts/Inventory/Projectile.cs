@@ -14,8 +14,6 @@ namespace Inventory
         [field: SerializeField]
         public GameObject BulletPrefab { get; private set; }
 
-<<<<<<< Updated upstream
-=======
         [SerializeField]
         private float bulletSpeed;
         
@@ -39,6 +37,5 @@ namespace Inventory
                 damageReceiver.ChangeHealth(-Damage);
             }
         }
->>>>>>> Stashed changes
     }
 }

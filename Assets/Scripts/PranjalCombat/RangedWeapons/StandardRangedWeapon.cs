@@ -1,6 +1,6 @@
 ﻿using PranjalCombat.SpecialAttacks;
 using PranjalCombat.StandardAttacks;
-using PranjalCombat.WeaponInterfaces;
+using WeaponInterfaces;
 
 namespace PranjalCombat.RangedWeapons
 {

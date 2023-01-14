@@ -5,69 +5,60 @@ using UnityEngine.UI;
 
 namespace Inventory
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : MonoBehaviour, ICurrentItemProvider
     {
 
         [SerializeField]
-        private List<Item> items;
+        private List<ItemStack> items;
 
-        [SerializeField]
-        private GameObject hotbar;
+        private GameObject _hotbar;
 
-        [SerializeField]
         private Image select;
 
-        [SerializeField]
-        private Sprite emptySprite;
+        private ItemStack _lastEquipped = null;
 
-        private Item _lastEquippedItem = null;
+        private int _equipped = 0;
+        
+        private const int INVENTORY_SIZE = 6;
 
-<<<<<<< Updated upstream
-        private int _equipped;
 =======
+        private Item _lastEquippedItem = null;
+        
+        private int _equipped;
+>>>>>>> Stashed changes
         private void Start() {
-            // RefreshInventory();
-            PlayerPrefs.SetString("ItemStore0", "Water Gun");
-            PlayerPrefs.SetString("ItemStore1", "American Flag");
-            PlayerPrefs.DeleteKey("ItemStore2");
+            //RefreshInventory();
             _hotbar = GameObject.Find("UI Canvas").transform.GetChild(0).gameObject;
             select = _hotbar.transform.GetChild(0).GetChild(1).GetComponent<Image>();
             LoadItems();
         }
->>>>>>> Stashed changes
 
         private void Update()
         {
             DisplayItems();
             TestInput();
             UpdateEquippedSlot();
-            Item equippedItem = GetEquippedItem();
-            if (equippedItem != null)
+            ItemStack equippedItem = GetEquippedItemStack();
+            if (equippedItem != _lastEquipped)
             {
-                if (_lastEquippedItem != equippedItem)
-                {
-                    if (_lastEquippedItem != null)
-                    {
-                        _lastEquippedItem.OnEquipped(false);
-                    }
-                    equippedItem.OnEquipped(true);
-                    _lastEquippedItem = equippedItem;
-                }
-                equippedItem.VisualUpdate();
+                _lastEquipped?.Item.Unequip(gameObject);
+                equippedItem?.Item.Equip(gameObject);
+            }
+            if (equippedItem != null && Input.GetButtonDown("Fire1"))
+            {
+                equippedItem.Item.Use(gameObject);
             }
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                equippedItem.Use();
-            }
+            _lastEquipped = equippedItem;
         }
 
         private void DisplayItems()
         {
             for (int i = 0; i < items.Count; i++)
             {
-                Item item = items[i];
-                hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.DisplaySprite;
+                Item item = items[i].Item;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().color = Color.white;
+                _hotbar.transform.GetChild(i).Find("ItemImg").GetComponent<Image>().sprite = item.Sprite;
             }
         }
 
@@ -91,23 +82,116 @@ namespace Inventory
 
         private void UpdateEquippedSlot()
         {
-            select.transform.SetParent(hotbar.transform.GetChild(_equipped), false);
+            select.transform.SetParent(_hotbar.transform.GetChild(_equipped), false);
+        }
+
+        public ItemStack GetEquippedItemStack()
+        {
+            return items.Count == 0 ? null : items[_equipped];
         }
 
         public Item GetEquippedItem()
         {
-            return items[_equipped];
+            return GetEquippedItemStack()?.Item;
         }
 
-        public bool TryGetEquippedItem<T>(out T item) where T : Item
+        public void AddItem(ItemStack itemStack)
         {
-            item = GetEquippedItem() as T;
-            return item != null;
+            if (items.Count == INVENTORY_SIZE)
+            {
+                return;
+            }
+            items.Add(itemStack);
+            int newIndex = items.Count-1;
+
+            PlayerPrefs.SetString($"ItemStore{newIndex}", itemStack.Item.name);
         }
 
-        public void AddItem<T>() where T : Item
+        public bool HasItem(String itemName)
         {
-            items.Add(gameObject.AddComponent<T>());
+            List<String> itemNames = new List<string>();
+            
+            foreach(ItemStack itemArr in items)
+            {
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            foreach (String nameArr in itemNames)
+            {
+                if (nameArr.Equals(itemName))
+                {
+                    return true;
+                }  
+            }
+
+            return false;
+        }
+
+        private void SaveItems() {
+            List<String> itemNames = new List<String>();
+
+            foreach (ItemStack itemArr in items) {
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            for(int i = 0; i < items.Count; i++) {
+                PlayerPrefs.SetString($"ItemStore{i}", itemNames[i]);
+            }
+        }
+
+        private void LoadItems() {
+            // Remember to include amounts some time later Im just lazy rn
+            for(int i = 0; i < 6; i++) {
+                if(!PlayerPrefs.HasKey($"ItemStore{i}")) {
+                    break;
+                }
+                String store_string = PlayerPrefs.GetString($"ItemStore{i}");
+                if (store_string != null)
+                {
+                    ItemStack stack = new ItemStack(Resources.Load<Item>($"Items/{store_string}"));
+                    if (i < items.Count)
+                    {
+                        items[i] = stack;
+                    }
+                    else
+                    {
+                        items.Add(stack);
+                    }
+                }
+            }
+        }
+
+        public void RemoveItem(String itemName) {
+            List<String> itemNames = new List<String>();
+
+            foreach (ItemStack itemArr in items){
+                itemNames.Add(itemArr.Item.name);
+            }
+
+            int i = 0;
+
+            foreach (String nameArr in itemNames)
+            {
+                if (nameArr.Equals(itemName))
+                {    
+                    break;
+                }
+
+                i++;
+            }
+        }
+
+        public void RefreshInventory() {
+            for(int i = 0; i < 6; i++) {
+                if(PlayerPrefs.HasKey($"ItemStore{i}")) {
+                    PlayerPrefs.DeleteKey($"ItemStore{i}");
+                }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            SaveItems();
         }
     }
 }

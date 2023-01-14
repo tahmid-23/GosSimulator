@@ -1,4 +1,5 @@
 using Bullet;
+using Damage;
 using UnityEngine;
 
 namespace Inventory
@@ -13,7 +14,7 @@ namespace Inventory
         public float BulletDistance { get; private set; }
         [field: SerializeField]
         public GameObject BulletPrefab { get; private set; }
-
+        
         [SerializeField]
         private float bulletSpeed;
         

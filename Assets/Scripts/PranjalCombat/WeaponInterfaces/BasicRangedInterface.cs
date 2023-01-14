@@ -1,7 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using PranjalCombat;
+using ProjectilesFolder;
+using Weapon = PranjalCombat.Weapon;
 
-namespace PranjalCombat.WeaponInterfaces
+namespace WeaponInterfaces
 {
     public class BasicRangedInterface : MonoBehaviour, WeaponInterface
     {
@@ -34,16 +37,11 @@ namespace PranjalCombat.WeaponInterfaces
 
             if (Input.GetMouseButton(0))
             {
-                Projectile castedWeapon = (Projectile) _weapon;
-                _weapon.Shoot(_player.position, GetDirection(), 100);
+                Projectiles castedWeapon = (Projectiles) _weapon;
+                castedWeapon.Shoot(_player.position, GetDirection(), 100);
             }
         }
-
-        public void SetWeapon(Weapon weapon)
-        {
-            this._weapon = weapon;
-        }
-
+        
         private Vector3 GetDirection() {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 playerPos = transform.position;
@@ -55,6 +53,11 @@ namespace PranjalCombat.WeaponInterfaces
             Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
 
             return direction;
+        }
+
+        public void SetWeapon(Weapon weapon)
+        {
+            throw new NotImplementedException();
         }
     }
 }

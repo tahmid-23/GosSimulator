@@ -1,17 +1,17 @@
-﻿using PranjalCombat.Projectiles;
+﻿using ProjectilesFolder;
 
 namespace PranjalCombat.StandardAttacks
 {
     public class BasicRangedAttack : Attack
     {
-        private Projectile _projectile;
+        private Projectiles _projectile;
 
         public BasicRangedAttack()
         {
             
         }
 
-        public BasicRangedAttack(Projectile projectile)
+        public BasicRangedAttack(Projectiles projectile)
         {
             this._projectile = projectile;
         }

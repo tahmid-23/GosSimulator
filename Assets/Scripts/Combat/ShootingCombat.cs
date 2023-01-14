@@ -10,6 +10,8 @@ namespace Combat
 {
     public class ShootingCombat : MonoBehaviour
     {
+        private GameObject _bullet;
+
         private GosAiming _gosAiming;
 
         private Collider2D _collider;
@@ -55,16 +57,16 @@ namespace Combat
                 if (raycast.collider != null && raycast.collider != _collider &&
                     raycast.collider.gameObject.TryGetComponent(out HeightBehaviour heightBehaviour))
                 {
-                    /*int height = heightBehaviour.Height;
+                    int height = heightBehaviour.Height;
                     if (height > bulletHeight)
                     {
                         withHeight.Add(raycast);
                         heights[raycast] = height;
-                    }*/
+                    }
                 }
             }
 
-            /*withHeight.Sort((a, b) => a.distance.CompareTo(b.distance));
+            withHeight.Sort((a, b) => a.distance.CompareTo(b.distance));
 
             float bulletDistance = projectile.BulletDistance;
             int maxHeight = 0;
@@ -86,7 +88,7 @@ namespace Combat
                     bulletDistance = raycast.distance;
                     break;
                 }
-            }*/
+            }
             
             InstantiateBullet(projectile, direction, bulletDistance);
         }
@@ -98,6 +100,7 @@ namespace Combat
 
             bulletBehaviour.speed = projectile.BulletSpeed * direction;
             bulletBehaviour.distance = bulletDistance;
+            
             projectile.Shoot(transform.position, direction, projectile.BulletDistance);
         }
     }

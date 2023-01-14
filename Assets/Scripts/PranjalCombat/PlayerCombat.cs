@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using PranjalCombat.Projectiles;
 using PranjalCombat.RangedWeapons;
-using PranjalCombat.WeaponInterfaces;
 using UnityEngine;
+using WeaponInterfaces;
 
 namespace PranjalCombat
 {
@@ -19,7 +18,7 @@ namespace PranjalCombat
 
         private void Start()
         {
-            GameObject gameObject = new GameObject("DetectPlayer");
+            GameObject gameObject = new GameObject("PlayerInterface");
             gameObject.AddComponent<BasicRangedInterface>();
         }
 

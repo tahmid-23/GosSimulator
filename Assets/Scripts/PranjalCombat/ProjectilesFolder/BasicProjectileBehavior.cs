@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Damage;
 
-namespace PranjalCombat.Projectiles
+namespace PranjalCombat.ProjectilesFolder
 {
     public class BasicProjectileBehavior : MonoBehaviour
     {
@@ -13,13 +14,17 @@ namespace PranjalCombat.Projectiles
 
         private int _aliveTime;
 
+        private Collider2D _collider2D;
+
         private void Start()
         {
             _duration = Mathf.FloorToInt(distance / (speed.magnitude * Time.deltaTime));
+            _collider2D = GetComponent<Collider2D>();
         }
 
         private void Update()
         {
+
             transform.position += speed * Time.deltaTime;
             if (_aliveTime == _duration)
             {
@@ -30,16 +35,17 @@ namespace PranjalCombat.Projectiles
                 _aliveTime++;
             }
         }
+        
 
-        private void OnCollisionEnter2D(Collision2D col)
+        private void OnTriggerEnter2D(Collider2D col)
         {
             GameObject collisionObject = col.gameObject;
             IDamageReceiver damageReceiver = collisionObject.GetComponent<IDamageReceiver>();
-
+            
             if (collisionObject.CompareTag("Enemy"))
             {
                 damageReceiver.ChangeHealth(-10);
             }
-        } 
+        }
     }
 }

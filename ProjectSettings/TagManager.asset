@@ -4,14 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Spill
+  - Enemy
   - Door
+  - bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - bullet
   - Water
   - UI
   - 
@@ -41,12 +42,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-<<<<<<< HEAD
-  - name: GroundTiles
-    uniqueID: 762318071
-    locked: 0
-=======
->>>>>>> pranjal
   - name: Default
     uniqueID: 0
     locked: 0

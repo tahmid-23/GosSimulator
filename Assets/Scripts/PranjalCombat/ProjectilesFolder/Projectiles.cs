@@ -7,7 +7,15 @@ namespace ProjectilesFolder
     {
         protected GameObject _bulletPrefab;
 
-        public abstract void Shoot(Vector3 position, Vector3 direction, float bulletDistance);
+        public Projectiles()
+        {
+            
+        }
+
+        public Projectiles(GameObject bulletPrefab)
+        {
+            this._bulletPrefab = bulletPrefab;
+        }
 
         public GameObject GetBulletPrefab()
         {

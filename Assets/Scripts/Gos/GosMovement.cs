@@ -54,26 +54,7 @@ namespace Gos
                     GameObject.Find("Move Tutorial")?.SetActive(false);
                 }
             }
-            
-            if (horizontalInput > 0)
-            {
-                _gosSpriteSwitcher.SwitchSpriteRight();
-            }
 
-            if (horizontalInput < 0)
-            {
-                _gosSpriteSwitcher.SwitchSpriteLeft();
-            }
-
-            if (verticalInput > 0)
-            {
-                _gosSpriteSwitcher.SwitchSpriteUp();
-            }
-            
-            if(verticalInput < 0)
-            {
-                _gosSpriteSwitcher.SwitchSpriteDown();
-            }
             if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
             {
                 if (horizontalInput != 0 || verticalInput != 0)

@@ -1,6 +1,7 @@
-﻿using ProjectilesFolder;
+﻿using PranjalCombat;
+using ProjectilesFolder;
 
-namespace PranjalCombat.StandardAttacks
+namespace StandardAttacks
 {
     public class BasicRangedAttack : Attack
     {

@@ -21,21 +21,6 @@ namespace PranjalCombat
             GameObject gameObject = new GameObject("PlayerInterface");
             gameObject.AddComponent<BasicRangedInterface>();
         }
-
-        private void FixedUpdate()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                _weapon.GetWeaponInterface().ActivateInterface();
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _weapon.GetWeaponInterface().DeactivateInterface();
-            }
-            
-            _weapon.GetWeaponInterface().UpdateInterface();
-        }
         
         // Remember to call this when changing weapons
         public void ChangeWeapon(Weapon weapon)

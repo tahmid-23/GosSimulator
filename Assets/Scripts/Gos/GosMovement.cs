@@ -87,11 +87,11 @@ namespace Gos
             float newY = AdjustComponent(_movementController.Speed.y, verticalInput);
             _movementController.Speed = new Vector2(newX, newY);
 
-            if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.IsAiming)
+            /*if ((horizontalInput != 0 || verticalInput != 0) && !_gosAim.IsAiming)
             {
                 Direction = InputToAngle(horizontalInput, verticalInput);
                 // AdjustSprite();
-            }
+            }*/
         }
 
         private float AdjustComponent(float component, float input)
